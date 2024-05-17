@@ -1,1 +1,0 @@
-# Jewelry-store-React-web
