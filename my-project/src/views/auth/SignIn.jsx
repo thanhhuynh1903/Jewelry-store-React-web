@@ -47,12 +47,12 @@ export default function SignIn() {
         />
         {/* Checkbox */}
         <div className="mb-4 flex items-center justify-between px-2">
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <Checkbox />
             <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
               Keep me logged In
             </p>
-          </div>
+          </div> */}
           <a
             className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
             href=" "

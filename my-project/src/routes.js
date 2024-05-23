@@ -36,6 +36,13 @@ const routes = [
     secondary: true,
   },
   {
+    name: "RTL Admin",
+    layout: "/rtl",
+    path: "rtl",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <RTLDefault />,
+  },
+  {
     name: "Data Tables",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
@@ -56,12 +63,6 @@ const routes = [
     icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
   },
-  {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "rtl",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <RTLDefault />,
-  },
+  
 ];
 export default routes;

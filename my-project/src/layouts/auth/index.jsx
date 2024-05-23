@@ -1,8 +1,9 @@
-import Footer from "components/footer/FooterAuthDefault";
-import authImg from "assets/img/auth/auth.png";
+// import Footer from "components/footer/FooterAuthDefault";
+import jewerly from "assets/img/auth/jewerly-02.png";
 import { Link, Routes, Route, Navigate } from "react-router-dom";
 import routes from "routes.js";
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
+import '../../assets/css/App.css'
 
 export default function Auth() {
   const getRoutes = (routes) => {
@@ -22,10 +23,10 @@ export default function Auth() {
       <div className="relative float-right h-full min-h-screen w-full !bg-white dark:!bg-navy-900">
         <FixedPlugin />
         <main className={`mx-auto min-h-screen`}>
-          <div className="relative flex">
+          <div className="relative flex ">
             <div className="mx-auto flex min-h-full w-full flex-col justify-start pt-12 md:max-w-[75%] lg:h-screen lg:max-w-[1013px] lg:px-8 lg:pt-0 xl:h-[100vh] xl:max-w-[1383px] xl:px-0 xl:pl-[70px]">
               <div className="mb-auto flex flex-col pl-5 pr-5 md:pr-0 md:pl-12 lg:max-w-[48%] lg:pl-0 xl:max-w-full">
-                <Link to="/admin" className="mt-0 w-max lg:pt-10">
+                {/* <Link to="/admin" className="mt-0 w-max lg:pt-10">
                   <div className="mx-auto flex h-fit w-fit items-center hover:cursor-pointer">
                     <svg
                       width="8"
@@ -43,7 +44,7 @@ export default function Auth() {
                       Back to Dashboard
                     </p>
                   </div>
-                </Link>
+                </Link> */}
                 <Routes>
                   {getRoutes(routes)}
                   <Route
@@ -53,12 +54,33 @@ export default function Auth() {
                 </Routes>
                 <div className="absolute right-0 hidden h-full min-h-screen md:block lg:w-[49vw] 2xl:w-[44vw]">
                   <div
-                    className="absolute flex h-full w-full items-end justify-center bg-cover bg-center lg:rounded-bl-[120px] xl:rounded-bl-[200px]"
-                    style={{ backgroundImage: `url(${authImg})` }}
+                    className="d-inline-block w-100 h-200 absolute z-20 border-4 text-center major-mono-display-regula " 
+                    style={{
+                      border:"2px solid black",
+                      opacity:"blur",
+                      color: "black",
+                      fontSize: "63px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "500px",
+                      height: "25%",
+                      top: "15%",
+                      right: "10%",
+                      flexDirection: "column",
+                     
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" // Add shadow for clarity
+                    }}
+                  >
+                    <h2>Alumina Store</h2>
+                    <h6 className="text-3xl	 mt-2">Elegant - Classic - Glamous - Royal</h6> {/* Added margin-top to separate */}
+                  </div>
+                  <div
+                    className="absolute z-10 flex h-full w-full items-end justify-center bg-cover bg-center lg:rounded-bl-[120px] xl:rounded-bl-[200px]"
+                    style={{ backgroundImage: `url(${jewerly})`,filter: "blur(1.5px)", // Add blur effect
+                    opacity: 0.9  }}
                   />
                 </div>
               </div>
-              <Footer />
             </div>
           </div>
         </main>
