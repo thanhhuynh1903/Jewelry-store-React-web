@@ -3,7 +3,7 @@ import Card from "components/card";
 import { DiApple } from "react-icons/di";
 import { DiAndroid } from "react-icons/di";
 import { DiWindows } from "react-icons/di";
-
+import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import React, { useMemo } from "react";
 import {
   useGlobalFilter,
@@ -15,7 +15,7 @@ import Progress from "components/progress";
 
 const DevelopmentTable = (props) => {
   const { columnsData, tableData } = props;
-
+  const name = "product";
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -43,9 +43,12 @@ const DevelopmentTable = (props) => {
     <Card extra={"w-full h-full p-4"}>
       <div class="relative flex items-center justify-between">
         <div class="text-xl font-bold text-navy-700 dark:text-white">
-          Development Table
+           Table
         </div>
+        <div className="flex items-center justify-center center">
+        <ButtonCreate name={name}/>
         <CardMenu />
+        </div>
       </div>
 
       <div class="h-full overflow-x-scroll xl:overflow-x-hidden">

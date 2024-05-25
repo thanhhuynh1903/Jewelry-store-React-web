@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import CardMenu from "components/card/CardMenu";
 import Card from "components/card";
 import Checkbox from "components/checkbox";
-
+import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import {
   useGlobalFilter,
   usePagination,
@@ -12,7 +12,7 @@ import {
 
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
-
+  const name = "gemstone";
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -42,8 +42,10 @@ const CheckTable = (props) => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           Check Table
         </div>
-
+        <div className="flex items-center justify-center center">
+        <ButtonCreate name={name}/>
         <CardMenu />
+        </div>
       </header>
 
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">

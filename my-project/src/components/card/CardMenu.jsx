@@ -5,10 +5,13 @@ import { BsThreeDots } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineShop } from "react-icons/ai";
 import { TiLightbulb } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CardMenu(props) {
   const { transparent } = props;
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
   return (
     <Dropdown
       button={
@@ -28,30 +31,31 @@ function CardMenu(props) {
       classNames={`${transparent ? "top-8" : "top-11"} right-0 w-max`}
       children={
         <div className="z-50 w-max rounded-xl bg-white py-3 px-4 text-sm shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="hover:text-black flex cursor-pointer items-center gap-2 text-gray-600 hover:font-medium">
+          {/* <p className="hover:text-black flex cursor-pointer items-center gap-2 text-gray-600 hover:font-medium">
             <span>
               <AiOutlineUser />
             </span>
-            Panel 1
-          </p>
+            <Link to="/admin/create">Create</Link>
+           
+          </p> */}
           <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium">
             <span>
               <AiOutlineShop />
             </span>
-            Panel 2
+           Edit
           </p>
           <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium">
             <span>
               <TiLightbulb />
             </span>
-            Panel 3
+           Delete
           </p>
-          <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium">
+          {/* <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium">
             <span>
               <FiSettings />
             </span>
             Panel 4
-          </p>
+          </p> */}
         </div>
       }
     />

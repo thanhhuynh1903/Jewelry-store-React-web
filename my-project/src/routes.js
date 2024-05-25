@@ -4,8 +4,9 @@ import React from "react";
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
+import CreateProduct from "components/atom/CreateProduct/CreateProduct";
 import DataTables from "views/admin/tables";
-import RTLDefault from "views/rtl/default";
+// import RTLDefault from "views/rtl/default";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -36,18 +37,18 @@ const routes = [
     secondary: true,
   },
   {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "rtl",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <RTLDefault />,
-  },
-  {
     name: "Data Tables",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
     path: "data-tables",
     component: <DataTables />,
+  },
+  {
+    show : "hidden",
+    name: "create",
+    layout: "/admin",
+    path: "data-tables/product/create",
+    component: <CreateProduct/>,
   },
   {
     name: "Profile",
