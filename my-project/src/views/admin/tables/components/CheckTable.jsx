@@ -12,7 +12,7 @@ import {
 
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
-  const name = "gemstone";
+  const {name,index} = props;
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -40,7 +40,7 @@ const CheckTable = (props) => {
     <Card extra={"w-full sm:overflow-auto p-4"}>
       <header className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
-          Check Table
+          {name}
         </div>
         <div className="flex items-center justify-center center">
         <ButtonCreate name={name}/>

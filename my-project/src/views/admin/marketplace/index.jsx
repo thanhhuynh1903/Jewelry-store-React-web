@@ -7,7 +7,8 @@ import NFt6 from "assets/img/nfts/Nft6.png";
 import avatar1 from "assets/img/avatars/avatar1.png";
 import avatar2 from "assets/img/avatars/avatar2.png";
 import avatar3 from "assets/img/avatars/avatar3.png";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import tableDataTopCreators from "views/admin/marketplace/variables/tableDataTopCreators.json";
 import { tableColumnsTopCreators } from "views/admin/marketplace/variables/tableColumnsTopCreators";
 import HistoryCard from "./components/HistoryCard";
@@ -15,16 +16,36 @@ import TopCreatorTable from "./components/TableTopCreators";
 import NftCard from "components/card/NftCard";
 
 const Marketplace = () => {
+  const [ListProduct, setListProduct] = useState([]);
+
+  const fetchApi = async () => {
+    try {
+      const response = await axios.get(
+        `https://baitapdeploy-production.up.railway.app/images/`
+      );
+      console.log(response.data.product[0].name);
+      if (response?.data?.product) {
+        return setListProduct(response.data.product);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
   return (
     <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-3">
       <div className="col-span-1 h-fit w-full xl:col-span-1 2xl:col-span-2">
         {/* NFt Banner */}
-        <Banner />
+        {/* <Banner /> */}
 
         {/* NFt Header */}
         <div className="mb-4 mt-5 flex flex-col justify-between px-4 md:flex-row md:items-center">
           <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
-            Trending NFTs
+            All products
           </h4>
           <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
             <li>
@@ -64,38 +85,28 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Abstract Colors"
-            author="Esthera Jackson"
-            price="0.91"
-            image={NFt3}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="ETH AI Brain"
-            author="Nick Wilson"
-            price="0.7"
-            image={NFt2}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Mesh Gradients"
-            author="Will Smith"
-            price="2.91"
-            image={NFt4}
-          />
+          {ListProduct.map((list, index) => (
+            <NftCard
+              index={index}
+              name={list?.name}
+              materialName={list?.materialName}
+              gemstoneName= {list?.gemstoneName}
+              price={list?.price}
+              imageLink={list?.imageLink}
+            />
+          ))}
+
         </div>
 
         {/* Recenlty Added setion */}
-        <div className="mb-5 mt-5 flex items-center justify-between px-[26px]">
+        {/* <div className="mb-5 mt-5 flex items-center justify-between px-[26px]">
           <h4 className="text-2xl font-bold text-navy-700 dark:text-white">
             Recently Added
           </h4>
-        </div>
+        </div> */}
 
         {/* Recently Add NFTs */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {/* <div className="mb-5 mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
           <NftCard
             bidders={[avatar1, avatar2, avatar3]}
             title="Abstract Colors"
@@ -117,7 +128,7 @@ const Marketplace = () => {
             price="2.91"
             image={NFt6}
           />
-        </div>
+        </div> */}
       </div>
 
       {/* right side section */}

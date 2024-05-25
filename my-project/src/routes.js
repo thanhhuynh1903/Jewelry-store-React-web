@@ -5,6 +5,7 @@ import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import CreateProduct from "components/atom/CreateProduct/CreateProduct";
+import CreateGemstone from "components/atom/CreateGemstone/CreateGemstone";
 import DataTables from "views/admin/tables";
 // import RTLDefault from "views/rtl/default";
 
@@ -40,15 +41,22 @@ const routes = [
     name: "Data Tables",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-tables",
+    path: "data-tables/",
     component: <DataTables />,
   },
   {
     show : "hidden",
-    name: "create",
+    name: "create product",
     layout: "/admin",
     path: "data-tables/product/create",
     component: <CreateProduct/>,
+  },
+  {
+    show : "hidden",
+    name: "create gemstone",
+    layout: "/admin",
+    path: "data-tables/gemstone/create",
+    component: <CreateGemstone/>,
   },
   {
     name: "Profile",
