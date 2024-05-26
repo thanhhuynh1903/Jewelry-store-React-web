@@ -2,8 +2,19 @@
 import React from "react";
 
 function InputField(props) {
-  const { label, id, extra, type, placeholder, variant, state, disabled } =
-    props;
+  const {
+    label,
+    id,
+    extra,
+    type,
+    placeholder,
+    variant,
+    state,
+    value,
+    disabled,
+    onChange,
+    error,
+  } = props;
 
   return (
     <div className={`${extra}`}>
@@ -16,6 +27,8 @@ function InputField(props) {
         {label}
       </label>
       <input
+        value={value}
+        onChange={onChange} // Use onChange prop
         disabled={disabled}
         type={type}
         id={id}
@@ -23,6 +36,8 @@ function InputField(props) {
         className={`mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none ${
           disabled === true
             ? "!border-none !bg-gray-100 dark:!bg-white/5 dark:placeholder:!text-[rgba(255,255,255,0.15)]"
+            : error
+            ? "border-red-500 text-red-500 placeholder:text-red-500 dark:!border-red-400 dark:!text-red-400 dark:placeholder:!text-red-400"
             : state === "error"
             ? "border-red-500 text-red-500 placeholder:text-red-500 dark:!border-red-400 dark:!text-red-400 dark:placeholder:!text-red-400"
             : state === "success"
@@ -30,6 +45,7 @@ function InputField(props) {
             : "border-gray-200 dark:!border-white/10 dark:text-white"
         }`}
       />
+      {error && <div className="absolute text-red-500 text-sm mt-1 ml-2">{error}</div>}
     </div>
   );
 }
