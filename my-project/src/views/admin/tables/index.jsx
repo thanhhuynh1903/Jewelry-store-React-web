@@ -14,17 +14,27 @@ import DevelopmentTable from "./components/DevelopmentTable";
 import ColumnsTable from "./components/ColumnsTable";
 import ComplexTable from "./components/ComplexTable";
 
+import { columnsDataGemstone } from "./variables/columnsData";
+import { useGemstoneApi } from "./components/GemstoneApi/useGemstoneApi";
 const Tables = () => {
-  const name = ["Product","Material","Gemstone"];
+  const GemstoneList = useGemstoneApi();
+  const name = [
+    { name: "Product" ,data : "dataProduct"},
+    { name: "Material" ,data:"dataMaterial"},
+    { name: "Gemstone", data: GemstoneList },
+  ];
+  
+  console.log(GemstoneList);
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         {name.map((data, index) => (
           <CheckTable
-            name={data}
+            dataprops={data.data}
+            name={data.name}
             index={index}
-            columnsData={columnsDataCheck}
-            tableData={tableDataCheck}
+            columnsData={columnsDataGemstone}
+            tableData={GemstoneList}
           />
         ))}{" "}
       </div>

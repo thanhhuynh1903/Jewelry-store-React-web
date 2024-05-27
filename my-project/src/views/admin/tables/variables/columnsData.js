@@ -36,6 +36,25 @@ export const columnsDataCheck = [
   },
 ];
 
+export const columnsDataGemstone = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "WEIGHT",
+    accessor: "weight",
+  },
+  {
+    Header: "SIZE",
+    accessor: "size",
+  },
+  {
+    Header: "DATE",
+    accessor: "createdAt",
+  },
+];
+
 export const columnsDataColumns = [
   {
     Header: "NAME",
