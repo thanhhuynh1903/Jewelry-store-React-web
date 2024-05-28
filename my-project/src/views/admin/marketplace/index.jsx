@@ -21,7 +21,7 @@ const Marketplace = () => {
   const fetchApi = async () => {
     try {
       const response = await axios.get(
-        `images/`
+        `products/`
       );
   
       if (response?.data?.products) {

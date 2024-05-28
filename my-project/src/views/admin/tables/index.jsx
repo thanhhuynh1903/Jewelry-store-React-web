@@ -16,39 +16,45 @@ import ComplexTable from "./components/ComplexTable";
 
 import { columnsDataGemstone } from "./variables/columnsData";
 import { useGemstoneApi } from "./components/GemstoneApi/useGemstoneApi";
+import { useMaterialApi } from "./components/MaterialApi/useMaterialApi";
+import { useProducTypeApi } from "./components/ProductTypeApi/useProductTypeApi";
+
 const Tables = () => {
   const GemstoneList = useGemstoneApi();
+  const MaterialList = useMaterialApi();
+  const TypeList = useProducTypeApi();
   const name = [
-    { name: "Product" ,data : "dataProduct"},
-    { name: "Material" ,data:"dataMaterial"},
+    { name: "Material", data: MaterialList },
     { name: "Gemstone", data: GemstoneList },
   ];
-  
-  console.log(GemstoneList);
+  const nameType = [{ name: "Type", data: TypeList }];
+
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         {name.map((data, index) => (
           <CheckTable
-            dataprops={data.data}
             name={data.name}
             index={index}
             columnsData={columnsDataGemstone}
-            tableData={GemstoneList}
+            tableData={data.data}
           />
         ))}{" "}
       </div>
       {/* <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         <ColumnsTable
           columnsData={columnsDataColumns}
-          tableData={tableDataColumns}
-        />
-
-        <ComplexTable
-          columnsData={columnsDataComplex}
-          tableData={tableDataComplex}
-        />
-      </div> */}
+          tableData={tableDataColumns} </div>
+      />*/}
+      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
+        {nameType.map((data, index) => (
+          <ComplexTable
+            name={data.name}
+            columnsData={columnsDataComplex}
+            tableData={data.data}
+          />
+        ))}
+      </div>
     </div>
   );
 };

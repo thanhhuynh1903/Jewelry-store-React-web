@@ -9,17 +9,15 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import { useGemstoneApi } from "./GemstoneApi/useGemstoneApi";
 
 const CheckTable = (props) => {
 
   const { columnsData, tableData } = props;
   const {name,index} = props;
-  const {dataprops} = props;
-  console.log(dataprops);
+
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
-  
+  console.log(index);
   const tableInstance = useTable(
     {
       columns,
@@ -41,7 +39,7 @@ const CheckTable = (props) => {
   initialState.pageSize = 11;
 
   return (
-    <Card extra={"w-full sm:overflow-auto p-4"}>
+    <Card extra={"w-full sm:overflow-auto p-4"} index={index}>
       <header className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}

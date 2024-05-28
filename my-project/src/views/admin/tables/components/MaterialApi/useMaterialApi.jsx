@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import useAuth from 'hook/useAuth';
 import axios from 'api/axios'; // Adjust the import path if necessary
 
-export const useGemstoneApi = () => {
-  const [listGem, setListGem] = useState([]);
+export const useMaterialApi = () => {
+  const [listMaterial, setListMaterial] = useState([]);
   const token = useAuth();
 
   const fetchApi = async () => {
@@ -11,12 +11,13 @@ export const useGemstoneApi = () => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get('gemstone', { headers });
+      const response = await axios.get('material', { headers });
+     
       if(response.data.success)
-      setListGem(response?.data?.gemstones);
+        setListMaterial(response?.data?.materials);
 
     } catch (error) {
-      console.error('Failed to fetch gemstone data', error);
+      console.error('Failed to fetch material data', error);
     }
   };
 
@@ -24,5 +25,5 @@ export const useGemstoneApi = () => {
   fetchApi();
   }, [token]);
 
-  return listGem;
+  return listMaterial;
 };

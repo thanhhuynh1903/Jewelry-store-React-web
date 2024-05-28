@@ -48,7 +48,7 @@ const routes = [
     show : "hidden",
     name: "create product",
     layout: "/admin",
-    path: "data-tables/product/create",
+    path: "data-tables/type/create",
     component: <CreateProduct/>,
   },
   {

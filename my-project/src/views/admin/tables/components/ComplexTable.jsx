@@ -9,9 +9,11 @@ import {
 import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
 import { useMemo } from "react";
 import Progress from "components/progress";
+import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
+import ButtonDelete from "components/atom/ButtonDelete/ButtonDelete";
 const ComplexTable = (props) => {
   const { columnsData, tableData } = props;
-
+  const {name,index} = props;
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -37,12 +39,15 @@ const ComplexTable = (props) => {
 
   return (
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
-      <div class="relative flex items-center justify-between">
-        <div class="text-xl font-bold text-navy-700 dark:text-white">
-          Complex Table
+       <header className="relative flex items-center justify-between">
+        <div className="text-xl font-bold text-navy-700 dark:text-white">
+          {name}
         </div>
+        <div className="flex items-center justify-center center">
+        <ButtonCreate name={name}/>
         <CardMenu />
-      </div>
+        </div>
+      </header>
 
       <div class="mt-8 h-full overflow-x-scroll xl:overflow-hidden">
         <table {...getTableProps()} className="w-full">
@@ -76,7 +81,7 @@ const ComplexTable = (props) => {
                           {cell.value}
                         </p>
                       );
-                    } else if (cell.column.Header === "STATUS") {
+                    } else if (cell.column.Header === "CATEGORY") {
                       data = (
                         <div className="flex items-center gap-2">
                           <div className={`rounded-full text-xl`}>
@@ -96,11 +101,11 @@ const ComplexTable = (props) => {
                     } else if (cell.column.Header === "DATE") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell.value}
+                         {cell.value.split('T')[0]}
                         </p>
                       );
-                    } else if (cell.column.Header === "PROGRESS") {
-                      data = <Progress width="w-[68px]" value={cell.value} />;
+                    } else if (cell.column.Header === "ACTION") {
+                      data = <ButtonDelete />;
                     }
                     return (
                       <td
