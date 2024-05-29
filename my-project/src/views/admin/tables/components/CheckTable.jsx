@@ -16,7 +16,7 @@ const CheckTable = (props) => {
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
-  console.log(index);
+  
   const tableInstance = useTable(
     {
       columns,
@@ -48,7 +48,6 @@ const CheckTable = (props) => {
           <CardMenu />
         </div>
       </header>
-
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
         <table
           {...getTableProps()}

@@ -16,8 +16,9 @@ export default function Create({ label }) {
   };
 
   return (
+    <>
     <Card className="mx-auto mt-8 w-fit rounded-3xl bg-white py-5 px-5 shadow-md">
-      <div color="transparent" shadow={false}>
+      <div color="transparent">
         <div className="flex justify-between">
           <Typography variant="h4" color="blue-gray" className="w-fit">
             {label}
@@ -85,5 +86,6 @@ export default function Create({ label }) {
         </form>
       </div>
     </Card>
+    </>
   );
 }

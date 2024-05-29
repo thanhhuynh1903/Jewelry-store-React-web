@@ -18,6 +18,8 @@ import { columnsDataGemstone } from "./variables/columnsData";
 import { useGemstoneApi } from "./components/GemstoneApi/useGemstoneApi";
 import { useMaterialApi } from "./components/MaterialApi/useMaterialApi";
 import { useProducTypeApi } from "./components/ProductTypeApi/useProductTypeApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Tables = () => {
   const GemstoneList = useGemstoneApi();
@@ -55,6 +57,7 @@ const Tables = () => {
           />
         ))}
       </div>
+      <ToastContainer position="top-right" autoClose="3000" />
     </div>
   );
 };
