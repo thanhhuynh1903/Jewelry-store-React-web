@@ -4,9 +4,9 @@ import React from "react";
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
-import CreateProduct from "components/atom/CreateProduct/CreateProduct";
-import CreateGemstone from "components/atom/CreateGemstone/CreateGemstone";
+import Create from "components/atom/Create/Create";
 import DataTables from "views/admin/tables";
+
 // import RTLDefault from "views/rtl/default";
 
 // Auth Imports
@@ -46,17 +46,24 @@ const routes = [
   },
   {
     show : "hidden",
-    name: "create product",
+    name: "create material",
+    layout: "/admin",
+    path: "data-tables/material/create",
+    component: <Create label={"Material"}/>,
+  },
+  {
+    show : "hidden",
+    name: "create Type",
     layout: "/admin",
     path: "data-tables/type/create",
-    component: <CreateProduct/>,
+    component: <Create label={"Type"}/>,
   },
   {
     show : "hidden",
     name: "create gemstone",
     layout: "/admin",
     path: "data-tables/gemstone/create",
-    component: <CreateGemstone/>,
+    component: <Create label={"Gemstone"}/>,
   },
   {
     name: "Profile",

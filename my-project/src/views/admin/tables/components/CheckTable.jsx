@@ -11,9 +11,8 @@ import {
 } from "react-table";
 
 const CheckTable = (props) => {
-
   const { columnsData, tableData } = props;
-  const {name,index} = props;
+  const { name, index } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -44,9 +43,9 @@ const CheckTable = (props) => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        <div className="flex items-center justify-center center">
-        <ButtonCreate name={name}/>
-        <CardMenu />
+        <div className="center flex items-center justify-center">
+          <ButtonCreate name={name} />
+          <CardMenu />
         </div>
       </header>
 
@@ -109,7 +108,7 @@ const CheckTable = (props) => {
                     } else if (cell.column.Header === "DATE") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell.value.split('T')[0]}
+                          {cell.value.split("T")[0]}
                         </p>
                       );
                     }

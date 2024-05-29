@@ -1,9 +1,10 @@
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useState } from "react";
 import Card from "components/card";
-
-const NftCard = ({index, name, materialName,gemstoneName ,price, imageLink, extra }) => {
+import BackButton from "components/atom/BackButton/BackButton";
+const NftCard = ({index, name, materialID,gemstoneID ,price, imageLink, extra }) => {
   const [heart, setHeart] = useState(true);
+
   return (
     <Card
     key={index}
@@ -36,11 +37,12 @@ const NftCard = ({index, name, materialName,gemstoneName ,price, imageLink, extr
               {" "}
               {name}{" "}
             </p>
+            
             <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-              material : {materialName}{" "}
+              Material : {materialID?.name}{" "}
             </p>
             <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-              gemstone : {gemstoneName}{" "}
+              Gemstone : {gemstoneID?.name}{" "}
             </p>
           </div>
 

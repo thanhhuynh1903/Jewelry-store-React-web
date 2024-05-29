@@ -32,7 +32,7 @@ const ColumnsTable = (props) => {
     prepareRow,
     initialState,
   } = tableInstance;
-  initialState.pageSize = 5;
+  initialState.pageSize = 11;
 
   return (
     <Card extra={"w-full pb-10 p-4 h-full"}>

@@ -17,13 +17,11 @@ import NftCard from "components/card/NftCard";
 
 const Marketplace = () => {
   const [ListProduct, setListProduct] = useState([]);
-
   const fetchApi = async () => {
     try {
       const response = await axios.get(
         `products/`
       );
-  
       if (response?.data?.products) {
         return setListProduct(response?.data?.products);
       }
@@ -89,8 +87,8 @@ const Marketplace = () => {
             <NftCard
               index={index}
               name={list?.name}
-              materialName={list?.materialName}
-              gemstoneName= {list?.gemstoneName}
+              materialID={list?.materialID}
+              gemstoneID= {list?.gemstoneID}
               price={list?.price}
               imageLink={list?.imageLink}
             />

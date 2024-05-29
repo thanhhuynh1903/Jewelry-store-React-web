@@ -35,7 +35,7 @@ const ComplexTable = (props) => {
     prepareRow,
     initialState,
   } = tableInstance;
-  initialState.pageSize = 5;
+  initialState.pageSize = 11;
 
   return (
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>

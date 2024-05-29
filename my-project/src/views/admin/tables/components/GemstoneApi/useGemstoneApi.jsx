@@ -21,7 +21,7 @@ export const useGemstoneApi = () => {
   };
 
   useEffect(() => {
-  fetchApi();
+    Promise.all([fetchApi()]);
   }, [token]);
 
   return listGem;
