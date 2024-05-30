@@ -9,14 +9,33 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
+import { useState } from "react";
+import useDeleteData from "api/DeleteApi/DeleteApi";
+import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
+import { ToastContainer } from "react-toastify";
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
   const { name, index } = props;
-
+  const deleteData = useDeleteData();
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
-  
+
+  const [checkedRows, setCheckedRows] = useState([]);
+
+  const handleCheckboxChange = (rowId) => {
+    setCheckedRows((prevCheckedRows) =>
+      prevCheckedRows.includes(rowId)
+        ? prevCheckedRows.filter((id) => id !== rowId)
+        : [...prevCheckedRows, rowId]
+    );
+  };
+  console.log(checkedRows);
+  const handleDelete = async () => {
+    const endpoint = name.toLowerCase(); // Replace with your actual endpoint
+    await deleteData(checkedRows, endpoint);
+    // Optionally, refresh the table data here if necessary
+  };
+
   const tableInstance = useTable(
     {
       columns,
@@ -45,7 +64,8 @@ const CheckTable = (props) => {
         </div>
         <div className="center flex items-center justify-center">
           <ButtonCreate name={name} />
-          <CardMenu />
+          <ButtonCss handleDelete={handleDelete} />
+          {/* <CardMenu handleDelete={handleDelete} /> */}
         </div>
       </header>
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
@@ -76,14 +96,19 @@ const CheckTable = (props) => {
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
               prepareRow(row);
+              const rowId = row.original._id;
+              const isChecked = checkedRows.includes(rowId);
               return (
-                <tr {...row.getRowProps()} key={index}>
+                <tr {...row.getRowProps()} key={rowId}>
                   {row.cells.map((cell, index) => {
                     let data = "";
                     if (cell.column.Header === "NAME") {
                       data = (
                         <div className="flex items-center gap-2">
-                          <Checkbox />
+                          <Checkbox
+                            checked={isChecked}
+                            onChange={() => handleCheckboxChange(rowId)}
+                          />
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
                             {cell.value}
                           </p>
@@ -127,7 +152,9 @@ const CheckTable = (props) => {
           </tbody>
         </table>
       </div>
+      <ToastContainer position="top-right" autoClose="3000" />
     </Card>
+    
   );
 };
 

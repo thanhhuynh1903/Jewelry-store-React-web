@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 import axios from "api/axios"; // Adjust the import path if necessary
 import useAuth from "hook/useAuth";
-
+import { toast } from "react-toastify";
 const useDeleteData = () => {
   const token = useAuth();
 
@@ -13,10 +13,13 @@ const useDeleteData = () => {
       };
 
       try {
+       const response =  
         await Promise.all(
           selectedRow.map((id) => axios.delete(`${endpoint}/${id}`, { headers }))
         );
-        return { success: true };
+        if(response?.data?.success){
+        return toast.success(response?.data?.message);
+        } 
       } catch (error) {
         console.error("Failed to delete selected rows", error);
         return { success: false, error };
