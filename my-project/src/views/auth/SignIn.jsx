@@ -26,7 +26,6 @@ export default function SignIn() {
       ...prevErrors,
       [id]: error,
     }));
-  
   };
 
   const handleChange = (e) => {
@@ -37,7 +36,6 @@ export default function SignIn() {
         [id]: value?.trim(), // Trim the value
       }));
       validateField(id, value?.trim()); // Validate trimmed value
-
     }
   };
 
@@ -45,56 +43,56 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Reset errors
     setErrors({
       username: "",
       password: "",
     });
-  
+
     try {
       const response = await axios.post("staffsRouter/loginWithJWT", {
         username: formValues.username,
         password: formValues.password,
       });
-      
+
       if (response.data.success) {
         // Handle successful login
-        const auth = {
-          token: response.data.token,
-        };
-        localStorage.setItem("token", auth.token);
-        navigate("/admin/");
+        const token = response?.data?.token;
+        localStorage.setItem("token", token); 
+     
+        if (response.data.success && response?.data?.role === "Admin") {
+          navigate("/admin/");
+        }
       } else {
-        let error = ""
+       
         // Handle login failure
         if (response?.data?.message === "Username không tồn tại") {
-          setErrors(prevErrors => ({
+          setErrors((prevErrors) => ({
             ...prevErrors,
             username: response?.data?.message || "Unknown error",
           }));
         }
-  
+
         if (response?.data?.message === "Sai mật khẩu!") {
-          setErrors(prevErrors => ({
+          setErrors((prevErrors) => ({
             ...prevErrors,
             password: response?.data?.message || "Unknown error",
           }));
         }
-        
-        if (formValues.username === null || formValues.username === '') {
-          setErrors(prevErrors => ({
+
+        if (formValues.username === null || formValues.username === "") {
+          setErrors((prevErrors) => ({
             ...prevErrors,
-            username: "Username is required"
-          })) 
+            username: "Username is required",
+          }));
         }
-        if (formValues.password === null || formValues.password === '') {
-          setErrors(prevErrors => ({
+        if (formValues.password === null || formValues.password === "") {
+          setErrors((prevErrors) => ({
             ...prevErrors,
-            password: "Password is required"
-          }))
+            password: "Password is required",
+          }));
         }
-        
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -104,7 +102,6 @@ export default function SignIn() {
       });
     }
   };
-  
 
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">

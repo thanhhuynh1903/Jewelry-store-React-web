@@ -12,10 +12,11 @@ import {
 
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
-  const {name,index} = props;
+  const { name, index } = props;
+
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
-
+  
   const tableInstance = useTable(
     {
       columns,
@@ -37,17 +38,16 @@ const CheckTable = (props) => {
   initialState.pageSize = 11;
 
   return (
-    <Card extra={"w-full sm:overflow-auto p-4"}>
+    <Card extra={"w-full sm:overflow-auto p-4"} index={index}>
       <header className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        <div className="flex items-center justify-center center">
-        <ButtonCreate name={name}/>
-        <CardMenu />
+        <div className="center flex items-center justify-center">
+          <ButtonCreate name={name} />
+          <CardMenu />
         </div>
       </header>
-
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
         <table
           {...getTableProps()}
@@ -85,19 +85,19 @@ const CheckTable = (props) => {
                         <div className="flex items-center gap-2">
                           <Checkbox />
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {cell.value[0]}
+                            {cell.value}
                           </p>
                         </div>
                       );
-                    } else if (cell.column.Header === "PROGRESS") {
+                    } else if (cell.column.Header === "WEIGHT") {
                       data = (
                         <div className="flex items-center">
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {cell.value}%
+                            {cell.value}
                           </p>
                         </div>
                       );
-                    } else if (cell.column.Header === "QUANTITY") {
+                    } else if (cell.column.Header === "SIZE") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {" "}
@@ -107,7 +107,7 @@ const CheckTable = (props) => {
                     } else if (cell.column.Header === "DATE") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell.value}
+                          {cell.value.split("T")[0]}
                         </p>
                       );
                     }

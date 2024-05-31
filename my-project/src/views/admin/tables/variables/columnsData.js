@@ -36,6 +36,25 @@ export const columnsDataCheck = [
   },
 ];
 
+export const columnsDataGemstone = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "WEIGHT",
+    accessor: "weight",
+  },
+  {
+    Header: "SIZE",
+    accessor: "size",
+  },
+  {
+    Header: "DATE",
+    accessor: "createdAt",
+  },
+];
+
 export const columnsDataColumns = [
   {
     Header: "NAME",
@@ -61,15 +80,15 @@ export const columnsDataComplex = [
     accessor: "name",
   },
   {
-    Header: "STATUS",
-    accessor: "status",
+    Header: "CATEGORY",
+    accessor: "categoryID.name",
   },
   {
     Header: "DATE",
-    accessor: "date",
+    accessor: "categoryID.createdAt",
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
+    Header: "ACTION",
+    accessor: "DELETE",
   },
 ];
