@@ -14,14 +14,15 @@ import useDeleteData from "api/DeleteApi/DeleteApi";
 import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 import { ToastContainer } from "react-toastify";
 import { useMaterialApi } from "./MaterialApi/useMaterialApi";
-
+import { Link } from "react-router-dom";
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
   const { name, index } = props;
-  
+
+  const nameLower = name.toLowerCase();
   const refreshList = useMaterialApi();
   const deleteData = useDeleteData(refreshList);
-  
+
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -39,7 +40,6 @@ const CheckTable = (props) => {
     const endpoint = name.toLowerCase(); // Replace with your actual endpoint
     await deleteData(checkedRows, endpoint, refreshList);
     setCheckedRows([]);
-    
   };
 
   const tableInstance = useTable(
@@ -115,31 +115,43 @@ const CheckTable = (props) => {
                             checked={isChecked}
                             onChange={() => handleCheckboxChange(rowId)}
                           />
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {cell.value}
-                          </p>
+                          <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
+                            <p className="text-sm font-bold text-navy-700 dark:text-white">
+                              {cell.value}
+                            </p>
+                          </Link>
                         </div>
                       );
                     } else if (cell.column.Header === "WEIGHT") {
                       data = (
-                        <div className="flex items-center">
+                        <Link
+                          to={`${nameLower}/update/${rowId}`}
+                          className="flex items-center"
+                        >
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
                             {cell.value}
                           </p>
-                        </div>
+                        </Link>
                       );
                     } else if (cell.column.Header === "SIZE") {
                       data = (
-                        <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {" "}
-                          {cell.value}{" "}
-                        </p>
+                        <Link to={`${nameLower}/update/${rowId}`}>
+                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                            {" "}
+                            {cell.value}{" "}
+                          </p>
+                        </Link>
                       );
                     } else if (cell.column.Header === "DATE") {
                       data = (
-                        <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell?.value?.split("T")[0]}
-                        </p>
+                        <Link to={`${nameLower}/update/${rowId}`}>
+                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                            {cell?.value?.split("T")[0]}
+                          </p>
+                        </Link>
                       );
                     }
                     return (

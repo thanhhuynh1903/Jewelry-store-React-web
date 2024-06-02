@@ -3,7 +3,7 @@ import { Input, Typography } from "@material-tailwind/react";
 import BackButton from "../BackButton/BackButton";
 import Card from "components/card";
 import { useCreateApi } from "api/CreateApi/CreateApi";
-
+import { ToastContainer } from "react-toastify";
 export default function Create({ label }) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
@@ -86,6 +86,7 @@ export default function Create({ label }) {
         </form>
       </div>
     </Card>
+    <ToastContainer position="top-right" autoClose="3000" />
     </>
   );
 }

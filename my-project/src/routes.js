@@ -5,8 +5,8 @@ import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import Create from "components/atom/Create/Create";
-import DataTables from "views/admin/tables";
-
+import DataTables from "./views/admin/tables";
+import Update from "components/atom/Update/Update";
 // import RTLDefault from "views/rtl/default";
 
 // Auth Imports
@@ -64,6 +64,27 @@ const routes = [
     layout: "/admin",
     path: "data-tables/gemstone/create",
     component: <Create label={"Gemstone"}/>,
+  },
+  {
+    show : "hidden",
+    name: "update material",
+    layout: "/admin",
+    path: "data-tables/material/update/:updateId",
+    component: <Update label={"Material"}/>,
+  },
+  {
+    show : "hidden",
+    name: "update gemstone",
+    layout: "/admin",
+    path: "data-tables/gemstone/update/:updateId",
+    component: <Update label={"Gemstone"}/>,
+  },
+  {
+    show : "hidden",
+    name: "update type",
+    layout: "/admin",
+    path: "data-tables/type/update/:updateId",
+    component: <Update label={"Type"}/>,
   },
   {
     name: "Profile",
