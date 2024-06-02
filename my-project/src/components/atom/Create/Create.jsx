@@ -45,7 +45,7 @@ export default function Create({ label }) {
             />
             <div className="-mb-3 flex items-center">
               <Typography variant="h6" color="blue-gray" className="mr-1">
-                Weight
+                {label === "Type" ? "Category" : "Weight"}
               </Typography>
               <Typography variant="h6" color="red">
                 *
@@ -62,7 +62,7 @@ export default function Create({ label }) {
             />
             <div className="-mb-3 flex items-center">
               <Typography variant="h6" color="blue-gray" className="mr-1">
-                Size
+              {label === "Type" ? "Description" : "Size"}
               </Typography>
               <Typography variant="h6" color="red">
                 *
@@ -78,7 +78,7 @@ export default function Create({ label }) {
             />
             <button
               type="submit"
-              className="rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-3 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+              className="z-50 rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-3 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
             >
               Submit
             </button>

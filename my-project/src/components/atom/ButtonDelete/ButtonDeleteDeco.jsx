@@ -7,10 +7,11 @@ function ButtonCss(props) {
   const { handleDelete, transparent } = props;
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-
+  const NoDropdown = "NoDropdown";
   return (
     <>
     <Dropdown
+      NoDrop = {NoDropdown}
       button={
         <button
           onClick={handleDelete} // Trigger the delete function

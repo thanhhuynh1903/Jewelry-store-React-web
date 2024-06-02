@@ -13,10 +13,15 @@ import { useState } from "react";
 import useDeleteData from "api/DeleteApi/DeleteApi";
 import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 import { ToastContainer } from "react-toastify";
+import { useMaterialApi } from "./MaterialApi/useMaterialApi";
+
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
   const { name, index } = props;
-  const deleteData = useDeleteData();
+  
+  const refreshList = useMaterialApi();
+  const deleteData = useDeleteData(refreshList);
+  
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -29,11 +34,12 @@ const CheckTable = (props) => {
         : [...prevCheckedRows, rowId]
     );
   };
-  console.log(checkedRows);
+
   const handleDelete = async () => {
     const endpoint = name.toLowerCase(); // Replace with your actual endpoint
-    await deleteData(checkedRows, endpoint);
-    // Optionally, refresh the table data here if necessary
+    await deleteData(checkedRows, endpoint, refreshList);
+    setCheckedRows([]);
+    
   };
 
   const tableInstance = useTable(
@@ -132,7 +138,7 @@ const CheckTable = (props) => {
                     } else if (cell.column.Header === "DATE") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell.value.split("T")[0]}
+                          {cell?.value?.split("T")[0]}
                         </p>
                       );
                     }
@@ -154,7 +160,6 @@ const CheckTable = (props) => {
       </div>
       <ToastContainer position="top-right" autoClose="3000" />
     </Card>
-    
   );
 };
 

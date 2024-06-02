@@ -23,7 +23,7 @@ export const useCreateApi = () => {
           navigate("/admin/data-tables/");
         }
       } else {
-        toast.error("Something wrong");
+        toast.error(Response.data.message);
         console.error("Invalid label provided");
       }
     } catch (error) {
