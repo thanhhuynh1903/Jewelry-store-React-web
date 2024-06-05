@@ -15,6 +15,8 @@ import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 import { ToastContainer } from "react-toastify";
 import { useMaterialApi } from "./MaterialApi/useMaterialApi";
 import { Link } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css'; 
+
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
   const { name, index } = props;
@@ -170,7 +172,7 @@ const CheckTable = (props) => {
           </tbody>
         </table>
       </div>
-      <ToastContainer position="top-right" autoClose="3000" />
+      
     </Card>
   );
 };

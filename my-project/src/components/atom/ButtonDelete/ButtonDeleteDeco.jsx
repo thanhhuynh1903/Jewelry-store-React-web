@@ -3,6 +3,7 @@ import Dropdown from "components/dropdown";
 import { BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'; 
 function ButtonCss(props) {
   const { handleDelete, transparent } = props;
   const [open, setOpen] = React.useState(false);
@@ -32,7 +33,7 @@ function ButtonCss(props) {
         </div>
       }
     />
-    <ToastContainer position="top-right" autoClose="3000" />
+   
     </>
   );
 }

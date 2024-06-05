@@ -86,7 +86,7 @@ export default function Create({ label }) {
         </form>
       </div>
     </Card>
-    <ToastContainer position="top-right" autoClose="3000" />
+   
     </>
   );
 }

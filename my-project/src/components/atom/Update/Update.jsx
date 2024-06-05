@@ -117,7 +117,7 @@ export default function Update({ label }) {
           </form>
         </div>
       </Card>
-      <ToastContainer position="top-right" autoClose="3000" />
+      
     </>
   );
 }
