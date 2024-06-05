@@ -12,7 +12,7 @@ export const useGemstoneApi = () => {
     };
     try {
       const response = await axios.get('gemstone', { headers });
-      if(response.data.success)
+      if(response?.data?.success)
       setListGem(response?.data?.gemstones);
 
     } catch (error) {

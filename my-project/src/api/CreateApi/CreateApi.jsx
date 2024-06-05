@@ -14,17 +14,17 @@ export const useCreateApi = () => {
         label === "Material"
           ? "material"
           : label === "Gemstone"
-          ? "gemstone"
+          ?  "gemstone"
           : "";
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response.data.success) {
           toast.success(`Create ${label} Successfully`);
           navigate("/admin/data-tables/");
+        } else {
+          toast.error(response.data.message);
+          console.error("Invalid label provided");
         }
-      } else {
-        toast.error(Response.data.message);
-        console.error("Invalid label provided");
       }
     } catch (error) {
       toast.error(`Failed to create ${label.toLowerCase()}`);
