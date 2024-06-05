@@ -3,7 +3,7 @@ import { useState } from "react";
 import Card from "components/card";
 import BackButton from "components/atom/BackButton/BackButton";
 import { Link } from "react-router-dom";
-const NftCard = ({_id,index, name, materialID,gemstoneID ,price, imageLink, extra }) => {
+const NftCard = ({productId,index, name, materialID,gemstoneID ,price, imageLink, extra }) => {
   const [heart, setHeart] = useState(true);
 
   return (
@@ -72,7 +72,7 @@ const NftCard = ({_id,index, name, materialID,gemstoneID ,price, imageLink, extr
               Current price: {price}
             </p>
           </div>
-          <Link to={`/admin/nft-marketplace/${_id}`}>
+          <Link to={`/admin/nft-marketplace/${productId}`}>
           <button
             className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
           >

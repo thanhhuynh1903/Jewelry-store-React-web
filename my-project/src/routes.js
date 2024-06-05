@@ -8,7 +8,7 @@ import Create from "components/atom/Create/Create";
 import DataTables from "./views/admin/tables";
 import Update from "components/atom/Update/Update";
 // import RTLDefault from "views/rtl/default";
-
+import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 
@@ -36,6 +36,13 @@ const routes = [
     icon: <MdOutlineShoppingCart className="h-6 w-6" />,
     component: <NFTMarketplace />,
     secondary: true,
+  },
+  {
+    show : "hidden",
+    name: "Product detail",
+    layout: "/admin",
+    path: "nft-marketplace/:productId",
+    component: <PageDetailProduct />,
   },
   {
     name: "Data Tables",

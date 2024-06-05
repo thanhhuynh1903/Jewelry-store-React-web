@@ -19,9 +19,7 @@ const Marketplace = () => {
   const [ListProduct, setListProduct] = useState([]);
   const fetchApi = async () => {
     try {
-      const response = await axios.get(
-        `products/`
-      );
+      const response = await axios.get(`products/`);
       if (response?.data?.products) {
         return setListProduct(response?.data?.products);
       }
@@ -85,16 +83,15 @@ const Marketplace = () => {
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
           {ListProduct.map((list, index) => (
             <NftCard
-              _id={list?._id}
+              productId={list?._id}
               index={index}
               name={list?.name}
               materialID={list?.materialID}
-              gemstoneID= {list?.gemstoneID}
+              gemstoneID={list?.gemstoneID}
               price={list?.price}
               imageLink={list?.imageLink}
             />
           ))}
-
         </div>
 
         {/* Recenlty Added setion */}
