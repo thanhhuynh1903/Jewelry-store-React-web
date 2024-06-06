@@ -14,8 +14,10 @@ import { tableColumnsTopCreators } from "views/admin/marketplace/variables/table
 import HistoryCard from "./components/HistoryCard";
 import TopCreatorTable from "./components/TableTopCreators";
 import NftCard from "components/card/NftCard";
+import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 
 const Marketplace = () => {
+  const label = "product";
   const [ListProduct, setListProduct] = useState([]);
   const fetchApi = async () => {
     try {
@@ -78,7 +80,9 @@ const Marketplace = () => {
             </li>
           </ul>
         </div>
-
+        <div className="mb-4 mt-5 flex flex-col justify-between px-1 md:flex-row md:items-center">
+          <ButtonCreate add={label}/>
+          </div>
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
           {ListProduct.map((list, index) => (

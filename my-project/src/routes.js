@@ -11,6 +11,7 @@ import Update from "components/atom/Update/Update";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
 // Auth Imports
 import SignIn from "views/auth/SignIn";
+import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
 
 // Icon Imports
 import {
@@ -42,7 +43,7 @@ const routes = [
     name: "Product detail",
     layout: "/admin",
     path: "nft-marketplace/:productId",
-    component: <PageDetailProduct />,
+    component: <PageDetailProduct label={"Detail"}/>,
   },
   {
     name: "Data Tables",
@@ -51,6 +52,15 @@ const routes = [
     path: "data-tables/",
     component: <DataTables />,
   },
+
+  {
+    show : "hidden",
+    name: "Add product",
+    layout: "/admin",
+    path: "nft-marketplace/product/create",
+    component: <CreateProduct label={"product"}/>,
+  },
+
   {
     show : "hidden",
     name: "create material",
