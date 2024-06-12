@@ -17,7 +17,7 @@ export default function Create({ label }) {
 
   return (
     <>
-    <Card className="mx-auto mt-8 w-fit rounded-3xl bg-white py-5 px-5 shadow-md">
+    <Card className="px-5 py-5 mx-auto mt-8 bg-white shadow-md w-fit rounded-3xl">
       <div color="transparent">
         <div className="flex justify-between">
           <Typography variant="h4" color="blue-gray" className="w-fit">
@@ -25,9 +25,9 @@ export default function Create({ label }) {
           </Typography>
           <BackButton />
         </div>
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
-          <div className="mb-1 flex flex-col gap-6">
-            <div className="-mb-3 flex items-center">
+        <form className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-6 mb-1">
+            <div className="flex items-center -mb-3">
               <Typography variant="h6" color="blue-gray" className="mr-1">
                 Name
               </Typography>
@@ -43,7 +43,7 @@ export default function Create({ label }) {
               }}
               onChange={(e) => setName(e.target.value)}
             />
-            <div className="-mb-3 flex items-center">
+            <div className="flex items-center -mb-3">
               <Typography variant="h6" color="blue-gray" className="mr-1">
                 Weight
               </Typography>
@@ -60,7 +60,7 @@ export default function Create({ label }) {
               }}
               onChange={(e) => setWeight(e.target.value)}
             />
-            <div className="-mb-3 flex items-center">
+            <div className="flex items-center -mb-3">
               <Typography variant="h6" color="blue-gray" className="mr-1">
                 Size
               </Typography>

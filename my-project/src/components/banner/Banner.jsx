@@ -23,7 +23,7 @@ const Banner = () => {
             </h1>
             <p
               data-aos="fade-up"
-              className="text-sm leading-5 tracking-wide text-gray-500"
+              className="text-sm leading-5 tracking-wide text-hemp"
             >
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
               reiciendis inventore iste ratione ex alias quis magni at optio

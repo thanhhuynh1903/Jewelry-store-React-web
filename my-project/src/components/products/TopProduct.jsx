@@ -39,13 +39,13 @@ const TopProducts = ({ handleOrderPopup }) => {
           <h1 data-aos="fade-up" className="text-3xl font-bold">
             Best Products
           </h1>
-          <p data-aos="fade-up" className="text-xs text-gray-400">
+          <p data-aos="fade-up" className="text-xs text-hemp">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit
             asperiores modi Sit asperiores modi
           </p>
         </div>
         
-        <div className="grid grid-cols-1 gap-20 sm:grid-cols-2 md:grid-cols-3 md:gap-5 place-items-center">
+        <div className="grid grid-cols-1 gap-20 mb-10 sm:grid-cols-2 md:grid-cols-3 md:gap-5 place-items-center">
           {ProductsData.map((data) => (
             <div
               data-aos="zoom-in"
@@ -68,7 +68,7 @@ const TopProducts = ({ handleOrderPopup }) => {
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />
                 </div>
-                <h1 className="text-xl font-bold ">{data.title}</h1>
+                <h1 className="text-xl font-bold group-hover:text-hemp">{data.title}</h1>
                 <p className="text-sm text-gray-500 duration-300 group-hover:text-bloom line-clamp-2">
                   {data.description}
                 </p>
