@@ -58,14 +58,15 @@ export default function SignIn() {
 
       if (response.data.success) {
         // Handle successful login
-        const token = response?.data?.token;
-        localStorage.setItem("token", token); 
-     
+        const accessToken = response?.data?.accessToken;
+        const refreshToken = response?.data?.refreshToken;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
         if (response.data.success && response?.data?.role === "Admin") {
           navigate("/admin/");
         }
       } else {
-       
         // Handle login failure
         if (response?.data?.message === "Username không tồn tại") {
           setErrors((prevErrors) => ({

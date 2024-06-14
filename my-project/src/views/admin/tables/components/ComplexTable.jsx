@@ -70,6 +70,7 @@ const ComplexTable = (props) => {
           </thead>
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
+               const rowId = row.original._id;
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={index}>
@@ -105,7 +106,7 @@ const ComplexTable = (props) => {
                         </p>
                       );
                     } else if (cell.column.Header === "ACTION") {
-                      data = <ButtonDelete />;
+                      data = <ButtonDelete id={rowId}/>;
                     }
                     return (
                       <td
