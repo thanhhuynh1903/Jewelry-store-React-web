@@ -10,10 +10,10 @@ import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
 import { useMemo } from "react";
 import Progress from "components/progress";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
-import ButtonDelete from "components/atom/ButtonDelete/ButtonDelete";
+import ButtonAction from "components/atom/ButtonDelete/ButtonAction";
 const ComplexTable = (props) => {
-  const { columnsData, tableData } = props;
-  const {name,index} = props;
+  const { columnsData, tableData, handleDelete } = props;
+  const { name, index } = props;
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -39,13 +39,13 @@ const ComplexTable = (props) => {
 
   return (
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
-       <header className="relative flex items-center justify-between">
+      <header className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        <div className="flex items-center justify-center center">
-        <ButtonCreate name={name}/>
-        <CardMenu />
+        <div className="center flex items-center justify-center">
+          <ButtonCreate name={name} />
+          <CardMenu />
         </div>
       </header>
 
@@ -70,7 +70,7 @@ const ComplexTable = (props) => {
           </thead>
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
-               const rowId = row.original._id;
+              const rowId = row.original._id;
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={index}>
@@ -99,14 +99,14 @@ const ComplexTable = (props) => {
                           </p>
                         </div>
                       );
-                    } else if (cell.column.Header === "DATE") {
+                    } else if (cell.column.Header === "DESCRIPTION") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                         {cell?.value?.split('T')[0]}
+                          {cell?.value?.split("T")[0]}
                         </p>
                       );
                     } else if (cell.column.Header === "ACTION") {
-                      data = <ButtonDelete id={rowId}/>;
+                      data = data = <ButtonAction id={rowId} onDelete={handleDelete} />;
                     }
                     return (
                       <td

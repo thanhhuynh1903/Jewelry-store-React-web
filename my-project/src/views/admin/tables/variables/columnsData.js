@@ -83,12 +83,25 @@ export const columnsDataComplex = [
     Header: "CATEGORY",
     accessor: "categoryID.name",
   },
-  {
-    Header: "DATE",
-    accessor: "categoryID.createdAt",
-  },
+
   {
     Header: "ACTION",
     accessor: "DELETE",
+  },
+];
+
+
+export const columnsDataCategory = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "DESCRIPTION",
+    accessor: "description",
+  },
+  {
+    Header: "ACTION",
+    accessor: "action", // Custom accessor for actions like delete
   },
 ];

@@ -12,8 +12,13 @@ import {
 } from "react-icons/io";
 import avatar from "assets/img/avatars/avatar4.png";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "context/LoginProvider";
+
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
+  const { username } = useContext(LoginContext); // Get username from context
+
   const [darkmode, setDarkmode] = React.useState(false);
 const navigate = useNavigate();
   const handleLogout = () => {
@@ -195,7 +200,7 @@ const navigate = useNavigate();
               <div className="p-4">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Hey, Adela
+                    👋 Hey, {username}
                   </p>{" "}
                 </div>
               </div>

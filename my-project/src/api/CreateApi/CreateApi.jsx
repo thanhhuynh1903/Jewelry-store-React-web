@@ -6,8 +6,9 @@ export const useCreateApi = () => {
   const token = useAuth();
   const navigate = useNavigate();
 
-  const create = async (name, weight, size, label) => {
-    const param = { name, weight, size };
+  const create = async (name, weight, size, label,description) => {
+    const param = { name, weight, size,description };
+ 
     const headers = { Authorization: `Bearer ${token}` };
     try {
       const endpoint =
@@ -15,7 +16,8 @@ export const useCreateApi = () => {
           ? "material"
           : label === "Gemstone"
           ?  "gemstone"
-          : "";
+          : label === "Category"
+          ?  "category" : "";
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response.data.success) {
@@ -23,7 +25,9 @@ export const useCreateApi = () => {
           navigate("/admin/data-tables/");
         } else {
           toast.error(response.data.message);
+          navigate("/admin/data-tables/");
           console.error("Invalid label provided");
+
         }
       }
     } catch (error) {

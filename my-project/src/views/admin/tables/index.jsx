@@ -19,17 +19,20 @@ import { useGemstoneApi } from "./components/GemstoneApi/useGemstoneApi";
 import { useMaterialApi } from "./components/MaterialApi/useMaterialApi";
 import { useProducTypeApi } from "./components/ProductTypeApi/useProductTypeApi";
 import { ToastContainer } from "react-toastify";
-
-
+import { useCategoryApi } from "./components/CategoryApi/useCategoryApi";
+import { columnsDataCategory } from "./variables/columnsData";
 const Tables = () => {
   const GemstoneList = useGemstoneApi();
   const MaterialList = useMaterialApi();
   const TypeList = useProducTypeApi();
+  const CateList = useCategoryApi();
+
   const name = [
     { name: "Material", data: MaterialList },
     { name: "Gemstone", data: GemstoneList },
   ];
-  const nameType = [{ name: "Type", data: TypeList }];
+  
+  const nameType = [{ name: "Type", data: TypeList },{ name: "Category", data: CateList }];
 
   return (
     <div>
@@ -52,7 +55,7 @@ const Tables = () => {
         {nameType.map((data, index) => (
           <ComplexTable
             name={data.name}
-            columnsData={columnsDataComplex}
+            columnsData={data.name === "Type" ? columnsDataComplex : columnsDataCategory}
             tableData={data.data}
           />
         ))}

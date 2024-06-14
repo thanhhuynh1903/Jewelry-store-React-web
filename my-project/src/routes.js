@@ -84,6 +84,13 @@ const routes = [
   },
   {
     show : "hidden",
+    name: "create category",
+    layout: "/admin",
+    path: "data-tables/category/create",
+    component: <Create label={"Category"}/>,
+  },
+  {
+    show : "hidden",
     name: "update material",
     layout: "/admin",
     path: "data-tables/material/update/:updateId",
