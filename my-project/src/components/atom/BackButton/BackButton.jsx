@@ -1,11 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 export default function BackButton(props) {
-    const {extra} = props;
+  const { extra } = props;
+  const navigate = useNavigate();
+
   return (
     <div className={`w-fit ${extra}`}>
-    <Link to="/admin/data-tables/" className="mt-0 lg:pt-10">
-      <div className="flex h-fit w-fit items-center hover:cursor-pointer">
+      <div 
+        className="flex h-fit w-fit items-center hover:cursor-pointer" 
+        onClick={() => navigate(-1)}
+      >
         <svg
           width="8"
           height="12"
@@ -20,7 +25,6 @@ export default function BackButton(props) {
         </svg>
         <p className="ml-3 text-sm text-gray-600">Back</p>
       </div>
-    </Link>
     </div>
   );
 }

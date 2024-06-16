@@ -13,7 +13,7 @@ export const useProducTypeApi = () => {
     try {
       const response = await axios.get('producttype', { headers });
      
-      if(response.data.success)
+      if(response?.data?.success)
         setListType(response?.data?.productTypes);
 
     } catch (error) {

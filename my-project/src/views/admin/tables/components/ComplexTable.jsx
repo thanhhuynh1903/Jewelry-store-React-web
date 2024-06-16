@@ -101,7 +101,7 @@ const ComplexTable = (props) => {
                     } else if (cell.column.Header === "DATE") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                         {cell.value.split('T')[0]}
+                         {cell?.value?.split('T')[0]}
                         </p>
                       );
                     } else if (cell.column.Header === "ACTION") {

@@ -2,11 +2,11 @@ import useAuth from "hook/useAuth";
 import axios from "api/axios"; // Adjust the import path if necessary
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-export const useCreateApi = () => {
+export const useUpdateApi = () => {
   const token = useAuth();
   const navigate = useNavigate();
 
-  const create = async (name, weight, size, label) => {
+  const update = async (name, weight, size, updateId ,label) => {
     const param = { name, weight, size };
     const headers = { Authorization: `Bearer ${token}` };
     try {
@@ -14,17 +14,17 @@ export const useCreateApi = () => {
         label === "Material"
           ? "material"
           : label === "Gemstone"
-          ?  "gemstone"
+          ? "gemstone"
           : "";
       if (endpoint) {
-        const response = await axios.post(endpoint, param, { headers });
+        const response = await axios.put(`${endpoint}/${updateId}`, param, { headers });
         if (response.data.success) {
-          toast.success(`Create ${label} Successfully`);
+          toast.success(`Update ${label} Successfully`);
           navigate("/admin/data-tables/");
-        } else {
-          toast.error(response.data.message);
-          console.error("Invalid label provided");
         }
+      } else {
+        // toast.error(Response.data.message);
+        console.error("Invalid label provided");
       }
     } catch (error) {
       toast.error(`Failed to create ${label.toLowerCase()}`);
@@ -32,5 +32,5 @@ export const useCreateApi = () => {
     }
   };
 
-  return create;
+  return update;
 };

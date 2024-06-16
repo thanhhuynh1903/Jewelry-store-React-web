@@ -2,10 +2,13 @@
 import { useCallback } from "react";
 import axios from "api/axios"; // Adjust the import path if necessary
 import useAuth from "hook/useAuth";
-
+import { toast } from "react-toastify";
+import { useMaterialApi } from "views/admin/tables/components/MaterialApi/useMaterialApi";
+import { useNavigate } from "react-router-dom";
 const useDeleteData = () => {
   const token = useAuth();
-
+  // var refreshList = useMaterialApi();
+  const navigate = useNavigate();
   const deleteData = useCallback(
     async (selectedRow, endpoint) => {
       const headers = {
@@ -13,16 +16,26 @@ const useDeleteData = () => {
       };
 
       try {
-        await Promise.all(
-          selectedRow.map((id) => axios.delete(`${endpoint}/${id}`, { headers }))
+        const response = await Promise.all(
+          selectedRow.map((id) =>
+            axios.delete(`${endpoint}/${id}`, { headers })
+          )
         );
-        return { success: true };
+        console.log(response);
+        const allSuccess = response.every((res) => res?.data?.success);
+        console.log(allSuccess);
+        if (allSuccess) {
+          navigate('/admin/data-tables/')
+          return toast.success("Delete successfully");
+        }else{
+          return toast.error("Material không tồn tại!")
+        }
       } catch (error) {
         console.error("Failed to delete selected rows", error);
         return { success: false, error };
       }
     },
-    [token]
+    [token,navigate]
   );
 
   return deleteData;

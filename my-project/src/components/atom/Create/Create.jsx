@@ -3,7 +3,7 @@ import { Input, Typography } from "@material-tailwind/react";
 import BackButton from "../BackButton/BackButton";
 import Card from "components/card";
 import { useCreateApi } from "api/CreateApi/CreateApi";
-
+import { ToastContainer } from "react-toastify";
 export default function Create({ label }) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
@@ -45,14 +45,14 @@ export default function Create({ label }) {
             />
             <div className="flex items-center -mb-3">
               <Typography variant="h6" color="blue-gray" className="mr-1">
-                Weight
+                {label === "Type" ? "Category" : "Weight"}
               </Typography>
               <Typography variant="h6" color="red">
                 *
               </Typography>
             </div>
             <Input
-              type="number"
+              type={label === "Type" ? "text" : "number"}
               size="lg"
               className="!border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -62,7 +62,7 @@ export default function Create({ label }) {
             />
             <div className="flex items-center -mb-3">
               <Typography variant="h6" color="blue-gray" className="mr-1">
-                Size
+              {label === "Type" ? "Description" : "Size"}
               </Typography>
               <Typography variant="h6" color="red">
                 *
@@ -78,7 +78,7 @@ export default function Create({ label }) {
             />
             <button
               type="submit"
-              className="rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-3 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+              className="z-50 rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-3 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
             >
               Submit
             </button>
@@ -86,6 +86,7 @@ export default function Create({ label }) {
         </form>
       </div>
     </Card>
+   
     </>
   );
 }
