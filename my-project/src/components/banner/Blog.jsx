@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div className="container flex">
       <div className="w-1/2 p-10 mt-32 left-content">
-        <h1 className="text-3xl">Blog</h1>
+        <h1 className="text-3xl text-bloom">Blog</h1>
         <p className="mt-3 text-sm">
           If diamonds are a girl's best friend, why can they be so intimidating? A moment in time, a
           memory to be remembered by a uniquely custom diamond creation should be magic and we're

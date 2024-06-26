@@ -1,58 +1,34 @@
-import React from "react";
-import Img1 from "../../assets/img/products/women.png";
-import Img2 from "../../assets/img/products/women2.jpg";
-import Img3 from "../../assets/img/products/women3.jpg";
-import Img4 from "../../assets/img/products/women4.jpg";
-import { FaStar } from "react-icons/fa6";
-
-const ProductsData = [
-  {
-    id: 1,
-    img: Img1,
-    title: "Women Ethnic",
-    rating: 5.0,
-    color: "white",
-    aosDelay: "0",
-  },
-  {
-    id: 2,
-    img: Img2,
-    title: "Women western",
-    rating: 4.5,
-    color: "Red",
-    aosDelay: "200",
-  },
-  {
-    id: 3,
-    img: Img3,
-    title: "Goggles",
-    rating: 4.7,
-    color: "brown",
-    aosDelay: "400",
-  },
-  {
-    id: 4,
-    img: Img4,
-    title: "Printed T-Shirt",
-    rating: 4.4,
-    color: "Yellow",
-    aosDelay: "600",
-  },
-  {
-    id: 5,
-    img: Img2,
-    title: "Fashin T-Shirt",
-    rating: 4.5,
-    color: "Pink",
-    aosDelay: "800",
-  },
-];
+import React, { useEffect, useState } from "react";
+import axios from "api/axios";
 
 const Products = () => {
+  const [ListProduct, setListProduct] = useState([]);
+
+  const fetchApi = async () => {
+    try {
+      const response = await axios.get(`products/`);
+      console.log('data',response.data);
+      if (response?.data?.products) {
+        setListProduct(response?.data?.products);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  const getRandomImageLink = (imageIDs) => {
+    if (imageIDs.length === 0) return '';
+    const randomIndex = Math.floor(Math.random() * imageIDs.length);
+    return imageIDs[randomIndex]?.imageLink || '';
+  };
+  
   return (
     <div className="mb-12 mt-14">
       <div className="container">
-        
         <div className="text-center mb-10 max-w-[600px] mx-auto">
           <p data-aos="fade-up" className="text-2xl text-primary text-bloom">
             Top Selling Products for you
@@ -67,35 +43,27 @@ const Products = () => {
         </div>
         <div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
-           
-            {ProductsData.map((data) => (
+          {ListProduct.map((list, index) => (
               <div
                 data-aos="fade-up"
-                data-aos-delay={data.aosDelay}
-                key={data.id}
-                className="space-y-3"
+                data-aos-delay={index * 200}
+                className="mb-5 space-y-3 transition-transform duration-300 transform cursor-pointer hover:scale-105"
               >
-                <img
-                  src={data.img}
-                  alt=""
-                  className="h-[220px] w-[150px] object-cover rounded-md"
-                />
+                <div className="h-[260px] w-[260px] overflow-hidden rounded-md">
+                  <img
+                    src={getRandomImageLink(list?.imageIDs)}
+                    alt={list.name}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
                 <div>
-                  <h3 className="font-semibold">{data.title}</h3>
-                  <p className="text-sm text-gray-600">{data.color}</p>
-                  <div className="flex items-center gap-1">
-                    <FaStar className="text-yellow-400" />
-                    <span>{data.rating}</span>
-                  </div>
+                  <h3 className="font-semibold text-bloom">{list.name}</h3>
+                  <p className="text-sm text-hemp">Price: {list.price}</p>
+                  <p className="text-sm text-hemp">Material: {list.materialID?.name}</p>
+                  <p className="text-sm text-hemp">Gemstone: {list.gemstoneID?.name}</p>
                 </div>
               </div>
             ))}
-          </div>
-         
-          <div className="flex justify-center">
-            <button className="px-5 py-1 mt-10 text-center rounded-md cursor-pointer text-hemp bg-bloom">
-              View All Button
-            </button>
           </div>
         </div>
       </div>
