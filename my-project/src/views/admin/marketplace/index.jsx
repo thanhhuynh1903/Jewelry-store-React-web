@@ -23,6 +23,7 @@ const Marketplace = () => {
     try {
       const response = await axios.get(`products/`);
       if (response?.data?.products) {
+        
         return setListProduct(response?.data?.products);
       }
     } catch (error) {
@@ -93,7 +94,7 @@ const Marketplace = () => {
               materialID={list?.materialID}
               gemstoneID={list?.gemstoneID}
               price={list?.price}
-              imageLink={list?.imageLink}
+              imageLink={list?.imageIDs}
             />
           ))}
         </div>

@@ -4,18 +4,25 @@ import BackButton from "../BackButton/BackButton";
 import Card from "components/card";
 import { useCreateApi } from "api/CreateApi/CreateApi";
 import { ToastContainer } from "react-toastify";
-import MutipleChoices from "../MutipleChoices/MutipleChoices";
+import { SelectDefault } from "../SelectOptions/SelectDefault";
+import { useCategoryApi } from "views/admin/tables/components/CategoryApi/useCategoryApi";
 
 export default function Create({ label }) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
   const [size, setSize] = useState("");
+  const [categoryID, setCategoriesValue] = useState(""); // State to hold selected category ID
   const [description, setDescription] = useState("");
   const create = useCreateApi();
+  const showListCate = useCategoryApi();
+  
+  const handleCategorySelect = (categoryId) => {
+    setCategoriesValue(categoryId); // Update selected category ID
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    create(name, weight, size, label, description);
+    create(name, weight, categoryID, size, label, description);
   };
 
   return (
@@ -59,18 +66,23 @@ export default function Create({ label }) {
                       *
                     </Typography>
                   </div>
-                  <Input
-                    type={label === "Type" ? "text" : "number"}
-                    size="lg"
-                    className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    onChange={(e) => setWeight(e.target.value)}
-                  />
+                  {label === "Type" ? (
+                    <SelectDefault label={label} ListCate={showListCate} onSelectCategory={handleCategorySelect} />
+                  ) : (
+                    <Input
+                      type={label === "Type" ? "text" : "number"}
+                      size="lg"
+                      className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                      onChange={(e) => setWeight(e.target.value)}
+                    />
+                  )}
                 </>
-              ) : (<>
-                <div className="-mb-3 flex items-center">
+              ) : (
+                <>
+                  <div className={`-mb-3 flex items-center ${label === "Category" ? "hidden" : ""}`}>
                     <Typography variant="h6" color="blue-gray" className="mr-1">
                       {label === "Type" ? "Category" : "Weight"}
                     </Typography>
@@ -78,8 +90,7 @@ export default function Create({ label }) {
                       *
                     </Typography>
                   </div>
-                  <MutipleChoices/>
-                  </>
+                </>
               )}
               <div className="-mb-3 flex items-center">
                 <Typography variant="h6" color="blue-gray" className="mr-1">
@@ -100,16 +111,14 @@ export default function Create({ label }) {
                   />
                 </div>
               ) : (
-                <>
-                  <Input
-                    size="lg"
-                    className="!border-t-blue-gray-200 focus:!border-t-gray-900 "
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    onChange={(e) => setSize(e.target.value)}
-                  />
-                </>
+                <Input
+                  size="lg"
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900 "
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  onChange={(e) => setSize(e.target.value)}
+                />
               )}
               <button
                 type="submit"

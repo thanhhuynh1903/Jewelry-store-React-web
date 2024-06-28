@@ -2,9 +2,11 @@ import InputField from "components/fields/InputField";
 import { FcGoogle } from "react-icons/fc";
 import Checkbox from "components/checkbox";
 import axios from "api/axios";
-import { useState,useContext  } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "context/LoginProvider";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function SignIn() {
   const [formValues, setFormValues] = useState({
@@ -18,7 +20,6 @@ export default function SignIn() {
   });
 
   const { setUsername } = useContext(LoginContext); // Get setUsername from context
-
 
   const validateField = (id, value) => {
     let error = "";
@@ -45,6 +46,7 @@ export default function SignIn() {
   };
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,8 +69,8 @@ export default function SignIn() {
         const refreshToken = response?.data?.refreshToken;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        setUsername(formValues.username); 
-        
+        setUsername(formValues.username);
+
         if (response.data.success && response?.data?.role === "Admin") {
           navigate("/admin/");
         }
@@ -110,6 +112,53 @@ export default function SignIn() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Redirect to Google OAuth URL
+    window.location.href = "https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google";
+  };
+
+  // Handle initial render or URL change when returning from Google OAuth
+  useEffect(() => {
+    const handleGoogleCallback = async () => {
+      // Check if URL contains code parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+
+      if (code) {
+        try {
+          // Make API call to exchange code for tokens
+          const response = await axios.post("https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google/callback", {
+            code: code,
+          });
+          console.log(response?.data);
+          // Handle successful Google login
+          if (response?.data?.success) {
+            const accessToken = response.data.accessToken;
+            const refreshToken = response.data.refreshToken;
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+            setUsername(response?.data?.username); // Assuming username is included in the response
+
+            // Navigate to appropriate dashboard based on role
+            if (response?.data?.role === "staff") {
+              navigate("/admin");
+            } else {
+              navigate("/auth/"); // Replace with actual user dashboard route
+            }
+          } else {
+            // Handle login failure
+            console.error("Google login failed:", response.data.message);
+          }
+        } catch (error) {
+          console.error("Error during Google login:", error);
+        }
+      }
+    };
+
+    // Call the function to handle Google callback
+    handleGoogleCallback();
+  }, [navigate, setUsername]);
+
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
@@ -120,7 +169,11 @@ export default function SignIn() {
         <p className="mb-9 ml-1 text-base text-gray-600">
           Enter your email and password to sign in!
         </p>
-        <div className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
+
+        <div
+          className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800"
+          onClick={handleGoogleLogin}
+        >
           <div className="rounded-full text-xl">
             <FcGoogle />
           </div>
@@ -161,13 +214,13 @@ export default function SignIn() {
           />
 
           {/* Checkbox */}
-          <div className="mb-4 flex items-center justify-between px-2">
-            <div className="flex items-center">
-            <Checkbox />
-            <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
-              Remember password
-            </p>
-          </div>
+          <div className="mt-4 mb-2 flex items-center justify-between px-2 ">
+            <div className="flex items-center mt-2">
+              <Checkbox />
+              <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white ">
+                Remember password
+              </p>
+            </div>
             {/* <a
               className="mt-3 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
               href=" "

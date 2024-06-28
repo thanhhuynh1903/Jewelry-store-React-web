@@ -5,7 +5,7 @@ import BackButton from "components/atom/BackButton/BackButton";
 import { Link } from "react-router-dom";
 const NftCard = ({productId,index, name, materialID,gemstoneID ,price, imageLink, extra }) => {
   const [heart, setHeart] = useState(true);
-
+console.log(imageLink[0]?.imageLink);
   return (
     <Card
     key={index}
@@ -14,8 +14,8 @@ const NftCard = ({productId,index, name, materialID,gemstoneID ,price, imageLink
       <div className="h-full w-full">
         <div className="relative w-full">
           <img
-            src={imageLink}
-            className="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full"
+            src={imageLink[0]?.imageLink}
+            className="mb-3 h-[201.863px] w-[212.488px] rounded-xl 3xl:h-full 3xl:w-full"
             alt=""
           />
           <button

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import useAuth from 'hook/useAuth';
 import axios from 'api/axios'; // Adjust the import path if necessary
 
-export const useProducTypeApi = () => {
+export const useCustomerApi = () => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
 
@@ -11,9 +11,9 @@ export const useProducTypeApi = () => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get('producttype', { headers });
-      if(response?.data?.success)
-        setListType(response?.data?.productTypes);
+      const response = await axios.get('customers', { headers });
+     console.log(response.data);
+        setListType(response?.data);
 
     } catch (error) {
       console.error('Failed to fetch material data', error);

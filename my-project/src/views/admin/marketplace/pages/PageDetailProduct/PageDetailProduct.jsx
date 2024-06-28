@@ -18,7 +18,7 @@ export default function PageDetailProduct({ label }) {
 
   const fetchApi = async () => {
     try {
-      const response = await axios.get(`/product/${productId}`, { headers });
+      const response = await axios.get(`product/${productId}`, { headers });
       console.log(response?.data);
     } catch (error) {
       console.log(error);

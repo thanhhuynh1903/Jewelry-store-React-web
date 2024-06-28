@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "hook/useAuth";
 import axios from "api/axios"; // Adjust the import path if necessary
+import { toast } from "react-toastify";
 
 export const useCategoryApi = () => {
   const [Category, setCategory] = useState([]);
@@ -17,6 +18,7 @@ export const useCategoryApi = () => {
         setCategory(response?.data?.categories); // Assuming 'categories' is the array you need
       }
     } catch (error) {
+      toast.error("Failed to fetch category data")
       console.error("Failed to fetch category data", error);
     }
   };

@@ -6,6 +6,7 @@ import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 import '../../assets/css/App.css'
 
 export default function Auth() {
+  
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/auth") {
