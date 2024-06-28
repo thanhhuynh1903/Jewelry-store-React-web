@@ -14,7 +14,7 @@ const Sidebar = ({ open, onClose }) => {
       }`}
     >
       <span
-        className="absolute top-4 right-4 block cursor-pointer xl:hidden"
+        className="absolute block cursor-pointer top-4 right-4 xl:hidden"
         onClick={onClose}
       >
         <HiX />
@@ -28,7 +28,7 @@ const Sidebar = ({ open, onClose }) => {
       <div class="mt-[58px] mb-7 h-px bg-gray-300 dark:bg-white/30" />
       {/* Nav item */}
 
-      <ul className="mb-auto pt-1">
+      <ul className="pt-1 mb-auto">
         <Links routes={routes} />
       </ul>
 

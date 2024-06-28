@@ -6,6 +6,8 @@ import AuthLayout from "layouts/auth";
 import "react-toastify/dist/ReactToastify.css";
 import HasAuth from "hook/HasAuth";
 import GoogleCallback from "hook/GoogleCallback";
+import Home from "../src/components/homepage/Home";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
         <Route path="admin/*" element={<AdminLayout />} />
         <Route path="rtl/*" element={<RtlLayout />} />
       </Route>
+      <Route path="/home" element={<Home/>} />
     </Routes>
   );
 };

@@ -11,7 +11,7 @@ console.log(imageLink[0]?.imageLink);
     key={index}
       extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white ${extra}`}
     >
-      <div className="h-full w-full">
+      <div className="w-full h-full">
         <div className="relative w-full">
           <img
             src={imageLink[0]?.imageLink}
@@ -20,9 +20,9 @@ console.log(imageLink[0]?.imageLink);
           />
           <button
             onClick={() => setHeart(!heart)}
-            className="absolute top-3 right-3 flex items-center justify-center rounded-full bg-white p-2 text-brand-500 hover:cursor-pointer"
+            className="absolute flex items-center justify-center p-2 bg-white rounded-full top-3 right-3 text-brand-500 hover:cursor-pointer"
           >
-            <div className="flex h-full w-full items-center justify-center rounded-full text-xl hover:bg-gray-50 dark:text-navy-900">
+            <div className="flex items-center justify-center w-full h-full text-xl rounded-full hover:bg-gray-50 dark:text-navy-900">
               {heart ? (
                 <IoHeartOutline />
               ) : (
@@ -32,7 +32,7 @@ console.log(imageLink[0]?.imageLink);
           </button>
         </div>
 
-        <div className="mb-3 flex items-center justify-between px-1 md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col xl:items-start 3xl:flex-row 3xl:justify-between">
+        <div className="flex items-center justify-between px-1 mb-3 md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col xl:items-start 3xl:flex-row 3xl:justify-between">
           <div className="mb-2">
             <p className="text-lg font-bold text-navy-700 dark:text-white">
               {" "}
@@ -57,7 +57,7 @@ console.log(imageLink[0]?.imageLink);
                 className="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white dark:!border-navy-800"
               >
                 <img
-                  className="h-full w-full rounded-full object-cover"
+                  className="object-cover w-full h-full rounded-full"
                   src={avt}
                   alt=""
                 />
