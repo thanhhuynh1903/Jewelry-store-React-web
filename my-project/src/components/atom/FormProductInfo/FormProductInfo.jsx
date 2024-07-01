@@ -2,7 +2,8 @@ import React from "react";
 import Card from "components/card";
 import { FaChevronDown } from "react-icons/fa";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
-export default function FormProductInfo() {
+export default function FormProductInfo({data,formData, handleInputChange}) {
+  const productinfo = data
   return (
     <Card
       extra={`p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400`}
@@ -33,6 +34,9 @@ export default function FormProductInfo() {
               <div className="z-0 col-span-8 lg:!mb-0">
                 <input
                   type="text"
+                  name="name"
+                  value={formData ? formData.name : productinfo?.name}
+                  onChange={handleInputChange}
                   class="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Ex : abcxyz"
                   required
@@ -52,7 +56,7 @@ export default function FormProductInfo() {
                
               </div>
               <div className="col-span-8 lg:!mb-0">
-                <SelectDefault/>
+                <SelectDefault defaultValue={productinfo?.productTypeID?.categoryID}/>
               </div>
             </div>
           </div>
@@ -70,7 +74,7 @@ export default function FormProductInfo() {
                 </p>
               </div>
               <div className="col-span-8 lg:!mb-0">
-                <SelectDefault/>
+                <SelectDefault defaultValue={productinfo?.productTypeID}/>
               </div>
             </div>
           </div>

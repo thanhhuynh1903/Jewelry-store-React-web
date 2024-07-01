@@ -2,7 +2,9 @@ import React from "react";
 import Card from "components/card";
 import { FaChevronDown } from "react-icons/fa";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
-export default function FormComponent() {
+export default function FormComponent({data,label}) {  
+  const productinfo = data
+
   return (
     <Card
       extra={`p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400`}
@@ -39,6 +41,7 @@ export default function FormComponent() {
                     </label>
                     <input
                       type="text"
+                      value={productinfo?.materialID?.name}
                       class="dark:shadow-sm-light block w-4/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                       placeholder="Ex : abcxyz"
                       required
@@ -49,7 +52,8 @@ export default function FormComponent() {
                       Weight
                     </label>
                     <input
-                      type="number"
+                      type="text"
+                      value={productinfo?.materialID?.weight}
                       class="dark:shadow-sm-light block w-4/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                       placeholder="12"
                       required
@@ -59,7 +63,7 @@ export default function FormComponent() {
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Size
                     </label>
-                    <SelectDefault/>
+                    <SelectDefault defaultValue={productinfo?.materialID} label={label}/>
                   </div>
                 </div>
               </div>
@@ -91,6 +95,7 @@ export default function FormComponent() {
                     </label>
                     <input
                       type="text"
+                      value={productinfo?.gemstoneID?.name}
                       class="dark:shadow-sm-light block w-4/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                       placeholder="Ex : abcxyz"
                       required
@@ -102,6 +107,7 @@ export default function FormComponent() {
                     </label>
                     <input
                       type="number"
+                      value={productinfo?.gemstoneID?.weight}
                       class="dark:shadow-sm-light block w-4/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                       placeholder="12"
                       required
@@ -114,6 +120,7 @@ export default function FormComponent() {
                     <div className="flex">
                   <input
                     type="number"
+                    value={productinfo?.gemstoneID?.size.replace("mm", "")}
                     className="dark:shadow-sm-light w-1.5/6 block rounded-sm border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     placeholder="0.1mm"
                     required
