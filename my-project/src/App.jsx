@@ -4,6 +4,7 @@ import RtlLayout from "layouts/rtl";
 import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
 import Home from "../src/components/homepage/Home";
+import ProductDetail from "components/products/ProductDetail";
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
       <Route path="admin/*" element={<AdminLayout />} />
       <Route path="rtl/*" element={<RtlLayout />} />
       <Route path="/home" element={<Home/>} />
+      <Route path="/product/:_id" element={<ProductDetail />} />
     </Routes>
   );
 };

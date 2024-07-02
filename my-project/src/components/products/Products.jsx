@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "api/axios";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [ListProduct, setListProduct] = useState([]);
-
+  const navigate = useNavigate();
+  
   const fetchApi = async () => {
     try {
       const response = await axios.get(`products/`);
@@ -25,7 +27,11 @@ const Products = () => {
     const randomIndex = Math.floor(Math.random() * imageIDs.length);
     return imageIDs[randomIndex]?.imageLink || '';
   };
-  
+
+  const handleProductClick = (_id) => {
+    navigate(`/product/${_id}`);
+  };
+
   return (
     <div className="mb-12 mt-14">
       <div className="container">
@@ -48,6 +54,7 @@ const Products = () => {
                 data-aos="fade-up"
                 data-aos-delay={index * 200}
                 className="mb-5 space-y-3 transition-transform duration-300 transform cursor-pointer hover:scale-105"
+                onClick={() => handleProductClick(list._id)}
               >
                 <div className="h-[260px] w-[260px] overflow-hidden rounded-md">
                   <img
@@ -59,6 +66,7 @@ const Products = () => {
                 <div>
                   <h3 className="font-semibold text-bloom">{list.name}</h3>
                   <p className="text-sm text-hemp">Price: {list.price}</p>
+                  <p className="text-sm text-hemp">Color: {list.color}</p>
                   <p className="text-sm text-hemp">Material: {list.materialID?.name}</p>
                   <p className="text-sm text-hemp">Gemstone: {list.gemstoneID?.name}</p>
                 </div>
