@@ -67,7 +67,7 @@ export default function Create({ label }) {
                     </Typography>
                   </div>
                   {label === "Type" ? (
-                    <SelectDefault label={label} ListCate={showListCate} onSelectCategory={handleCategorySelect} />
+                    <SelectDefault label={"CategoryInType"} ListCate={showListCate} onSelectCategory={handleCategorySelect} />
                   ) : (
                     <Input
                       type={label === "Type" ? "text" : "number"}

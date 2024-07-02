@@ -15,7 +15,7 @@ import HistoryCard from "./components/HistoryCard";
 import TopCreatorTable from "./components/TableTopCreators";
 import NftCard from "components/card/NftCard";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
-
+import { ToastContainer } from "react-toastify";
 const Marketplace = () => {
   const label = "product";
   const [ListProduct, setListProduct] = useState([]);
@@ -142,6 +142,7 @@ const Marketplace = () => {
         />
         <HistoryCard />
       </div>
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };

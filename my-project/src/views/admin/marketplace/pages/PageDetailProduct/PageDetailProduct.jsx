@@ -94,7 +94,7 @@ export default function PageDetailProduct({ label }) {
           <FormProductDes data={List} />
         </div>
         <div className="z-0 col-span-12 lg:!mb-0">
-          <FormComponent data={List} label={label} />
+          <FormComponent data={List} label={"ProductDetail"} />
         </div>
       </div>
     </div>

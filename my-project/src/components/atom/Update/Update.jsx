@@ -110,7 +110,7 @@ console.log(category);
                       *
                     </Typography>
                   </div>
-                  <SelectDefault defaultValue={category} ListCate={listCate} onSelectCategory={handleCategorySelect}/>
+                  <SelectDefault label={"CategoryInType"} defaultValue={category} ListCate={listCate} onSelectCategory={handleCategorySelect}/>
                   <div className="relative mb-3 h-[200px] rounded-md border-2 border-gray-900">
                     <textarea
                       value={description}

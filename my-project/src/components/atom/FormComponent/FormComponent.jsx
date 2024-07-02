@@ -2,8 +2,15 @@ import React from "react";
 import Card from "components/card";
 import { FaChevronDown } from "react-icons/fa";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
-export default function FormComponent({data,label}) {  
+export default function FormComponent({data,formData,ListMaterial,ListGemstone,handleInputChange,setFormData,label}) {  
   const productinfo = data
+
+const handleMaterialSelect = (materialId) => {
+  setFormData({ ...formData, materialID: materialId });
+};
+const handleGemstoneSelect = (gemstoneId) => {
+  setFormData({ ...formData, gemstoneID: gemstoneId });
+};
 
   return (
     <Card
@@ -39,14 +46,27 @@ export default function FormComponent({data,label}) {
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Name
                     </label>
+                    {ListMaterial ? (
+                      <SelectDefault
+                      label="Material"
+                      ListMaterial={ListMaterial}
+                      defaultValue={""}
+                      onSelectMaterial={handleMaterialSelect}
+                    />
+                    ): (
                     <input
                       type="text"
                       value={productinfo?.materialID?.name}
+                      onChange={handleInputChange}
                       class="dark:shadow-sm-light block w-4/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                       placeholder="Ex : abcxyz"
                       required
-                    />
+                    />)
+}
                   </div>
+
+                  {label === "ProductDetail" ?
+                  <>
                   <div className="mt-5 block items-center first:mt-0 sm:flex">
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Weight
@@ -63,8 +83,20 @@ export default function FormComponent({data,label}) {
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Size
                     </label>
-                    <SelectDefault defaultValue={productinfo?.materialID} label={label}/>
+                    <div className="flex">
+                  <input
+                    type="text"
+                    value={productinfo?.materialID?.size}
+                    className="dark:shadow-sm-light w-1.5/6 block rounded-sm border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    placeholder="0.1mm"
+                    required
+                  />
+                 
+                </div>
                   </div>
+                  </>
+                : ("")  
+                }
                 </div>
               </div>
             </div>
@@ -93,6 +125,14 @@ export default function FormComponent({data,label}) {
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Name
                     </label>
+                    {ListGemstone ? (
+                      <SelectDefault
+                      label="Gemstone"
+                      ListGemstone={ListGemstone}
+                      defaultValue={""}
+                      onSelectGemstone={handleGemstoneSelect}
+                    />
+                    ):
                     <input
                       type="text"
                       value={productinfo?.gemstoneID?.name}
@@ -100,7 +140,10 @@ export default function FormComponent({data,label}) {
                       placeholder="Ex : abcxyz"
                       required
                     />
+                  }
                   </div>
+                  {label === "ProductDetail" ?
+                  <>
                   <div className="mt-5 block items-center first:mt-0 sm:flex">
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Weight
@@ -130,6 +173,9 @@ export default function FormComponent({data,label}) {
                   </div>
                 </div>
                   </div>
+                  </>
+: ("")
+}
                 </div>
               </div>
             </div>

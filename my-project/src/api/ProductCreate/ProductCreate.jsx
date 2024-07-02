@@ -7,44 +7,24 @@ export const useProductCreateApi = () => {
   const token = useAuth();
   const navigate = useNavigate();
 
-  const create = async (
-    name,
-    image,
-    size,
-    weight,
-    description,
-    price,
-    color,
-    materialID,
-    gemstoneID,
-    productTypeID,
-    quantity,
-    label
-  ) => {
-    
-    const param = {
-      name,
-      image,
-      size,
-      weight,
-      description,
-      price,
-      color,
-      materialID,
-      gemstoneID,
-      productTypeID,
-      quantity,
+  const create = async (formData, label) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data", // Ensure the correct content type
     };
-    console.log(param);
-    const headers = { Authorization: `Bearer ${token}` };
+
+    // Log FormData entries before sending the request
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
 
     try {
       const endpoint = "products";
       if (endpoint) {
-        const response = await axios.post(endpoint, param, { headers });
+        const response = await axios.post(endpoint, formData, { headers });
         if (response?.data?.success) {
           toast.success(`Create ${label} Successfully`);
-          navigate("/admin/data-tables/");
+          navigate("/admin/nft-marketplace/");
         } else {
           toast.error(response.data.message);
         }
@@ -53,8 +33,8 @@ export const useProductCreateApi = () => {
         console.error("Invalid label provided");
       }
     } catch (error) {
-      toast.error(`Failed to create ${label.toLowerCase()}`);
-      console.error(`Failed to create ${label.toLowerCase()}`, error);
+      toast.error(`Failed to create ${label?.toLowerCase()}`);
+      console.error(`Failed to create ${label?.toLowerCase()}`, error);
     }
   };
 

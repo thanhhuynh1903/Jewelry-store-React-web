@@ -8,8 +8,14 @@ import { Button } from "@material-tailwind/react";
 import { MdFileUpload } from "react-icons/md";
 import { useProductCreateApi } from "api/ProductCreate/ProductCreate";
 import { FaChevronDown } from "react-icons/fa";
+import { useProducTypeApi } from "views/admin/tables/components/ProductTypeApi/useProductTypeApi";
+import { useGemstoneApi } from "views/admin/tables/components/GemstoneApi/useGemstoneApi";
+import { useMaterialApi } from "views/admin/tables/components/MaterialApi/useMaterialApi";
 
 export default function CreateProduct({ label }) {
+  const ListType = useProducTypeApi();
+  const ListMaterial = useMaterialApi();
+  const ListGemstone = useGemstoneApi();
   const create = useProductCreateApi();
   const [formData, setFormData] = useState({
     name: "",
@@ -25,15 +31,30 @@ export default function CreateProduct({ label }) {
     description: "",
   });
 
+  const [imagePreviews, setImagePreviews] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = new FormData();
     for (const key in formData) {
-      form.append(key, formData[key]);
+      if (key === "images") {
+        formData[key].forEach((file, index) => {
+          form.append("images", file); // Correctly appending image files
+          console.log(`Appending file: ${file.name}`);
+        });
+      } else {
+        form.append(key, formData[key]);
+      }
     }
-    create(form);
-  };
 
+    // Log FormData entries
+    for (const pair of form.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    create(form, label);
+  };
+console.log(formData);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -42,6 +63,9 @@ export default function CreateProduct({ label }) {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     setFormData({ ...formData, images: files });
+
+    const previews = files.map(file => URL.createObjectURL(file));
+    setImagePreviews(previews);
   };
 
   const button = [
@@ -67,23 +91,49 @@ export default function CreateProduct({ label }) {
                     PNG, JPG and GIF files are allowed
                   </p>
                   <input
-                     type="file"
-                     multiple
+                    type="file"
+                    multiple
                     className="hidden"
                     onChange={handleImageChange}
+                    required
                   />
                 </label>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {imagePreviews.map((src, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={src}
+                      alt={`preview ${index}`}
+                      className="h-32 w-32 object-cover"
+                    />
+                  </div>
+                ))}
               </div>
             </Card>
           </div>
           <div className="z-0 col-span-9 lg:!mb-0">
-            <FormProductInfo formData={formData} handleInputChange={handleInputChange} />
+            <FormProductInfo
+              ListType={ListType}
+              formData={formData}
+              handleInputChange={handleInputChange}
+              setFormData={setFormData}
+            />
           </div>
           <div className="z-0 col-span-12 lg:!mb-0">
-            <FormProductDes formData={formData} handleInputChange={handleInputChange} />
+            <FormProductDes
+              formData={formData}
+              handleInputChange={handleInputChange}
+            />
           </div>
           <div className="z-0 col-span-12 lg:!mb-0">
-            <FormComponent formData={formData} handleInputChange={handleInputChange} />
+            <FormComponent
+              formData={formData}
+              handleInputChange={handleInputChange}
+              ListMaterial={ListMaterial}
+              ListGemstone={ListGemstone}
+              setFormData={setFormData}
+            />
           </div>
           <div className="z-0 col-span-12 lg:!mb-0">
             <Card
@@ -91,34 +141,37 @@ export default function CreateProduct({ label }) {
             >
               <div className="border-slate-200/60 rounded-md rounded-[10px] border border p-5 p-5">
                 <div className="border-slate-200/60 flex w-full border-b-4 p-5 text-center">
-                <div className="my-auto">
-            <FaChevronDown />
-          </div>
+                  <div className="my-auto">
+                    <FaChevronDown />
+                  </div>
                   <div className="pl-2">Product Description</div>
                 </div>
                 <div className="mt-5">
-                  <div class="mb-5">
-                    <div className="mt-3 flex w-full w-full  flex-col gap-10 lg:grid lg:grid-cols-12">
+                  <div className="mb-5">
+                    <div className="mt-3 flex w-full flex-col gap-10 lg:grid lg:grid-cols-12">
                       <div className="z-0 col-span-4 lg:!mb-0">
                         <div className="flex items-center">
-                          <label class="mb-1 block text-center text-sm font-medium text-gray-900 dark:text-white">
+                          <label className="mb-1 block text-center text-sm font-medium text-gray-900 dark:text-white">
                             Description
                           </label>
-                          <div className="bg-slate-200 ml-2 rounded-md border bg-gray-200 px-2 py-0.5	 text-xs text-gray-600">
+                          <div className="bg-slate-200 ml-2 rounded-md border bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
                             Required
                           </div>
                         </div>
                         <p className="mt-3 text-xs leading-relaxed text-gray-700">
-                          Description that describe your product more detail and
-                          clearly to make the user understand about your product
+                          Description that describes your product in more detail
+                          and clearly to make the user understand your product.
                         </p>
                       </div>
                       <div className="z-0 col-span-8 lg:!mb-0">
                         <div className="dark:bg-darkmode-900 dark:border-darkmode-400/20 rounded-md border bg-gray-200 p-5 dark:text-gray-700">
                           <div className="mt-5 block items-center first:mt-0 sm:flex">
-                            <textarea className="h-full w-full p-2"  name="description"
+                            <textarea
+                              className="h-full w-full p-2"
+                              name="description"
                               value={formData?.description}
-                              onChange={handleInputChange}></textarea>
+                              onChange={handleInputChange}
+                            ></textarea>
                           </div>
                         </div>
                       </div>
@@ -132,11 +185,12 @@ export default function CreateProduct({ label }) {
         <div className="float-right mt-3 flex flex-wrap justify-end gap-4 text-right">
           {button.map((item, index) => (
             <Button
+              type="submit"
               key={index}
               className={
                 item.name === "Submit"
                   ? "w-auto"
-                  : "inline-gray-400 w-auto bg-white text-gray-400 outline "
+                  : "inline-gray-400 w-auto bg-white text-gray-400 outline"
               }
             >
               {item.name}
