@@ -1,3 +1,3 @@
 export default function useAuth() {
-    return localStorage.getItem("token") || "";
+    return localStorage.getItem("accessToken") || "";
   }

@@ -12,7 +12,7 @@ import Progress from "components/progress";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import ButtonAction from "components/atom/ButtonDelete/ButtonAction";
 import { Link } from "react-router-dom";
-const ComplexTable = (props) => {
+const ComplexTableCustomer = (props) => {
   const { columnsData, tableData, handleDelete } = props;
   const { name, index } = props;
   const columns = useMemo(() => columnsData, [columnsData]);
@@ -44,10 +44,10 @@ const ComplexTable = (props) => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        <div className="center flex items-center justify-center">
+        {/* <div className="center flex items-center justify-center">
           <ButtonCreate name={name} />
           
-        </div>
+        </div> */}
       </header>
 
       <div class="mt-8 h-full overflow-x-scroll xl:overflow-hidden">
@@ -87,7 +87,7 @@ const ComplexTable = (props) => {
                        
                       );
                      
-                    } else if (cell.column.Header === "CATEGORY") {
+                    } else if (cell.column.Header === "PHONE") {
                       data = (
                         <div className="flex items-center gap-2">
                           <div className={`rounded-full text-xl`}>
@@ -104,14 +104,21 @@ const ComplexTable = (props) => {
                           </p>
                         </div>
                       );
-                    } else if (cell.column.Header === "DESCRIPTION") {
+                    } else if (cell.column.Header === "ADDRESS") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell?.value?.split("T")[0]}
+                          {cell?.value}
                         </p>
                       );
-                    } else if (cell.column.Header === "ACTION") {
-                      data = <ButtonAction label={name} id={row.original._id} />;
+                    } else if (cell.column.Header === "INVOICE") {
+                      data = (
+                       
+                          <p className="text-sm font-bold text-navy-700 dark:text-white">
+                            {" "}
+                            {cell?.row?.original?.orders?.length}{" "}
+                          </p>
+                    
+                      );
                     }
                     return (
                       <td
@@ -133,4 +140,4 @@ const ComplexTable = (props) => {
   );
 };
 
-export default ComplexTable;
+export default ComplexTableCustomer;

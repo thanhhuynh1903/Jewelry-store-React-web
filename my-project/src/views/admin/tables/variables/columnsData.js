@@ -55,6 +55,71 @@ export const columnsDataGemstone = [
   },
 ];
 
+export const columnsDataOrder =  [
+  {
+    Header: "CODE ORDER",
+    accessor: "orders._id",
+  },
+  {
+    Header: "PRICE",
+    accessor: "totalPrice",
+  },
+  {
+    Header: "CUSTOMER",
+    accessor: "customerID.name",
+  },
+  {
+    Header: "PAYMENT",
+    accessor: "payment",
+  },
+  {
+    Header: "STORE",
+    accessor: "STOREID",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
+  },
+];
+
+export const columnsDataStore =  [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "PHONE",
+    accessor: "phone",
+  },
+  {
+    Header: "LOCATION",
+    accessor: "location",
+  },
+  {
+    Header: "INVOICE",
+    accessor: "invoice",
+  },
+];
+
+export const columnsDataCustomer =  [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "PHONE",
+    accessor: "phone",
+  },
+  {
+    Header: "ADDRESS",
+    accessor: "address",
+  },
+  {
+    Header: "INVOICE",
+    accessor: "invoice",
+  },
+];
+
 export const columnsDataColumns = [
   {
     Header: "NAME",
@@ -83,12 +148,25 @@ export const columnsDataComplex = [
     Header: "CATEGORY",
     accessor: "categoryID.name",
   },
-  {
-    Header: "DATE",
-    accessor: "categoryID.createdAt",
-  },
+
   {
     Header: "ACTION",
     accessor: "DELETE",
+  },
+];
+
+
+export const columnsDataCategory = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "DESCRIPTION",
+    accessor: "description",
+  },
+  {
+    Header: "ACTION",
+    accessor: "action", // Custom accessor for actions like delete
   },
 ];

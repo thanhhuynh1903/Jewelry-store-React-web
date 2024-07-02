@@ -5,14 +5,20 @@ import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import Create from "components/atom/Create/Create";
-import DataTables from "./views/admin/tables";
+import DataTables from "./views/admin/tables/item";
+import DataTablesOrder from "./views/admin/tables/order";
 import Update from "components/atom/Update/Update";
+import { BsCart2 } from "react-icons/bs";
+import { AiOutlineShopping } from "react-icons/ai";
+import { IoStorefrontOutline } from "react-icons/io5";
+import DataTablesStore from "./views/admin/tables/store";
 // import RTLDefault from "views/rtl/default";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
-
+import { FaRegUser } from "react-icons/fa";
+import DataTableCustomer from "./views/admin/tables/customer";
 // Icon Imports
 import {
   MdHome,
@@ -34,7 +40,7 @@ const routes = [
     name: "Product",
     layout: "/admin",
     path: "nft-marketplace",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
+    icon: <AiOutlineShopping className="h-6 w-6" />,
     component: <NFTMarketplace />,
     secondary: true,
   },
@@ -46,11 +52,32 @@ const routes = [
     component: <PageDetailProduct label={"Detail"}/>,
   },
   {
-    name: "Data Tables",
+    name: "Data Item",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-tables/",
+    path: "data-items/",
     component: <DataTables />,
+  },
+  {
+    name: "Orders",
+    layout: "/admin",
+    icon: <BsCart2 className="h-6 w-6" />,
+    path: "orders/",
+    component: <DataTablesOrder />,
+  },
+  {
+    name: "Customers",
+    layout: "/admin",
+    icon: <FaRegUser className="h-6 w-6" />,
+    path: "customers/",
+    component: <DataTableCustomer />,
+  },
+  {
+    name: "Store managment",
+    layout: "/admin",
+    icon: <IoStorefrontOutline className="h-6 w-6" />,
+    path: "stores/",
+    component: <DataTablesStore />,
   },
 
   {
@@ -84,6 +111,13 @@ const routes = [
   },
   {
     show : "hidden",
+    name: "create category",
+    layout: "/admin",
+    path: "data-tables/category/create",
+    component: <Create label={"Category"}/>,
+  },
+  {
+    show : "hidden",
     name: "update material",
     layout: "/admin",
     path: "data-tables/material/update/:updateId",
@@ -100,8 +134,15 @@ const routes = [
     show : "hidden",
     name: "update type",
     layout: "/admin",
-    path: "data-tables/type/update/:updateId",
+    path: "data-tables/producttype/update/:updateId",
     component: <Update label={"Type"}/>,
+  },
+  {
+    show : "hidden",
+    name: "update type",
+    layout: "/admin",
+    path: "data-tables/category/update/:updateId",
+    component: <Update label={"Category"}/>,
   },
   {
     name: "Profile",

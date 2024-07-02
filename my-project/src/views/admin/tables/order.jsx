@@ -1,4 +1,4 @@
-import CheckTable from "./components/CheckTable";
+import ComplexTableOrder from "./components/ComplexTableOrder";
 
 import {
   columnsDataDevelopment,
@@ -13,32 +13,29 @@ import tableDataComplex from "./variables/tableDataComplex.json";
 import DevelopmentTable from "./components/DevelopmentTable";
 import ColumnsTable from "./components/ColumnsTable";
 import ComplexTable from "./components/ComplexTable";
-
-import { columnsDataGemstone } from "./variables/columnsData";
-import { useGemstoneApi } from "./components/GemstoneApi/useGemstoneApi";
-import { useMaterialApi } from "./components/MaterialApi/useMaterialApi";
-import { useProducTypeApi } from "./components/ProductTypeApi/useProductTypeApi";
+import { columnsDataOrder } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
-
-
+import { useOrderApi } from "./components/OrderApi/useOrderApi";
+import { columnsDataCategory } from "./variables/columnsData";
 const Tables = () => {
-  const GemstoneList = useGemstoneApi();
-  const MaterialList = useMaterialApi();
-  const TypeList = useProducTypeApi();
+  const OrderList = useOrderApi();
+ 
+
   const name = [
-    { name: "Material", data: MaterialList },
-    { name: "Gemstone", data: GemstoneList },
+    { name: "Order", data: OrderList },
+    
   ];
-  const nameType = [{ name: "Type", data: TypeList }];
+  console.log(OrderList);
+  
 
   return (
     <div>
-      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
+      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
         {name.map((data, index) => (
-          <CheckTable
+          <ComplexTableOrder
             name={data.name}
             index={index}
-            columnsData={columnsDataGemstone}
+            columnsData={columnsDataOrder}
             tableData={data.data}
           />
         ))}{" "}
@@ -48,15 +45,15 @@ const Tables = () => {
           columnsData={columnsDataColumns}
           tableData={tableDataColumns} </div>
       />*/}
-      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
+      {/* <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         {nameType.map((data, index) => (
           <ComplexTable
             name={data.name}
-            columnsData={columnsDataComplex}
+            columnsData={data.name === "Type" ? columnsDataComplex : columnsDataCategory}
             tableData={data.data}
           />
         ))}
-      </div>
+      </div> */}
       <ToastContainer autoClose={2000} />
     </div>
   );

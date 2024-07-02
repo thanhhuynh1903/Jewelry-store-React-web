@@ -11,10 +11,21 @@ import {
   IoMdInformationCircleOutline,
 } from "react-icons/io";
 import avatar from "assets/img/avatars/avatar4.png";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "context/LoginProvider";
 
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
+  const { username } = useContext(LoginContext); // Get username from context
+
   const [darkmode, setDarkmode] = React.useState(false);
+const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    navigate('/auth/');
+  };
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
@@ -189,7 +200,7 @@ const Navbar = (props) => {
               <div className="p-4">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Hey, Adela
+                    👋 Hey, {username}
                   </p>{" "}
                 </div>
               </div>
@@ -209,7 +220,7 @@ const Navbar = (props) => {
                   Newsletter Settings
                 </a>
                 <a
-                  href=" "
+                onClick={handleLogout}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
                 >
                   Log Out

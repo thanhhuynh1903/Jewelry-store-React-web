@@ -12,7 +12,7 @@ import Progress from "components/progress";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import ButtonAction from "components/atom/ButtonDelete/ButtonAction";
 import { Link } from "react-router-dom";
-const ComplexTable = (props) => {
+const ComplexTableOrder = (props) => {
   const { columnsData, tableData, handleDelete } = props;
   const { name, index } = props;
   const columns = useMemo(() => columnsData, [columnsData]);
@@ -46,7 +46,6 @@ const ComplexTable = (props) => {
         </div>
         <div className="center flex items-center justify-center">
           <ButtonCreate name={name} />
-          
         </div>
       </header>
 
@@ -78,16 +77,12 @@ const ComplexTable = (props) => {
                   {row.cells.map((cell, index) => {
                     let data = "";
                     if (cell.column.Header === "NAME") {
-                     
                       data = (
-                         
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell.value}
                         </p>
-                       
                       );
-                     
-                    } else if (cell.column.Header === "CATEGORY") {
+                    } else if (cell.column.Header === "PRICE") {
                       data = (
                         <div className="flex items-center gap-2">
                           <div className={`rounded-full text-xl`}>
@@ -110,8 +105,17 @@ const ComplexTable = (props) => {
                           {cell?.value?.split("T")[0]}
                         </p>
                       );
+                    }
+                    if (cell.column.Header === "STATUS") {
+                      data = (
+                        <p className="text-sm font-bold text-navy-700 dark:text-white">
+                          {cell.value}
+                        </p>
+                      );
                     } else if (cell.column.Header === "ACTION") {
-                      data = <ButtonAction label={name} id={row.original._id} />;
+                      data = (
+                        <ButtonAction label={name} id={row.original._id} />
+                      );
                     }
                     return (
                       <td
@@ -133,4 +137,4 @@ const ComplexTable = (props) => {
   );
 };
 
-export default ComplexTable;
+export default ComplexTableOrder;
