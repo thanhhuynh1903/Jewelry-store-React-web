@@ -55,7 +55,7 @@ const routes = [
     name: "Data Item",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-items/",
+    path: "data-tables/",
     component: <DataTables />,
   },
   {
