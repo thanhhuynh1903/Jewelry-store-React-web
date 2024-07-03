@@ -10,6 +10,7 @@ export default function FormProductInfo({
   ListCate,
   ListType,
   setFormData,
+  edit
 }) {
   const productinfo = data;
 
@@ -56,6 +57,7 @@ export default function FormProductInfo({
                   className="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Ex : abcxyz"
                   required
+               
                 />
               </div>
             </div>
@@ -81,6 +83,7 @@ export default function FormProductInfo({
                   className="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Ex : 123456"
                   required
+                 
                 />
               </div>
             </div>
@@ -100,12 +103,13 @@ export default function FormProductInfo({
                   You can add a new subcategory or choose from the existing subcategory list.
                 </p>
               </div>
-              <div className="col-span-8 lg:!mb-0">
+              <div className="col-span-8 lg:!mb-0" >
                 <SelectDefault
                   label="Type"
                   ListType={ListType}
                   defaultValue={productinfo?.productTypeID}
                   onSelectType={handleTypeSelect}
+                  edit={edit}
                 />
               </div>
             </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Card from "components/card";
 import { FaChevronDown } from "react-icons/fa";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
-export default function FormComponent({data,formData,ListMaterial,ListGemstone,handleInputChange,setFormData,label}) {  
+export default function FormComponent({data,formData,ListMaterial,ListGemstone,handleInputChange,edit,setFormData,label}) {  
   const productinfo = data
 
 const handleMaterialSelect = (materialId) => {

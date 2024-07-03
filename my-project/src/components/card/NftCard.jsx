@@ -2,10 +2,12 @@ import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useState } from "react";
 import Card from "components/card";
 import BackButton from "components/atom/BackButton/BackButton";
+import { GoTrash } from "react-icons/go";
+
 import { Link } from "react-router-dom";
-const NftCard = ({productId,index, name, materialID,gemstoneID ,price, imageLink, extra }) => {
+const NftCard = ({productId,index, name, materialID,gemstoneID ,price, imageLink, extra,handleDelete  }) => {
   const [heart, setHeart] = useState(true);
-console.log(imageLink[0]?.imageLink);
+
   return (
     <Card
     key={index}
@@ -72,6 +74,7 @@ console.log(imageLink[0]?.imageLink);
               Current price: {price}
             </p>
           </div>
+          <div className="flex w-full justify-between">
           <Link to={`/admin/nft-marketplace/${productId}`}>
           <button
             className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
@@ -79,6 +82,14 @@ console.log(imageLink[0]?.imageLink);
             View Detail
           </button>
           </Link>
+          <button
+           className="py-2 px-3 border-2 border-red-300 rounded-full bg-red-400 text-red-700"
+           onClick={() => handleDelete(productId)}
+
+          >
+            <GoTrash/>
+          </button>
+          </div>
         </div>
       </div>
     </Card>

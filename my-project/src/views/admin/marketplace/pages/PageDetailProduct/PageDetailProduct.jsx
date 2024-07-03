@@ -9,14 +9,18 @@ import { MdFileUpload } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import axios from "api/axios";
 import useAuth from "hook/useAuth";
+import Description from "components/atom/Description/Description";
+import { FaRegEdit } from "react-icons/fa";
 
 export default function PageDetailProduct({ label }) {
   const token = useAuth();
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   const { productId } = useParams();
   const [List, setList] = useState();
   const [hover, setHover] = useState(false);
-
+  const [edit, setEdit] = useState(false);
   const fetchApi = async () => {
     try {
       const response = await axios.get(`products/${productId}`, { headers });
@@ -28,26 +32,33 @@ export default function PageDetailProduct({ label }) {
     }
   };
 
+    const handleEdit = (e) =>{
+      setEdit(!edit)
+    }
+
   useEffect(() => {
     fetchApi();
   }, []);
 
   const button = [
-    { name: "Submit" },
-    { name: "Submit & Add more product" },
-    { name: "Cancel" },
+    { name: "Update" },
+    { name: "Cancel", handle : handleEdit },
   ];
-
+console.log(edit);
   return (
     <div className="flex w-full flex-col gap-5">
+      <div className="flex justify-between">
       <BackButton extra={`mt-2 ml-2`} />
+      <FaRegEdit type="submit" className="text-gray-600 text-2xl mt-3 cursor-pointer"  onClick={handleEdit}/>
+      </div>
       <div className="mt-3 flex w-full w-full flex-col gap-5 lg:grid lg:grid-cols-9">
-        <div className="z-0 col-span-3 h-full lg:!mb-0">
+        <div className="z-0 col-span-3 h-full lg:!mb-0" disabled>
           <Card extra={"h-full p-4"}>
             <div
               className="col-span-5 h-full w-full rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6 relative"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
+              
+              onMouseEnter={edit ? () => setHover(true) : undefined}
+              onMouseLeave={edit ? () => setHover(false) : undefined}
             >
               <button className="flex h-full w-full flex-col items-center rounded-xl border-[2px] border-dashed border-gray-200 dark:!border-navy-700 lg:pb-0 relative">
                 <img
@@ -88,15 +99,35 @@ export default function PageDetailProduct({ label }) {
           </Card>
         </div>
         <div className="z-0 col-span-9 lg:!mb-0">
-          <FormProductInfo data={List} />
+          <FormProductInfo data={List} edit={edit}/>
         </div>
         <div className="z-0 col-span-12 lg:!mb-0">
-          <FormProductDes data={List} />
+          <FormProductDes data={List} edit={edit}/>
         </div>
         <div className="z-0 col-span-12 lg:!mb-0">
-          <FormComponent data={List} label={"ProductDetail"} />
+          <FormComponent data={List} label={"ProductDetail"} edit={edit}/>
+        </div>
+        <div className="z-0 col-span-12 lg:!mb-0">
+            <Description data={List} edit={edit}/>
         </div>
       </div>
+      {edit &&
+      <div className="float-right mt-3 flex flex-wrap justify-end gap-4 text-right">
+          {button.map((item, index) => (
+            <Button
+              type="submit"
+              key={index}
+              className={
+                item.name === "Update"
+                  ? "w-auto"
+                  : "inline-gray-400 w-auto bg-white text-gray-400 outline"
+              }
+              onClick={item.handle}
+            >
+              {item.name}
+            </Button>
+          ))}
+        </div>}
     </div>
   );
 }

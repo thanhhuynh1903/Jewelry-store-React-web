@@ -2,7 +2,7 @@ import React from "react";
 import Card from "components/card";
 import { FaChevronDown } from "react-icons/fa";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
-export default function FormProductDes({ data, formData, handleInputChange }) {
+export default function FormProductDes({ data, formData, handleInputChange,edit }) {
   const productinfo = data;
   return (
     <Card
@@ -43,6 +43,7 @@ export default function FormProductDes({ data, formData, handleInputChange }) {
                     className="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     placeholder="123456789"
                     required
+                   
                   />
                 </div>
               </div>
@@ -70,6 +71,7 @@ export default function FormProductDes({ data, formData, handleInputChange }) {
                     className="dark:shadow-sm-light w-1.5/6 block rounded-sm border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     placeholder="123456789"
                     required
+                   
                   />
                   <div className="border-slate-200 dark:bg-darkmode-900/20 dark:border-darkmode-900/20 dark:text-slate-400 [&:not(:first-child)]:border-l-transparent rounded-none border bg-gray-300 py-2 px-3 text-gray-700 shadow-sm first:rounded-l last:rounded-r">
                     mm
@@ -100,6 +102,7 @@ export default function FormProductDes({ data, formData, handleInputChange }) {
                     className="dark:shadow-sm-light w-1.5/6 block rounded-sm border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     placeholder="123456789"
                     required
+                  
                   />
                 </div>
               </div>
@@ -134,6 +137,7 @@ export default function FormProductDes({ data, formData, handleInputChange }) {
                     className="dark:shadow-sm-light block w-1/3 rounded-sm border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     placeholder="123456789"
                     required
+                 
                   />
                 </div>
               </div>
