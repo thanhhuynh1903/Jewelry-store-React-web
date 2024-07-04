@@ -68,18 +68,21 @@ const ComplexTableOrder = (props) => {
               </tr>
             ))}
           </thead>
+          {console.log(page)}
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
               const rowId = row.original._id;
               prepareRow(row);
+              console.log(row);
               return (
                 <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {
                     let data = "";
-                    if (cell.column.Header === "NAME") {
+                    
+                    if (cell.column.Header === "Id") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell.value}
+                          {row.id}
                         </p>
                       );
                     } else if (cell.column.Header === "PRICE") {
@@ -99,10 +102,23 @@ const ComplexTableOrder = (props) => {
                           </p>
                         </div>
                       );
-                    } else if (cell.column.Header === "DESCRIPTION") {
+                    } else if (cell.column.Header === "CUSTOMER") {
                       data = (
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {cell?.value?.split("T")[0]}
+                          {cell?.value}
+                        </p>
+                      );
+                    }else if (cell.column.Header === "NOP") {
+                      data = (
+                        <p className="text-sm font-bold text-navy-700 dark:text-white">
+                          {cell?.value}
+                        </p>
+                      );
+                    }
+                    else if (cell.column.Header === "STORE") {
+                      data = (
+                        <p className="text-sm font-bold text-navy-700 dark:text-white">
+                          {cell?.value}
                         </p>
                       );
                     }

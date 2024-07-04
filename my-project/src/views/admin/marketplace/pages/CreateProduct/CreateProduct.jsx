@@ -25,10 +25,11 @@ export default function CreateProduct({ label }) {
     price: "",
     size: "",
     quantity: "",
-    materialID: "",
     gemstoneID: "",
     productTypeID: "",
+    materialWeight:"",
     description: "",
+    materialID: "",
   });
 
   const [imagePreviews, setImagePreviews] = useState([]);

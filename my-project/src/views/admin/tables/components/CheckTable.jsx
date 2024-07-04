@@ -110,6 +110,7 @@ const CheckTable = (props) => {
                 <tr {...row.getRowProps()} key={rowId}>
                   {row.cells.map((cell, index) => {
                     let data = "";
+                    console.log(cell);
                     if (cell.column.Header === "NAME") {
                       data = (
                         <div className="flex items-center gap-2">
@@ -127,7 +128,7 @@ const CheckTable = (props) => {
                           </Link>
                         </div>
                       );
-                    } else if (cell.column.Header === "WEIGHT") {
+                    } else if (cell.column.Header === "PRICE") {
                       data = (
                         <Link
                           to={`${nameLower}/update/${rowId}`}
@@ -147,11 +148,11 @@ const CheckTable = (props) => {
                           </p>
                         </Link>
                       );
-                    } else if (cell.column.Header === "DATE") {
+                    } else if (cell.column.Header === "FEE") {
                       data = (
                         <Link to={`${nameLower}/update/${rowId}`}>
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {cell?.value?.split("T")[0]}
+                            {cell.value}
                           </p>
                         </Link>
                       );

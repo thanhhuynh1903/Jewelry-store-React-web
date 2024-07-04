@@ -7,10 +7,27 @@ export const useCreateApi = () => {
   const token = useAuth();
   const navigate = useNavigate();
 
-  const create = async (name, weight, categoryID, size, label, description) => {
-    const param = { name, weight, categoryID, size, description };
+  const create = async (
+    name,
+    weight,
+    phone,
+    location,
+    categoryID,
+    size,
+    label,
+    description
+  ) => {
+    const param = {
+      name,
+      weight,
+      phone,
+      location,
+      categoryID,
+      size,
+      description,
+    };
     const headers = { Authorization: `Bearer ${token}` };
-
+console.log(param);
     try {
       const endpoint =
         label === "Material"
@@ -21,12 +38,18 @@ export const useCreateApi = () => {
           ? "category"
           : label === "Type"
           ? "producttype"
+          : label === "stores"
+          ? "stores"
           : "";
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response?.data?.success) {
           toast.success(`Create ${label} Successfully`);
-          navigate("/admin/data-tables/");
+          if(label === "stores"){
+            navigate("/admin/store/");
+          }else{
+            navigate("/admin/data-tables/");
+          }
         } else {
           toast.error(response.data.message);
         }

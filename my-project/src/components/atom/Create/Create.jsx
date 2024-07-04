@@ -13,6 +13,8 @@ export default function Create({ label }) {
   const [size, setSize] = useState("");
   const [categoryID, setCategoriesValue] = useState(""); // State to hold selected category ID
   const [description, setDescription] = useState("");
+  const [phone , setPhone] = useState("");
+  const [location , setLocation] = useState("");
   const create = useCreateApi();
   const showListCate = useCategoryApi();
   
@@ -22,7 +24,7 @@ export default function Create({ label }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    create(name, weight, categoryID, size, label, description);
+    create(name, weight,phone,location, categoryID, size, label, description);
   };
 
   return (
@@ -60,7 +62,7 @@ export default function Create({ label }) {
                 <>
                   <div className="-mb-3 flex items-center">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
-                      {label === "Type" ? "Category" : "Weight"}
+                      {label === "Type" ? "Category" : label === "stores" ? "Phone" : "Weight"}
                     </Typography>
                     <Typography variant="h6" color="red">
                       *
@@ -76,7 +78,7 @@ export default function Create({ label }) {
                       labelProps={{
                         className: "before:content-none after:content-none",
                       }}
-                      onChange={(e) => setWeight(e.target.value)}
+                       onChange={label === "stores" ? (e) => setPhone(e.target.value) : (e) => setWeight(e.target.value)}
                     />
                   )}
                 </>
@@ -96,7 +98,7 @@ export default function Create({ label }) {
                 <Typography variant="h6" color="blue-gray" className="mr-1">
                   {label === "Type" || label === "Category"
                     ? "Description"
-                    : "Size"}
+                    : label === "stores" ? "Location" :"Size"}
                 </Typography>
                 <Typography variant="h6" color="red">
                   *
@@ -117,7 +119,7 @@ export default function Create({ label }) {
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
-                  onChange={(e) => setSize(e.target.value)}
+                  onChange={label === "stores" ? (e) => setLocation(e.target.value) : (e) => setSize(e.target.value)}
                 />
               )}
               <button

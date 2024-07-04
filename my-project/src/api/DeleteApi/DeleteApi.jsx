@@ -10,7 +10,7 @@ const useDeleteData = () => {
   // var refreshList = useMaterialApi();
   const navigate = useNavigate();
   const deleteData = useCallback(
-    async (selectedRow, endpoint) => {
+    async (selectedRow, endpoint, label) => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
@@ -25,17 +25,21 @@ const useDeleteData = () => {
         const allSuccess = response.every((res) => res?.data?.success);
         console.log(allSuccess);
         if (allSuccess) {
-          navigate('/admin/data-tables/')
+          if (label === "stores") {
+            navigate("/admin/stores/");
+          } else {
+            navigate("/admin/data-tables/");
+          }
           return toast.success("Delete successfully");
-        }else{
-          return toast.error("Material không tồn tại!")
+        } else {
+          return toast.error(`Delete Failed`);
         }
       } catch (error) {
         console.error("Failed to delete selected rows", error);
         return { success: false, error };
       }
     },
-    [token,navigate]
+    [token, navigate]
   );
 
   return deleteData;
