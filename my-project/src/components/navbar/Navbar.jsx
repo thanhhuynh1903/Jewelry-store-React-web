@@ -5,9 +5,10 @@ import { FiMenu } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 import { MdOutlineNotificationsActive } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 import clsx from "clsx";
-import avatar from '../../assets/img/avatars/avatar3.png'
+import avatar from "../../assets/img/avatars/avatar3.png";
 
 export default function Navbar() {
   const [isSideMenuOpen, setMenu] = useState(false);
@@ -15,22 +16,19 @@ export default function Navbar() {
   const navlinks = [
     {
       labe: "Collections",
-      link: "#"
+      link: "#",
     },
     {
       labe: "Gemstone",
-      link: "#"
+      link: "#",
     },
-    {
-      labe: "About",
-      link: "#"
-    },
-    {
-      labe: "Contact",
-      link: "#"
-    }
   ];
-
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/auth/");
+  };
   return (
     <main>
       <nav className="flex items-center justify-between px-8 py-6 ">
@@ -42,14 +40,14 @@ export default function Navbar() {
               className="text-3xl cursor-pointer lg:hidden"
             />
             {/* logo */}
-            <Link href={"/"} className="font-mono text-4xl text-bloom">
-              Alumina Store
+            <Link to={"/home"} className="font-mono text-4xl text-bloom">
+              Alumina
             </Link>
           </section>
           {navlinks.map((d, i) => (
             <Link
               key={i}
-              className="hidden lg:block hover:text-black text-hemp"
+              className="hidden hover:text-black text-hemp lg:block"
               href={d.link}
             >
               {d.labe}
@@ -60,7 +58,7 @@ export default function Navbar() {
         {/* sidebar mobile menu */}
         <div
           className={clsx(
-            " fixed h-full w-screen lg:hidden bg-black/50  backdrop-blur-sm top-0 right-0  -translate-x-full  transition-all ",
+            " bg-black/50 fixed top-0 right-0 h-full  w-screen -translate-x-full backdrop-blur-sm  transition-all  lg:hidden ",
             isSideMenuOpen && "translate-x-0"
           )}
         >
@@ -78,10 +76,11 @@ export default function Navbar() {
           </section>
         </div>
 
-        
         <div className="flex items-center">
-          <AiOutlineShoppingCart className="mr-8 text-2xl cursor-pointer" />
-          <MdOutlineNotificationsActive className="mr-8 text-2xl cursor-pointer"/>
+          <Link to="/cart">
+            <AiOutlineShoppingCart className="mr-8 text-2xl cursor-pointer" />
+          </Link>
+          <MdOutlineNotificationsActive className="mr-8 text-2xl cursor-pointer" />
           <Dropdown
             button={
               <img
@@ -103,19 +102,7 @@ export default function Navbar() {
 
                 <div className="flex flex-col p-4">
                   <a
-                    href=" "
-                    className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                  >
-                    Profile Settings
-                  </a>
-                  <a
-                    href=" "
-                    className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                  >
-                    Newsletter Settings
-                  </a>
-                  <a
-                    href=" "
+                    onClick={handleLogout}
                     className="mt-3 text-sm font-medium text-red-500 transition duration-150 ease-out hover:text-red-500 hover:ease-in"
                   >
                     Log Out

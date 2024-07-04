@@ -8,6 +8,7 @@ import HasAuth from "hook/HasAuth";
 import GoogleCallback from "hook/GoogleCallback";
 import Home from "../src/components/homepage/Home";
 import ProductDetail from "components/products/ProductDetail";
+import Cart from "components/cart/Cart";
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -19,9 +20,10 @@ const App = () => {
       <Route element={<HasAuth />}>
         <Route path="admin/*" element={<AdminLayout />} />
         <Route path="rtl/*" element={<RtlLayout />} />
+        <Route path="home/*" element={<Home/>} />
       </Route>
-      <Route path="/home" element={<Home/>} />
-      <Route path="/product/:_id" element={<ProductDetail />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/cart" element={<Cart />} />
     </Routes>
   );
 };

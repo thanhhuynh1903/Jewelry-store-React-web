@@ -49,26 +49,26 @@ const Products = () => {
         </div>
         <div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
-          {ListProduct.map((list, index) => (
+          {ListProduct.map((product, index) => (
               <div
                 data-aos="fade-up"
                 data-aos-delay={index * 200}
                 className="mb-5 space-y-3 transition-transform duration-300 transform cursor-pointer hover:scale-105"
-                onClick={() => handleProductClick(list._id)}
+                onClick={() => handleProductClick(product._id)}
               >
                 <div className="h-[260px] w-[260px] overflow-hidden rounded-md">
                   <img
-                    src={getRandomImageLink(list?.imageIDs)}
-                    alt={list.name}
+                    src={getRandomImageLink(product?.imageIDs)}
+                    alt={product.name}
                     className="object-cover w-full h-full"
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-bloom">{list.name}</h3>
-                  <p className="text-sm text-hemp">Price: {list.price}</p>
-                  <p className="text-sm text-hemp">Color: {list.color}</p>
-                  <p className="text-sm text-hemp">Material: {list.materialID?.name}</p>
-                  <p className="text-sm text-hemp">Gemstone: {list.gemstoneID?.name}</p>
+                  <h3 className="font-semibold text-bloom">{product.name}</h3>
+                  <p className="text-sm text-hemp">Price: {product.price}</p>
+                  <p className="text-sm text-hemp">Color: {product.color}</p>
+                  <p className="text-sm text-hemp">Material: {product.materialID?.name}</p>
+                  <p className="text-sm text-hemp">Gemstone: {product.gemstoneID?.name}</p>
                 </div>
               </div>
             ))}
