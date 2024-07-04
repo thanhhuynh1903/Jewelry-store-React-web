@@ -20,14 +20,10 @@ import { columnsDataCategory } from "./variables/columnsData";
 const Tables = () => {
   const StoreList = useStoreApi();
  
-
   const name = [
-    { name: "Store", data: StoreList },
-    
-  ];
-  console.log(StoreList);
+    { name: "Stores", data: StoreList },    
+  ]
   
-
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">

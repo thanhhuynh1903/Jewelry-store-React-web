@@ -1,21 +1,29 @@
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useState } from "react";
 import Card from "components/card";
-import BackButton from "components/atom/BackButton/BackButton";
+import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
-const NftCard = ({productId,index, name, materialID,gemstoneID ,price, imageLink, extra }) => {
+
+const NftCard = ({ productId, index, name, materialID, gemstoneID, price, imageLink, extra, handleDelete }) => {
   const [heart, setHeart] = useState(true);
-console.log(imageLink[0]?.imageLink);
+
+  const truncateName = (str, num) => {
+    if (str.length <= num) {
+      return str;
+    }
+    return str.slice(0, num) + '...';
+  };
+
   return (
     <Card
-    key={index}
+      key={index}
       extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white ${extra}`}
     >
       <div className="w-full h-full">
         <div className="relative w-full">
           <img
             src={imageLink[0]?.imageLink}
-            className="mb-3 h-[201.863px] w-[212.488px] rounded-xl 3xl:h-full 3xl:w-full"
+            className="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full"
             alt=""
           />
           <button
@@ -35,35 +43,16 @@ console.log(imageLink[0]?.imageLink);
         <div className="flex items-center justify-between px-1 mb-3 md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col xl:items-start 3xl:flex-row 3xl:justify-between">
           <div className="mb-2">
             <p className="text-lg font-bold text-navy-700 dark:text-white">
-              {" "}
-              {name}{" "}
+              {truncateName(name, 30)}
             </p>
             
             <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-              Material : {materialID?.name}{" "}
+              Material : {materialID?.name}
             </p>
             <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-              Gemstone : {gemstoneID?.name}{" "}
+              Gemstone : {gemstoneID?.name}
             </p>
           </div>
-
-          {/* <div className="flex flex-row-reverse md:mt-2 lg:mt-0">
-            <span className="z-0 ml-px inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#E0E5F2] text-xs text-navy-700 dark:!border-navy-800 dark:bg-gray-800 dark:text-white">
-              +5
-            </span>
-            {bidders.map((avt, key) => (
-              <span
-                key={key}
-                className="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white dark:!border-navy-800"
-              >
-                <img
-                  className="object-cover w-full h-full rounded-full"
-                  src={avt}
-                  alt=""
-                />
-              </span>
-            ))}
-          </div> */}
         </div>
 
         <div className="flex items-center justify-between md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col 2xl:items-start 3xl:flex-row 3xl:items-center 3xl:justify-between">
@@ -72,13 +61,21 @@ console.log(imageLink[0]?.imageLink);
               Current price: {price}
             </p>
           </div>
-          <Link to={`/admin/nft-marketplace/${productId}`}>
-          <button
-            className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
-          >
-            View Detail
-          </button>
-          </Link>
+          <div className="flex w-full justify-between">
+            <Link to={`/admin/nft-marketplace/${productId}`}>
+              <button
+                className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
+              >
+                View Detail
+              </button>
+            </Link>
+            <button
+              className="py-2 px-3 border-2 border-red-300 rounded-full bg-red-400 text-red-700"
+              onClick={() => handleDelete(productId)}
+            >
+              <GoTrash />
+            </button>
+          </div>
         </div>
       </div>
     </Card>

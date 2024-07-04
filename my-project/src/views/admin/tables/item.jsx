@@ -13,7 +13,7 @@ import tableDataComplex from "./variables/tableDataComplex.json";
 import DevelopmentTable from "./components/DevelopmentTable";
 import ColumnsTable from "./components/ColumnsTable";
 import ComplexTable from "./components/ComplexTable";
-
+import { columnsDataMaterial } from "./variables/columnsData";
 import { columnsDataGemstone } from "./variables/columnsData";
 import { useGemstoneApi } from "./components/GemstoneApi/useGemstoneApi";
 import { useMaterialApi } from "./components/MaterialApi/useMaterialApi";
@@ -21,6 +21,8 @@ import { useProducTypeApi } from "./components/ProductTypeApi/useProductTypeApi"
 import { ToastContainer } from "react-toastify";
 import { useCategoryApi } from "./components/CategoryApi/useCategoryApi";
 import { columnsDataCategory } from "./variables/columnsData";
+import { useRefresh } from "context/RefreshProvider";
+import { useEffect } from "react";
 const Tables = () => {
   const GemstoneList = useGemstoneApi();
   const MaterialList = useMaterialApi();
@@ -41,7 +43,7 @@ const Tables = () => {
           <CheckTable
             name={data.name}
             index={index}
-            columnsData={columnsDataGemstone}
+            columnsData={data.name === "Gemstone" ? columnsDataGemstone : columnsDataMaterial }
             tableData={data.data}
           />
         ))}{" "}

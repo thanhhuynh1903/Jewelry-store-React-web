@@ -10,35 +10,42 @@ import { ToastContainer } from "react-toastify";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
 import { useCategoryApi } from "views/admin/tables/components/CategoryApi/useCategoryApi";
 
-export default function Update({ label,valueCateSgory }) {
+export default function Update({ label, valueCateSgory }) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
   const [size, setSize] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [categoryID, setCategoriesValue] = useState("");
-
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
   const listCate = useCategoryApi();
   const update = useUpdateApi();
   const { updateId } = useParams();
   const token = useAuth();
   const [itemDetail, setItemDetail] = useState({});
-console.log(category);
+
   const fetchApiId = async () => {
     const endpoint = label === "Type" ? "producttype" : label.toLowerCase();
     const headers = { Authorization: `Bearer ${token}` };
     try {
       const response = await axios.get(`${endpoint}/${updateId}`, { headers });
-      
       if (response.data.success) {
-        const detail = label === "Type" ? response?.data?.productType  :  response?.data?.[label.toLowerCase()];
-        console.log(response.data);
-        setItemDetail(detail);
-        setName(detail.name || "");
-        setWeight(detail.weight || "");
-        setSize(detail.size || "");
-        setDescription(detail.description || "");
-        setCategory(detail.categoryID || "");
+      const detail =
+        label === "Type"
+          ? response?.data?.productType
+          : label === "stores"
+          ? response?.data
+          : response?.data?.[label.toLowerCase()];
+      
+      setItemDetail(detail);
+      setName(detail.name || "");
+      setWeight(detail.weight || "");
+      setSize(detail.size || "");
+      setDescription(detail.description || "");
+      setCategory(detail.categoryID || "");
+      setPhone(detail.phone || "");
+      setLocation(detail.location || "");
       }
     } catch (error) {
       console.error(`Failed to fetch ${label} details`, error);
@@ -49,14 +56,13 @@ console.log(category);
     fetchApiId();
   }, []);
 
-
   const handleCategorySelect = (categoryId) => {
     setCategoriesValue(categoryId); // Update selected category ID
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    update(name, description, categoryID ,weight, size, updateId, label);
+    update(name, description, categoryID, weight, size, updateId, label);
   };
 
   return (
@@ -110,7 +116,12 @@ console.log(category);
                       *
                     </Typography>
                   </div>
-                  <SelectDefault defaultValue={category} ListCate={listCate} onSelectCategory={handleCategorySelect}/>
+                  <SelectDefault
+                    label={"CategoryInType"}
+                    defaultValue={category}
+                    ListCate={listCate}
+                    onSelectCategory={handleCategorySelect}
+                  />
                   <div className="relative mb-3 h-[200px] rounded-md border-2 border-gray-900">
                     <textarea
                       value={description}
@@ -124,7 +135,11 @@ console.log(category);
                 <>
                   <div className="-mb-3 flex items-center">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
-                      {label === "Type" ? "Category" : "Weight"}
+                      {label === "Type"
+                        ? "Category"
+                        : label === "stores"
+                        ? "Phone"
+                        : "Weight"}
                     </Typography>
                     <Typography variant="h6" color="red">
                       *
@@ -137,12 +152,20 @@ console.log(category);
                     labelProps={{
                       className: "before:content-none after:content-none",
                     }}
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
+                    value={label === "stores" ? phone : weight}
+                    onChange={
+                      label === "stores"
+                        ? (e) => setPhone(e.target.value)
+                        : (e) => setWeight(e.target.value)
+                    }
                   />
                   <div className="-mb-3 flex items-center">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
-                      {label === "Type" ? "Description" : "Size"}
+                      {label === "Type"
+                        ? "Description"
+                        : label === "stores"
+                        ? "Location"
+                        : "Size"}
                     </Typography>
                     <Typography variant="h6" color="red">
                       *
@@ -154,8 +177,12 @@ console.log(category);
                     labelProps={{
                       className: "before:content-none after:content-none",
                     }}
-                    value={size}
-                    onChange={(e) => setSize(e.target.value)}
+                    value={label === "stores" ? location : size}
+                    onChange={
+                      label === "stores"
+                        ? (e) => setLocation(e.target.value)
+                        : (e) => setSize(e.target.value)
+                    }
                   />
                 </>
               )}

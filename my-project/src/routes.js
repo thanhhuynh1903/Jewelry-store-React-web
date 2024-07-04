@@ -19,6 +19,7 @@ import SignIn from "views/auth/SignIn";
 import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
 import { FaRegUser } from "react-icons/fa";
 import DataTableCustomer from "./views/admin/tables/customer";
+
 // Icon Imports
 import {
   MdHome,
@@ -55,7 +56,7 @@ const routes = [
     name: "Data Item",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-items/",
+    path: "data-tables/",
     component: <DataTables />,
   },
   {
@@ -73,11 +74,27 @@ const routes = [
     component: <DataTableCustomer />,
   },
   {
-    name: "Store managment",
+    name: "Stores managment",
     layout: "/admin",
     icon: <IoStorefrontOutline className="h-6 w-6" />,
     path: "stores/",
     component: <DataTablesStore />,
+  },
+  {
+    show : "hidden",
+    name: "Add store",
+    layout: "/admin",
+    icon: <IoStorefrontOutline className="h-6 w-6" />,
+    path: "stores/stores/create/",
+    component: <Create label={"stores"} />,
+  },
+  {
+    show : "hidden",
+    name: "Update store",
+    layout: "/admin",
+    icon: <IoStorefrontOutline className="h-6 w-6" />,
+    path: "stores/stores/update/:updateId",
+    component: <Update label={"stores"} />,
   },
 
   {

@@ -42,23 +42,38 @@ export const columnsDataGemstone = [
     accessor: "name",
   },
   {
-    Header: "WEIGHT",
-    accessor: "weight",
+    Header: "PRICE",
+    accessor: "priceOfGem",
   },
   {
     Header: "SIZE",
     accessor: "size",
   },
   {
-    Header: "DATE",
-    accessor: "createdAt",
+    Header: "FEE",
+    accessor: "processingFeeId.feeRate",
+  },
+];
+
+export const columnsDataMaterial = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "PRICE",
+    accessor: "pricePerGram",
+  },
+  {
+    Header: "FEE",
+    accessor: "processingFeeId.feeRate",
   },
 ];
 
 export const columnsDataOrder =  [
   {
-    Header: "CODE ORDER",
-    accessor: "orders._id",
+    Header: "Id",
+    accessor: "_id",
   },
   {
     Header: "PRICE",
@@ -69,12 +84,12 @@ export const columnsDataOrder =  [
     accessor: "customerID.name",
   },
   {
-    Header: "PAYMENT",
-    accessor: "payment",
+    Header: "NOP",
+    accessor: "orderDetails.length",
   },
   {
     Header: "STORE",
-    accessor: "STOREID",
+    accessor: "storeID.location",
   },
   {
     Header: "STATUS",
