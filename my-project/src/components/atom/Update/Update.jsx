@@ -30,14 +30,15 @@ export default function Update({ label, valueCateSgory }) {
     const headers = { Authorization: `Bearer ${token}` };
     try {
       const response = await axios.get(`${endpoint}/${updateId}`, { headers });
-      if (response.data.success) {
+      if (response?.data?.success) {
+        
       const detail =
         label === "Type"
           ? response?.data?.productType
           : label === "stores"
-          ? response?.data
+          ? response?.data?.store
           : response?.data?.[label.toLowerCase()];
-      
+      console.log(label);
       setItemDetail(detail);
       setName(detail.name || "");
       setWeight(detail.weight || "");

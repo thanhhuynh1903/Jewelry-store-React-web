@@ -6,18 +6,42 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
+import Checkbox from "components/checkbox";
+
 import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
 import { useMemo } from "react";
 import Progress from "components/progress";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import ButtonAction from "components/atom/ButtonDelete/ButtonAction";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import useDeleteData from "api/DeleteApi/DeleteApi";
+import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 const ComplexTableOrder = (props) => {
-  const { columnsData, tableData, handleDelete } = props;
+  const { columnsData, tableData } = props;
   const { name, index } = props;
+  const deleteData = useDeleteData();
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
   const nameLower = name.toLowerCase();
+
+
+  const [checkedRows, setCheckedRows] = useState([]);
+
+  const handleCheckboxChange = (rowId) => {
+    setCheckedRows((prevCheckedRows) =>
+      prevCheckedRows.includes(rowId)
+        ? prevCheckedRows.filter((id) => id !== rowId)
+        : [...prevCheckedRows, rowId]
+    );
+  };
+console.log(name);
+  const handleDelete = async () => {
+    const endpoint = name.toLowerCase(); // Replace with your actual endpoint
+    await deleteData(checkedRows, endpoint);
+    setCheckedRows([]);
+  };
+
   const tableInstance = useTable(
     {
       columns,
@@ -46,6 +70,7 @@ const ComplexTableOrder = (props) => {
         </div>
         <div className="center flex items-center justify-center">
           <ButtonCreate name={name} />
+          <ButtonCss handleDelete={handleDelete} />
         </div>
       </header>
 
@@ -72,6 +97,7 @@ const ComplexTableOrder = (props) => {
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
               const rowId = row.original._id;
+              const isChecked = checkedRows.includes(rowId);
               prepareRow(row);
               console.log(row);
               return (
@@ -81,52 +107,86 @@ const ComplexTableOrder = (props) => {
                     
                     if (cell.column.Header === "Id") {
                       data = (
+                        <div className="flex items-center gap-2">
+                        <Checkbox
+                        checked={isChecked}
+                        onChange={() => handleCheckboxChange(rowId)}
+                      />
+                       <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {row.id}
                         </p>
+                        </Link>
+                        </div>
                       );
+                      
                     } else if (cell.column.Header === "PRICE") {
                       data = (
                         <div className="flex items-center gap-2">
-                          <div className={`rounded-full text-xl`}>
-                            {cell.value === "Approved" ? (
-                              <MdCheckCircle className="text-green-500" />
-                            ) : cell.value === "Disable" ? (
-                              <MdCancel className="text-red-500" />
-                            ) : cell.value === "Error" ? (
-                              <MdOutlineError className="text-orange-500" />
-                            ) : null}
-                          </div>
+                          <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
                             {cell.value}
                           </p>
+                          </Link>
                         </div>
                       );
                     } else if (cell.column.Header === "CUSTOMER") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell?.value}
                         </p>
+                        </Link>
                       );
                     }else if (cell.column.Header === "NOP") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell?.value}
                         </p>
+                        </Link>
                       );
                     }
                     else if (cell.column.Header === "STORE") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell?.value}
                         </p>
+                        </Link>
                       );
                     }
                     if (cell.column.Header === "STATUS") {
                       data = (
+                        <div className="flex items-center gap-2">
+                        <div className={`rounded-full text-xl`}>
+                          {cell.value === "paid" ? (
+                            <MdCheckCircle className="text-green-500" />
+                          ) : cell.value === "cancelled" ? (
+                            <MdCancel className="text-red-500" />
+                          ) : cell.value === "pending" ? (
+                            <MdOutlineError className="text-orange-500" />
+                          ) : null}
+                        </div>
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell.value}
                         </p>
+                      </div>
                       );
                     } else if (cell.column.Header === "ACTION") {
                       data = (

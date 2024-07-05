@@ -14,6 +14,7 @@ import { IoStorefrontOutline } from "react-icons/io5";
 import DataTablesStore from "./views/admin/tables/store";
 // import RTLDefault from "views/rtl/default";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
+import OrderDetail from "views/admin/marketplace/pages/OrderDetail/OrderDetail";
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
@@ -65,6 +66,14 @@ const routes = [
     icon: <BsCart2 className="h-6 w-6" />,
     path: "orders/",
     component: <DataTablesOrder />,
+  },
+  {
+    show : "hidden",
+    name: "Orders",
+    layout: "/admin",
+    icon: <BsCart2 className="h-6 w-6" />,
+    path: "orders/orders/update/:updateId",
+    component: <OrderDetail label={"orders"}/>,
   },
   {
     name: "Customers",
