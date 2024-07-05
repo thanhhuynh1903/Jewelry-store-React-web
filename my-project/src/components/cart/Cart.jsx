@@ -1,23 +1,13 @@
 import { Button } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Cart() {
-  const navigate = useNavigate();
-  const [total, setTotal] = useState(0);
   const [carts, setCarts] = useState([]);
-
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCarts(storedCart);
   }, []);
-
-  useEffect(() => {
-    const total = carts.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
-    setTotal(total);
-  }, [carts]);
 
   const handleInc = (_id) => {
     const updatedCart = carts.map((item) => {
@@ -91,9 +81,11 @@ function Cart() {
                 key={cart._id}
               >
                 <div className="flex w-2/5">
-                  <div className="w-20">
-                    <img className="h-24" src={cart.imageID} alt={cart.name} />
-                  </div>
+                  <img
+                    className="h-24"
+                    src={cart.imageIDs[0].imageLink}
+                    alt={cart.name}
+                  />
                   <div className="flex flex-col justify-between flex-grow ml-4">
                     <span className="text-sm font-bold">{cart.name}</span>
                     <div
@@ -136,28 +128,14 @@ function Cart() {
             );
           })}
 
-          <Button className="flex mt-10 mb-5 text-sm font-semibold bg-bloom text-hemp">
-            <Link to={"/home"}>Continue Shopping</Link>
-          </Button>
-        </div>
-        <div id="summary" className="container w-2/4 px-8 py-10">
-          <h1 className="pb-8 text-2xl font-semibold border-b">
-            Order Summary
-          </h1>
-          <div className="flex flex-wrap justify-between mt-10">
-            <span className="text-sm font-semibold uppercase">
-              Items {carts.length}
-            </span>
-            <span className="text-sm font-semibold">$ {total}</span>
-          </div>
-          <div className="mt-8 border-t">
-            <div className="flex justify-between py-6 text-sm font-semibold uppercase">
-              <span>Total cost</span>
-              <span>$ {total}</span>
-            </div>
+          <div className="flex justify-between mt-10 mb-5">
+            <Button className="text-sm font-semibold bg-bloom text-hemp">
+              <Link to={"/home"}>Continue Shopping</Link>
+            </Button>
             <Link
               to="/checkout"
-              className="w-full p-2 py-3 text-sm font-semibold uppercase text-hemp bg-bloom"
+              className="p-2 text-sm font-semibold text-center uppercase bg-bloom text-hemp"
+              style={{ width: "auto" }}
             >
               Checkout
             </Link>

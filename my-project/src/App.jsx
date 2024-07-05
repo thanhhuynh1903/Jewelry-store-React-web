@@ -9,6 +9,7 @@ import GoogleCallback from "hook/GoogleCallback";
 import Home from "../src/components/homepage/Home";
 import ProductDetail from "components/products/ProductDetail";
 import Cart from "components/cart/Cart";
+import Checkout from "components/checkout/Checkout";
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
       </Route>
       <Route path="/product/:id" element={<ProductDetail />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
     </Routes>
   );
 };

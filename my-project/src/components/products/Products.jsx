@@ -22,12 +22,6 @@ const Products = () => {
     fetchApi();
   }, []);
 
-  const getRandomImageLink = (imageIDs) => {
-    if (imageIDs.length === 0) return '';
-    const randomIndex = Math.floor(Math.random() * imageIDs.length);
-    return imageIDs[randomIndex]?.imageLink || '';
-  };
-
   const handleProductClick = (_id) => {
     navigate(`/product/${_id}`);
   };
@@ -58,7 +52,7 @@ const Products = () => {
               >
                 <div className="h-[260px] w-[260px] overflow-hidden rounded-md">
                   <img
-                    src={getRandomImageLink(product?.imageIDs)}
+                    src={product.imageIDs[0].imageLink}
                     alt={product.name}
                     className="object-cover w-full h-full"
                   />

@@ -34,21 +34,24 @@ function ProductDetail() {
   if (!product) return <div>Loading...</div>; // Display loading state
 
   const handleCart = (product) => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const isProductExist = cart.find(item => item._id === product._id);
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const isProductExist = cart.find((item) => item._id === product._id);
     if (isProductExist) {
-      const updateCart = cart.map(item => {
+      const updateCart = cart.map((item) => {
         if (item._id === product._id) {
           return {
             ...item,
-            quantity: item.quantity + quantity
+            quantity: item.quantity + quantity,
           };
         }
         return item;
       });
-      localStorage.setItem('cart', JSON.stringify(updateCart));
+      localStorage.setItem("cart", JSON.stringify(updateCart));
     } else {
-      localStorage.setItem('cart', JSON.stringify([...cart, { ...product, quantity }]));
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([...cart, { ...product, quantity }])
+      );
     }
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
@@ -61,21 +64,47 @@ function ProductDetail() {
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap mx-auto lg:w-4/5">
             <div className="flex flex-col justify-center w-full lg:w-1/2">
-              <img
-                alt={product.name}
-                className="w-full lg:h-auto h-64 max-h-[400px] object-contain object-center rounded"
-                src={product.imageIDs[0].imageLink}
-              />
+              <div className="flex">
+                <img
+                  alt={product.name}
+                  className="mr-4 h-64 max-h-[400px] w-full rounded border border-gray-200 object-contain object-center shadow-md lg:h-auto"
+                  src={product.imageIDs[0].imageLink}
+                />
+                <div className="flex flex-col">
+                  <img
+                    alt={product.name}
+                    className="object-contain object-center w-full mb-4 border border-gray-200 rounded shadow-md h-fit"
+                    style={{ maxHeight: "200px" }}
+                    src={product.imageIDs[1].imageLink}
+                  />
+                  <img
+                    alt={product.name}
+                    className="object-contain object-center w-full border border-gray-200 rounded shadow-md h-fit"
+                    style={{ maxHeight: "200px" }}
+                    src={product.imageIDs[2].imageLink}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:mt-0">
+            <div className="w-full mt-6 lg:mt-0 lg:w-1/2 lg:py-6 lg:pl-10">
               <h1 className="mb-1 text-3xl font-medium text-gray-900 title-font">
                 {product.name}
               </h1>
-              <p className="leading-relaxed">Material: {product.materialID?.name}</p>
-              <p className="leading-relaxed">Gemstone: {product.gemstoneID?.name}</p>
-              <p className="leading-relaxed">Description: {product.description}</p>
-              <p className="leading-relaxed">{product.productTypeID?.categoryID?.description}</p>
-              <p className="leading-relaxed">{product.productTypeID?.description}</p>
+              <p className="leading-relaxed">
+                Material: {product.materialID?.name}
+              </p>
+              <p className="leading-relaxed">
+                Gemstone: {product.gemstoneID?.name}
+              </p>
+              <p className="leading-relaxed">
+                Description: {product.description}
+              </p>
+              <p className="leading-relaxed">
+                {product.productTypeID?.categoryID?.description}
+              </p>
+              <p className="leading-relaxed">
+                {product.productTypeID?.description}
+              </p>
               <div className="flex items-center pb-5 mt-6 mb-5 border-b-2 border-gray-100"></div>
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-medium text-gray-900 title-font">
@@ -90,7 +119,13 @@ function ProductDetail() {
                     min="1"
                     className="w-16 p-2 mr-4 border border-gray-300 rounded"
                   />
-                  <Link to={'/cart'} className="flex px-6 py-2 ml-auto border-0 rounded text-hemp bg-bloom focus:outline-none" onClick={() => handleCart(product)}>Add to Cart</Link> 
+                  <Link
+                    to={"/cart"}
+                    className="flex px-6 py-2 ml-auto border-0 rounded bg-bloom text-hemp focus:outline-none"
+                    onClick={() => handleCart(product)}
+                  >
+                    Add to Cart
+                  </Link>
                 </div>
               </div>
               {showAlert && (
