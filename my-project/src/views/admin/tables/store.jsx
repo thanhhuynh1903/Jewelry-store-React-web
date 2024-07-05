@@ -23,7 +23,7 @@ const Tables = () => {
   const name = [
     { name: "Stores", data: StoreList },    
   ]
-  
+  console.log(StoreList);
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
