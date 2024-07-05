@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import useAuth from 'hook/useAuth';
 import axios from 'api/axios'; // Adjust the import path if necessary
 
-export const useCustomerApi = () => {
+export const useCustomerApi = (refreshKey) => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
 
@@ -12,8 +12,8 @@ export const useCustomerApi = () => {
     };
     try {
       const response = await axios.get('customers', { headers });
-     console.log(response.data);
-        setListType(response?.data);
+     if(response?.data?.success)
+        setListType(response?.data?.customers);
 
     } catch (error) {
       console.error('Failed to fetch material data', error);
@@ -22,7 +22,7 @@ export const useCustomerApi = () => {
 
   useEffect(() => {
   fetchApi();
-  }, [token]);
+  }, [token,refreshKey]);
 
   return listType;
 };

@@ -41,9 +41,11 @@ console.log(param);
           : label === "stores"
           ? "stores"
           : "";
+        
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response?.data?.success) {
+            console.log(label);
           toast.success(`Create ${label} Successfully`);
           if(label === "stores"){
             navigate("/admin/store/");

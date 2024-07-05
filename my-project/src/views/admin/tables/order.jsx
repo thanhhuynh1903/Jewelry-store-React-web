@@ -22,12 +22,10 @@ const Tables = () => {
  
 
   const name = [
-    { name: "Order", data: OrderList },
+    { name: "Orders", data: OrderList },
     
   ];
-  console.log(OrderList);
   
-
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
