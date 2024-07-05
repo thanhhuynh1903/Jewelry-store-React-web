@@ -71,14 +71,6 @@ const Marketplace = () => {
           </h4>
           <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
             <li>
-              <Link
-                to={`/admin/nft-marketplace`}
-                className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
-              >
-                All products
-              </Link>
-            </li>
-            <li>
               <DropDownCate list={ListType} onSelect={handleProductTypeSelect} />
             </li>
           </ul>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import useAuth from 'hook/useAuth';
 import axios from 'api/axios'; // Adjust the import path if necessary
-import { useRefresh } from "context/RefreshProvider";
-export const useProducTypeApi = () => {
+import { useRefresh } from 'context/RefreshProvider';
+export const useProccessFeeApi = () => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
   const {shouldRefresh} = useRefresh();
@@ -11,9 +11,9 @@ export const useProducTypeApi = () => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get('producttype', { headers });
-      if(response?.data?.success)
-        setListType(response?.data?.productTypes);
+      const response = await axios.get('processingFee', { headers });
+     if(response.data.success)
+        setListType(response?.data?.fees);
 
     } catch (error) {
       console.error('Failed to fetch material data', error);

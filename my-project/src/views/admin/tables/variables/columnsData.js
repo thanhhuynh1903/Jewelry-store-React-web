@@ -139,6 +139,19 @@ export const columnsDataCustomer =  [
   },
 ];
 
+export const columnsDataFee = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "FEE RATE",
+    accessor: "feeRate",
+  },
+  
+];
+
+
 export const columnsDataColumns = [
   {
     Header: "NAME",

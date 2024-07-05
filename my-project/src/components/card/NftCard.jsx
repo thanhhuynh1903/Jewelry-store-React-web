@@ -26,7 +26,7 @@ const NftCard = ({ productId, index, name, materialID, gemstoneID, price, imageL
             className="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full"
             alt=""
           />
-          <button
+          {/* <button
             onClick={() => setHeart(!heart)}
             className="absolute flex items-center justify-center p-2 bg-white rounded-full top-3 right-3 text-brand-500 hover:cursor-pointer"
           >
@@ -37,7 +37,7 @@ const NftCard = ({ productId, index, name, materialID, gemstoneID, price, imageL
                 <IoHeart className="text-brand-500" />
               )}
             </div>
-          </button>
+          </button> */}
         </div>
 
         <div className="flex items-center justify-between px-1 mb-3 md:flex-col md:items-start lg:flex-row lg:justify-between xl:flex-col xl:items-start 3xl:flex-row 3xl:justify-between">

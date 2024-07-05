@@ -72,7 +72,7 @@ console.log(edit);
                       <img
                         key={index}
                         src={image?.imageLink}
-                        className="mb-3 h-[110.175px] w-full rounded-xl 3xl:h-full 3xl:w-full"
+                        className="shadow-lg border border-gray-200 mb-3 h-[110.175px] w-full rounded-xl 3xl:h-full 3xl:w-full"
                         alt=""
                       />
                     ))

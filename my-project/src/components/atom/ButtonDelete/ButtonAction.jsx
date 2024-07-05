@@ -3,9 +3,10 @@ import useAuth from "hook/useAuth";
 import axios from "api/axios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-
+import { useRefresh } from "context/RefreshProvider";
 export default function ButtonAction({ label, id, onDelete }) {
   const token = useAuth();
+  const { refresh } = useRefresh();
   const headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -18,6 +19,7 @@ export default function ButtonAction({ label, id, onDelete }) {
   
       if (response?.data?.success) {
         toast.success(response?.data?.message);
+        refresh();
         if (onDelete) onDelete(id); // Call the onDelete callback passed from parent component
       }
     } catch (error) {

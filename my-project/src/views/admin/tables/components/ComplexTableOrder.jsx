@@ -177,7 +177,7 @@ console.log(name);
                         <div className={`rounded-full text-xl`}>
                           {cell.value === "paid" ? (
                             <MdCheckCircle className="text-green-500" />
-                          ) : cell.value === "cancelled" ? (
+                          ) : cell.value === "cancelled" || cell.value === "not enough" ? (
                             <MdCancel className="text-red-500" />
                           ) : cell.value === "pending" ? (
                             <MdOutlineError className="text-orange-500" />

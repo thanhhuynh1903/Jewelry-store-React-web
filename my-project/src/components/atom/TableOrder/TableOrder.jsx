@@ -3,7 +3,7 @@ import Card from "components/card";
 import { FaChevronDown } from "react-icons/fa";
 import { IoCashOutline } from "react-icons/io5";
 import { CiBank } from "react-icons/ci";
-
+import { SelectDefault } from "../SelectOptions/SelectDefault";
 export default function TableOrder({ data }) {
   const Detail = data;
   console.log(Detail);
@@ -278,7 +278,7 @@ export default function TableOrder({ data }) {
             <div className="my-auto">
               <FaChevronDown />
             </div>
-            <div className="pl-2">Order Description</div>
+            <div className="pl-2">Status</div>
           </div>
           <div className="mt-5">
             <div className="mb-5">
@@ -286,25 +286,18 @@ export default function TableOrder({ data }) {
                 <div className="z-0 col-span-4 lg:!mb-0">
                   <div className="flex items-center">
                     <label className="mb-1 block text-center text-sm font-medium text-gray-900 dark:text-white">
-                      Description
+                      Status
                     </label>
                     <div className="bg-slate-200 ml-2 rounded-md border bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
                       Required
                     </div>
                   </div>
-                  <p className="mt-3 text-xs leading-relaxed text-gray-700">
-                    Description that describes your product in more detail and
-                    clearly to make the user understand your product.
-                  </p>
+                
                 </div>
                 <div className="z-0 col-span-8 lg:!mb-0">
                   <div className="dark:bg-darkmode-900 dark:border-darkmode-400/20 rounded-md border bg-gray-200 p-5 dark:text-gray-700">
                     <div className="mt-5 block items-center first:mt-0 sm:flex">
-                      <textarea
-                        className="h-full w-full p-2"
-                        name="description"
-                        value={Detail?.description}
-                      ></textarea>
+                    <SelectDefault label={"status"} defaultValue={Detail}/>
                     </div>
                   </div>
                 </div>
