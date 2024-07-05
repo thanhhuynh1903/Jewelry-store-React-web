@@ -21,7 +21,7 @@ const Tables = () => {
  
 
   const name = [
-    { name: "Proccessing Fee", data: fee },
+    { name: "Fee", data: fee },
     
   ];
   

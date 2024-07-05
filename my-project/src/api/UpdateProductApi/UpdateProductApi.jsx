@@ -10,14 +10,14 @@ export const useUpdateProductApi = () => {
   const update = async (formData, label, productId) => {
     const headers = {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data", // Ensure the correct content type
+   
     };
-
+console.log(formData);
     try {
       const response = await axios.put(`products/${productId}`, formData, { headers });
       if (response?.data?.success) {
         toast.success(`Update ${label} Successfully`);
-        navigate("/admin/nft-marketplace/");
+        // navigate("/admin/nft-marketplace/");
       } else {
         toast.error(response.data.message);
       }

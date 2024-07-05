@@ -9,25 +9,31 @@ export const useCreateApi = () => {
 
   const create = async (
     name,
-    weight,
+    feeRate,
+    size,
+    priceOfGem,
+    pricePerGram,
     phone,
     location,
     categoryID,
-    size,
+    FeeValue,
     label,
     description
   ) => {
     const param = {
       name,
-      weight,
+      feeRate,
+      size,
+      priceOfGem,
+      pricePerGram,
       phone,
       location,
       categoryID,
-      size,
+      processingFeeId : FeeValue,
       description,
     };
     const headers = { Authorization: `Bearer ${token}` };
-console.log(param);
+
     try {
       const endpoint =
         label === "Material"
@@ -40,7 +46,9 @@ console.log(param);
           ? "producttype"
           : label === "stores"
           ? "stores"
-          : "";
+          : label === "Processing Fee"
+          ? "processingFee"
+          : ""
         
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });

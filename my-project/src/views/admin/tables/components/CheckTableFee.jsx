@@ -40,7 +40,7 @@ const CheckTableFee = (props) => {
 
   const handleDelete = async () => {
     const endpoint = name.toLowerCase(); // Replace with your actual endpoint
-    await deleteData(checkedRows, endpoint, refreshList);
+    await deleteData(checkedRows,"processingFee", "fee");
     setCheckedRows([]);
   };
 
@@ -110,7 +110,7 @@ const CheckTableFee = (props) => {
                 <tr {...row.getRowProps()} key={rowId}>
                   {row.cells.map((cell, index) => {
                     let data = "";
-                    console.log(cell);
+                  
                     if (cell.column.Header === "NAME") {
                       data = (
                         <div className="flex items-center gap-2">

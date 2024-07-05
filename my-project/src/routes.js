@@ -67,7 +67,7 @@ const routes = [
     layout: "/admin",
     icon: <TbMoneybag className="h-6 w-6" />,
     path: "fee/",
-    component: <ProcessFee />,
+    component: <ProcessFee label={"fee"}/>,
   },
   {
     name: "Orders",
@@ -129,6 +129,13 @@ const routes = [
     layout: "/admin",
     path: "data-tables/material/create",
     component: <Create label={"Material"}/>,
+  },
+  {
+    show : "hidden",
+    name: "create fee",
+    layout: "/admin",
+    path: "fee/fee/create",
+    component: <Create label={"Processing Fee"}/>,
   },
   {
     show : "hidden",

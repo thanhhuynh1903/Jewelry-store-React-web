@@ -69,7 +69,7 @@ console.log(name);
           {name}
         </div>
         <div className="center flex items-center justify-center">
-          <ButtonCreate name={name} />
+          {/* <ButtonCreate name={name} /> */}
           <ButtonCss handleDelete={handleDelete} />
         </div>
       </header>

@@ -13,14 +13,14 @@ export default function FormComponent({
   label,
 }) {
   const productinfo = data;
-
+  
   const handleMaterialSelect = (materialId) => {
     setFormData({ ...formData, materialID: materialId });
   };
   const handleGemstoneSelect = (gemstoneId) => {
     setFormData({ ...formData, gemstoneID: gemstoneId });
   };
-  console.log(productinfo);
+
   return (
     <Card
       extra={`p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400`}
@@ -55,7 +55,7 @@ export default function FormComponent({
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Name
                     </label>
-                    {ListMaterial ? (
+                    {ListMaterial || edit ? (
                       <div className="block w-full">
                       <SelectDefault
                         label="Material"
@@ -76,8 +76,10 @@ export default function FormComponent({
                     )}
                   </div>
               
-                  {label === "ProductDetail" ? (
+                  {label === "ProductDetail"  ? (
+                    
                     <>
+                    {(!edit &&
                       <div className="mt-5 block items-center first:mt-0 sm:flex">
                         <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                           Price/gram
@@ -90,6 +92,7 @@ export default function FormComponent({
                           required
                         />
                       </div>
+                    )}
                       <div className="mt-5 block items-center first:mt-0 sm:flex">
                         <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                          Product Weight
@@ -98,8 +101,9 @@ export default function FormComponent({
                           <input
                             type="text"
                             value={
-                              productinfo?.materialWeight
+                              formData ? formData.materialWeight : productinfo?.materialWeight
                             }
+                            onChange={handleInputChange}
                             className="dark:shadow-sm-light w-1.5/6 block rounded-sm border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             placeholder="0.1mm"
                             required
@@ -115,6 +119,9 @@ export default function FormComponent({
                         <input
                           type="text"
                           name="materialWeight"
+                          value={
+                            formData ? formData.materialWeight : productinfo?.materialWeight
+                          }
                           onChange={handleInputChange}
                           class="dark:shadow-sm-light block w-4/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                           placeholder="12"
@@ -151,7 +158,7 @@ export default function FormComponent({
                     <label class="mb-2 inline-block sm:mb-0 sm:mr-5 sm:w-20 sm:text-right">
                       Name
                     </label>
-                    {ListGemstone ? (
+                    {ListGemstone || edit ? (
                       <SelectDefault
                         label="Gemstone"
                         ListGemstone={ListGemstone}
