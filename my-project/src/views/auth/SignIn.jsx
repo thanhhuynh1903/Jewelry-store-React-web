@@ -116,54 +116,8 @@ export default function SignIn() {
 
   const handleGoogleLogin = () => {
     // Redirect to Google OAuth URL
-    window.location.href =
-      "https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google";
+    window.location.href = "https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google";
   };
-
-  // Handle initial render or URL change when returning from Google OAuth
-  useEffect(() => {
-    const handleGoogleCallback = async () => {
-      // Check if URL contains code parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get("code");
-
-      if (code) {
-        try {
-          // Make API call to exchange code for tokens
-          const response = await axios.post(
-            "https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google/callback",
-            {
-              code: code,
-            }
-          );
-          console.log(response?.data);
-          // Handle successful Google login
-          if (response?.data?.success) {
-            const accessToken = response.data.accessToken;
-            const refreshToken = response.data.refreshToken;
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-            setUsername(response?.data?.username); // Assuming username is included in the response
-
-            // Navigate to appropriate dashboard based on role
-            if (response?.data?.role === "staff") {
-              navigate("/admin");
-            } else {
-              navigate("/auth/"); // Replace with actual user dashboard route
-            }
-          } else {
-            // Handle login failure
-            console.error("Google login failed:", response.data.message);
-          }
-        } catch (error) {
-          console.error("Error during Google login:", error);
-        }
-      }
-    };
-
-    // Call the function to handle Google callback
-    handleGoogleCallback();
-  }, [navigate, setUsername]);
 
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
