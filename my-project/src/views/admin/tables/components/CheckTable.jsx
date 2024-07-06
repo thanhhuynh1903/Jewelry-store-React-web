@@ -110,7 +110,7 @@ const CheckTable = (props) => {
                 <tr {...row.getRowProps()} key={rowId}>
                   {row.cells.map((cell, index) => {
                     let data = "";
-                    console.log(cell);
+                   
                     if (cell.column.Header === "NAME") {
                       data = (
                         <div className="flex items-center gap-2">

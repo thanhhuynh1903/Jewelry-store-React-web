@@ -25,9 +25,10 @@ export function SelectDefault({
         setSelectedCategory(defaultValue._id);
       } else if (label === "Type") {
         setSelectedType(defaultValue._id);
-      } else if (label === "Material") {
+      } else if (label === "Material" || label === "Material&Gemstone") {
+        
         setSelectedMaterial(defaultValue._id);
-      } else if (label === "Gemstone") {
+      } else if (label === "Gemstone" || label === "Material&Gemstone") {
         setSelectedGemstone(defaultValue._id);
       }
     }
