@@ -145,7 +145,7 @@ export default function Create({ label }) {
                     </Typography>
                   </div>
                   <Input
-                    type={label === "Type" ? "text" : "number"}
+                    type={label === "Type" ? "text" : "text"}
                     size="lg"
                     className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
