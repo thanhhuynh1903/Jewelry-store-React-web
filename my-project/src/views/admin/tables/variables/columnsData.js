@@ -133,7 +133,24 @@ export const columnsDataCustomer =  [
     Header: "INVOICE",
     accessor: "invoice",
   },
+  {
+    Header: "ACTIVE/DEACTIVE",
+    accessor: "status",
+  },
 ];
+
+export const columnsDataFee = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "FEE RATE",
+    accessor: "feeRate",
+  },
+  
+];
+
 
 export const columnsDataColumns = [
   {

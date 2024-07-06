@@ -17,26 +17,31 @@ import { columnsDataCustomer } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
 import { useCustomerApi } from "./components/CustomerApi/useCustomerApi";
 import { columnsDataCategory } from "./variables/columnsData";
+import { useState } from "react";
 const Tables = () => {
-  const CusList = useCustomerApi();
- 
+  const [refreshKey, setRefreshKey] = useState(0);
+  const CusList = useCustomerApi(refreshKey);
+  const refreshCustomerList = () => {
+    setRefreshKey(prevKey => prevKey + 1);
+  };
 
   const name = [
     { name: "Customer", data: CusList },
     
   ];
-  console.log(CusList);
-  
-
+console.log(CusList);
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
         {name.map((data, index) => (
           <ComplexTableCustomer
+          key={`${data.name}-${refreshKey}`}
             name={data.name}
             index={index}
             columnsData={columnsDataCustomer}
             tableData={data.data}
+            refreshList={refreshCustomerList}
+
           />
         ))}{" "}
       </div>

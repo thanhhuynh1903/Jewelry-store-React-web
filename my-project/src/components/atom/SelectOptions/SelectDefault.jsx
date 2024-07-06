@@ -6,16 +6,19 @@ export function SelectDefault({
   ListMaterial,
   ListGemstone,
   ListType,
+  ListFee,
   onSelectCategory,
   onSelectType,
   onSelectGemstone,
   onSelectMaterial,
+  onSelectFee,
   defaultValue,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [selectedGemstone, setSelectedGemstone] = useState("");
+  const [selectedFee, setSelectedFee] = useState("");
   useEffect(() => {
     if (defaultValue) {
       if (label === "Category") {
@@ -34,6 +37,11 @@ export function SelectDefault({
     const categoryId = e.target.value;
     setSelectedCategory(categoryId);
     onSelectCategory(categoryId);
+  };
+  const handleFeeChange = (e) => {
+    const feeId = e.target.value;
+    setSelectedFee(feeId);
+    onSelectFee(feeId);
   };
 
   const handleTypeChange = (e) => {
@@ -67,6 +75,8 @@ export function SelectDefault({
           ? "w-full pl-2"
           : label === "Gemstone"
           ? "w-full pl-2"
+          : label === "status"
+          ? "w-full"
           : ""
       }
     >
@@ -156,6 +166,44 @@ export function SelectDefault({
             )}
         </select>
       )}
+
+      {label === "status" && (
+        <select
+          id="types"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          size={Math.min(maxVisibleOptions, ListGemstone?.length)}
+          value={selectedGemstone}
+          onChange={handleGemstoneChange}
+        >
+          <option value="">{defaultValue?.status}</option>
+          <option>pending</option>
+          <option>cancelled</option>
+          <option>not enought</option>
+        </select>
+      )}
+
+{label === "Material&Gemstone" && (
+        <select
+          id="categories"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          size={Math.min(maxVisibleOptions, ListCate?.length)}
+          value={selectedFee}
+          onChange={handleFeeChange}
+        >
+          <option value="">
+            {defaultValue ? defaultValue.name : "Select process fee"}
+          </option>
+          {ListFee &&
+            ListFee?.filter(
+              (fee) => fee?._id !== defaultValue?._id
+            ).map((fee) => (
+              <option key={fee?._id} value={fee?._id}>
+                {fee?.name}
+              </option>
+            ))}
+        </select>
+      )}
+
     </form>
   );
 }

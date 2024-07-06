@@ -13,8 +13,11 @@ import { AiOutlineShopping } from "react-icons/ai";
 import { IoStorefrontOutline } from "react-icons/io5";
 import DataTablesStore from "./views/admin/tables/store";
 // import RTLDefault from "views/rtl/default";
+import ProcessFee from "views/admin/tables/processFee";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
+import OrderDetail from "views/admin/marketplace/pages/OrderDetail/OrderDetail";
 // Auth Imports
+import { TbMoneybag } from "react-icons/tb";
 import SignIn from "views/auth/SignIn";
 import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
 import { FaRegUser } from "react-icons/fa";
@@ -60,11 +63,26 @@ const routes = [
     component: <DataTables />,
   },
   {
+    name: "Proccess Fee",
+    layout: "/admin",
+    icon: <TbMoneybag className="h-6 w-6" />,
+    path: "fee/",
+    component: <ProcessFee label={"fee"}/>,
+  },
+  {
     name: "Orders",
     layout: "/admin",
     icon: <BsCart2 className="h-6 w-6" />,
     path: "orders/",
     component: <DataTablesOrder />,
+  },
+  {
+    show : "hidden",
+    name: "Orders",
+    layout: "/admin",
+    icon: <BsCart2 className="h-6 w-6" />,
+    path: "orders/orders/update/:updateId",
+    component: <OrderDetail label={"orders"}/>,
   },
   {
     name: "Customers",
@@ -111,6 +129,13 @@ const routes = [
     layout: "/admin",
     path: "data-tables/material/create",
     component: <Create label={"Material"}/>,
+  },
+  {
+    show : "hidden",
+    name: "create fee",
+    layout: "/admin",
+    path: "fee/fee/create",
+    component: <Create label={"Processing Fee"}/>,
   },
   {
     show : "hidden",

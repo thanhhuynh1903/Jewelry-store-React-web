@@ -1,19 +1,19 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 
 const RefreshContext = createContext();
 
 export const RefreshProvider = ({ children }) => {
-  const [refreshKey, setRefreshKey] = useState(false);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
 
-  const triggerRefresh = useCallback(() => {
-    setRefreshKey(prev => !prev);  // Toggle the boolean value
+  const refresh = useCallback(() => {
+    setShouldRefresh(prev => !prev);
   }, []);
 
   return (
-    <RefreshContext.Provider value={{ refreshKey, triggerRefresh }}>
+    <RefreshContext.Provider value={{ shouldRefresh, refresh }}>
       {children}
     </RefreshContext.Provider>
   );
 };
 
-export const useRefresh = () => React.useContext(RefreshContext);
+export const useRefresh = () => useContext(RefreshContext);

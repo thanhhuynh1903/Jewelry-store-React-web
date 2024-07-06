@@ -6,25 +6,44 @@ import { useCreateApi } from "api/CreateApi/CreateApi";
 import { ToastContainer } from "react-toastify";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
 import { useCategoryApi } from "views/admin/tables/components/CategoryApi/useCategoryApi";
-
+import { useProccessFeeApi } from "views/admin/tables/components/ProccessFeeApi/useProccessFeeApi";
 export default function Create({ label }) {
   const [name, setName] = useState("");
-  const [weight, setWeight] = useState("");
+  const [pricePerGram, setpricePerGram] = useState("");
+  const [priceOfGem, setpriceOfGem] = useState("");
   const [size, setSize] = useState("");
   const [categoryID, setCategoriesValue] = useState(""); // State to hold selected category ID
   const [description, setDescription] = useState("");
-  const [phone , setPhone] = useState("");
-  const [location , setLocation] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [feeRate, setFee] = useState("");
   const create = useCreateApi();
   const showListCate = useCategoryApi();
-  
+  const showListFee = useProccessFeeApi();
+  const [FeeValue, setFeeValue] = useState("");
   const handleCategorySelect = (categoryId) => {
     setCategoriesValue(categoryId); // Update selected category ID
   };
 
+  const handleFeeSelect = (feeId) => {
+    setFeeValue(feeId); // Update selected category ID
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    create(name, weight,phone,location, categoryID, size, label, description);
+    create(
+      name,
+      feeRate,
+      size,
+      priceOfGem,
+      pricePerGram,
+      phone,
+      location,
+      categoryID,
+      FeeValue,
+      label,
+      description
+    );
   };
 
   return (
@@ -58,18 +77,26 @@ export default function Create({ label }) {
                 }}
                 onChange={(e) => setName(e.target.value)}
               />
-              {label !== "Category" ? (
+              {label !== "Category" && label !== "Processing Fee" ? (
                 <>
                   <div className="-mb-3 flex items-center">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
-                      {label === "Type" ? "Category" : label === "stores" ? "Phone" : "Weight"}
+                      {label === "Type"
+                        ? "Category"
+                        : label === "stores"
+                        ? "Phone"
+                        : "Price"}
                     </Typography>
                     <Typography variant="h6" color="red">
                       *
                     </Typography>
                   </div>
                   {label === "Type" ? (
-                    <SelectDefault label={"CategoryInType"} ListCate={showListCate} onSelectCategory={handleCategorySelect} />
+                    <SelectDefault
+                      label={"CategoryInType"}
+                      ListCate={showListCate}
+                      onSelectCategory={handleCategorySelect}
+                    />
                   ) : (
                     <Input
                       type={label === "Type" ? "text" : "number"}
@@ -78,13 +105,25 @@ export default function Create({ label }) {
                       labelProps={{
                         className: "before:content-none after:content-none",
                       }}
-                       onChange={label === "stores" ? (e) => setPhone(e.target.value) : (e) => setWeight(e.target.value)}
+                      onChange={
+                        label === "stores"
+                          ? (e) => setPhone(e.target.value)
+                          : label === "Gemstone"
+                          ? (e) => setpriceOfGem(e.target.value)
+                          : (e) => setpricePerGram(e.target.value)
+                      }
                     />
                   )}
                 </>
+              ) : label === "Processing Fee" ? (
+                ""
               ) : (
                 <>
-                  <div className={`-mb-3 flex items-center ${label === "Category" ? "hidden" : ""}`}>
+                  <div
+                    className={`-mb-3 flex items-center ${
+                      label === "Category" ? "hidden" : ""
+                    }`}
+                  >
                     <Typography variant="h6" color="blue-gray" className="mr-1">
                       {label === "Type" ? "Category" : "Weight"}
                     </Typography>
@@ -94,11 +133,35 @@ export default function Create({ label }) {
                   </div>
                 </>
               )}
+
+              {label === "Gemstone" && (
+                <>
+                  <div className="-mb-3 flex items-center">
+                    <Typography variant="h6" color="blue-gray" className="mr-1">
+                      Size
+                    </Typography>
+                    <Typography variant="h6" color="red">
+                      *
+                    </Typography>
+                  </div>
+                  <Input
+                    type={label === "Type" ? "text" : "number"}
+                    size="lg"
+                    className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    onChange={(e) => setSize(e.target.value)}
+                  />
+                </>
+              )}
               <div className="-mb-3 flex items-center">
                 <Typography variant="h6" color="blue-gray" className="mr-1">
                   {label === "Type" || label === "Category"
                     ? "Description"
-                    : label === "stores" ? "Location" :"Size"}
+                    : label === "stores"
+                    ? "Location"
+                    : "Fee rate"}
                 </Typography>
                 <Typography variant="h6" color="red">
                   *
@@ -112,14 +175,27 @@ export default function Create({ label }) {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
+              ) : label === "Material" || label === "Gemstone" ? (
+                <SelectDefault
+                  label={"Material&Gemstone"}
+                  ListFee={showListFee}
+                  onSelectFee={handleFeeSelect}
+                />
               ) : (
                 <Input
+                  type={label === "Processing Fee" ? "number" : ""}
                   size="lg"
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900 "
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
-                  onChange={label === "stores" ? (e) => setLocation(e.target.value) : (e) => setSize(e.target.value)}
+                  onChange={
+                    label === "stores"
+                      ? (e) => setLocation(e.target.value)
+                      : label === "Processing Fee"
+                      ? (e) => setFee(e.target.value)
+                      : (e) => setSize(e.target.value)
+                  }
                 />
               )}
               <button

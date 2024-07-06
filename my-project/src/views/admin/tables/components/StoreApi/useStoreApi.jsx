@@ -12,8 +12,9 @@ export const useStoreApi = () => {
     };
     try {
       const response = await axios.get('stores', { headers });
-     console.log(response.data);
-        setListType(response?.data);
+
+     if(response?.data?.success)
+        setListType(response?.data?.stores);
 
     } catch (error) {
       console.error('Failed to fetch material data', error);
