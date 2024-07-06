@@ -8,7 +8,11 @@ function Checkout() {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [customer, setCustomer] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(() => {
+    const savedToken = localStorage.getItem('token');
+    console.log('Retrieved token from localStorage:', savedToken);
+    return savedToken;
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -15,11 +15,7 @@ export default function Navbar() {
 
   const navlinks = [
     {
-      labe: "Collections",
-      link: "#",
-    },
-    {
-      labe: "Gemstone",
+      labe: "Jewelry",
       link: "#",
     },
   ];
@@ -80,7 +76,6 @@ export default function Navbar() {
           <Link to="/cart">
             <AiOutlineShoppingCart className="mr-8 text-2xl cursor-pointer" />
           </Link>
-          <MdOutlineNotificationsActive className="mr-8 text-2xl cursor-pointer" />
           <Dropdown
             button={
               <img

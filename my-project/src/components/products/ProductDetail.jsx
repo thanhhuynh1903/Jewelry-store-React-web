@@ -74,13 +74,13 @@ function ProductDetail() {
                   <img
                     alt={product.name}
                     className="object-contain object-center w-full mb-4 border border-gray-200 rounded shadow-md h-fit"
-                    style={{ maxHeight: "200px" }}
+                    style={{ maxHeight: "250px" }}
                     src={product.imageIDs[1].imageLink}
                   />
                   <img
                     alt={product.name}
                     className="object-contain object-center w-full border border-gray-200 rounded shadow-md h-fit"
-                    style={{ maxHeight: "200px" }}
+                    style={{ maxHeight: "250px" }}
                     src={product.imageIDs[2].imageLink}
                   />
                 </div>
