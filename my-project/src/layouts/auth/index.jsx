@@ -54,30 +54,10 @@ export default function Auth() {
                   />
                 </Routes>
                 <div className="absolute right-0 hidden h-full min-h-screen md:block lg:w-[49vw] 2xl:w-[44vw]">
-                  <div
-                    className="d-inline-block w-100 h-200 absolute z-20 border-4 text-center major-mono-display-regula " 
-                    style={{
-                      border:"2px solid black",
-                      opacity:"blur",
-                      color: "black",
-                      fontSize: "63px",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "500px",
-                      height: "25%",
-                      top: "15%",
-                      right: "10%",
-                      flexDirection: "column",
-                     
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" // Add shadow for clarity
-                    }}
-                  >
-                    <h2>Alumina Store</h2>
-                    <h6 className="text-3xl	 mt-2">Elegant - Classic - Glamous - Royal</h6> {/* Added margin-top to separate */}
-                  </div>
+                  
                   <div
                     className="absolute z-10 flex h-full w-full items-end justify-center bg-cover bg-center lg:rounded-bl-[120px] xl:rounded-bl-[200px]"
-                    style={{ backgroundImage: `url(${jewerly})`,filter: "blur(1.5px)", // Add blur effect
+                    style={{ backgroundImage: `url(${jewerly})`, // Add blur effect
                     opacity: 0.9  }}
                   />
                 </div>

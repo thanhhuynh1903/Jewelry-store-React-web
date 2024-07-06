@@ -187,6 +187,7 @@ const routes = [
     component: <Update label={"Category"}/>,
   },
   {
+    show : "hidden",
     name: "Profile",
     layout: "/admin",
     path: "profile",

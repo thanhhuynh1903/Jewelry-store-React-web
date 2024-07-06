@@ -174,11 +174,10 @@ export function SelectDefault({
           size={Math.min(maxVisibleOptions, ListGemstone?.length)}
           value={selectedGemstone}
           onChange={handleGemstoneChange}
+          disabled
         >
           <option value="">{defaultValue?.status}</option>
-          <option>pending</option>
-          <option>cancelled</option>
-          <option>not enought</option>
+         
         </select>
       )}
 
