@@ -1,4 +1,3 @@
-// src/views/admin/marketplace/Marketplace.js
 import React, { useEffect, useState } from "react";
 import axios from "api/axios";
 import Banner from "./components/Banner";
@@ -28,13 +27,14 @@ const Marketplace = () => {
   const token = useAuth();
   const headers = { Authorization: `Bearer ${token}` };
 
-  const fetchApi = async (page = 1, searchTerm = '', sort = 'asc') => {
+  const fetchAllProducts = async () => {
     try {
-      const response = await axios.get(`products?page=${page}&sl=${pageSize}&search=${encodeURIComponent(searchTerm)}&sort=${sort}`);
+      const response = await axios.get(`products?sl=0`); // Fetch all products
       if (response?.data?.products) {
-        setListProduct(response.data.products);
-        setFilteredProducts(response.data.products);
-        setTotalPages(Math.ceil(response.data.totalProducts / pageSize));
+        const products = response.data.products;
+        setListProduct(products);
+        setFilteredProducts(products);
+        setTotalPages(Math.ceil(products.length / pageSize)); // Set total pages based on fetched products
       }
     } catch (error) {
       console.log(error);
@@ -42,8 +42,13 @@ const Marketplace = () => {
   };
 
   useEffect(() => {
-    fetchApi(currentPage, '', 'asc');
-  }, [currentPage]);
+    fetchAllProducts();
+  }, []);
+
+  useEffect(() => {
+    // Update total pages whenever filteredProducts changes
+    setTotalPages(Math.ceil(filteredProducts.length / pageSize));
+  }, [filteredProducts, pageSize]);
 
   const handleDelete = async (id) => {
     try {
@@ -62,15 +67,15 @@ const Marketplace = () => {
   const handleProductTypeSelect = (productType) => {
     setSelectedProductType(productType);
     if (productType) {
-      setFilteredProducts(ListProduct.filter((product) => product.productTypeID._id === productType._id));
+      setFilteredProducts(ListProduct?.filter((product) => product?.productTypeID?._id === productType?._id));
     } else {
       setFilteredProducts(ListProduct);
     }
+    setCurrentPage(1); // Reset to first page on new filter
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    fetchApi(page, searchTerm, sortOrder);
   };
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -78,14 +83,24 @@ const Marketplace = () => {
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
-    fetchApi(1, searchTerm, sortOrder);
+    const filtered = ListProduct?.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredProducts(filtered);
     setCurrentPage(1); // Reset to first page on new search
   };
 
   const handleSortChange = (event) => {
-    setSortOrder(event.target.value);
-    fetchApi(currentPage, searchTerm, event.target.value);
+    const order = event.target.value;
+    setSortOrder(order);
+    const sorted = [...filteredProducts].sort((a, b) => {
+      if (order === 'asc') {
+        return a.name.localeCompare(b.name);
+      }
+      return b.name.localeCompare(a.name);
+    });
+    setFilteredProducts(sorted);
   };
+
+  const paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
     <div className="grid h-full grid-cols-1 gap-5 mt-3 xl:grid-cols-2 2xl:grid-cols-2">
@@ -112,7 +127,7 @@ const Marketplace = () => {
           </select>
         </div>
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3 mt-4">
-          {filteredProducts.map((list, index) => (
+          {paginatedProducts.map((list, index) => (
             <NftCard
               key={index}
               productId={list._id}

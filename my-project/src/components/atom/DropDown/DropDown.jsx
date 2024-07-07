@@ -8,14 +8,14 @@ const DropDownCate = ({ list, onSelect }) => {
   function groupByCategory(productTypes) {
     const categories = {};
     productTypes.forEach((productType) => {
-      const categoryId = productType.categoryID._id;
+      const categoryId = productType?.categoryID?._id;
       if (!categories[categoryId]) {
         categories[categoryId] = {
-          ...productType.categoryID,
+          ...productType?.categoryID,
           productTypes: [],
         };
       }
-      categories[categoryId].productTypes.push(productType);
+      categories[categoryId]?.productTypes?.push(productType);
     });
     return Object.values(categories);
   }
@@ -44,7 +44,7 @@ const DropDownCate = ({ list, onSelect }) => {
                 )}
               </Menu.Item>
               {category.productTypes.map((productType) => (
-                <Menu.Item key={productType._id}>
+                <Menu.Item key={productType?._id}>
                   {({ active }) => (
                     <p
                    
