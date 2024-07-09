@@ -18,14 +18,13 @@ import { useState } from "react";
 import useDeleteData from "api/DeleteApi/DeleteApi";
 import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 const ComplexTableOrder = (props) => {
-  const { columnsData, tableData } = props;
+  const { columnsData, tableData, total } = props;
   const { name, index } = props;
   const deleteData = useDeleteData();
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
   const nameLower = name.toLowerCase();
-
-
+console.log(tableData);
   const [checkedRows, setCheckedRows] = useState([]);
 
   const handleCheckboxChange = (rowId) => {
@@ -35,7 +34,7 @@ const ComplexTableOrder = (props) => {
         : [...prevCheckedRows, rowId]
     );
   };
-console.log(name);
+
   const handleDelete = async () => {
     const endpoint = name.toLowerCase(); // Replace with your actual endpoint
     await deleteData(checkedRows, endpoint);
@@ -60,7 +59,7 @@ console.log(name);
     prepareRow,
     initialState,
   } = tableInstance;
-  initialState.pageSize = 11;
+  initialState.pageSize = tableData?.length ;
 
   return (
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
@@ -93,13 +92,12 @@ console.log(name);
               </tr>
             ))}
           </thead>
-          {console.log(page)}
+  
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
               const rowId = row.original._id;
               const isChecked = checkedRows.includes(rowId);
               prepareRow(row);
-              console.log(row);
               return (
                 <tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {

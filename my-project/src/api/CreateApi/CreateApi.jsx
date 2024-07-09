@@ -49,11 +49,11 @@ export const useCreateApi = () => {
           : label === "Processing Fee"
           ? "processingFee"
           : ""
-        
+        console.log(param);
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response?.data?.success) {
-            console.log(label);
+            
           toast.success(`Create ${label} Successfully`);
           if(label === "stores"){
             navigate("/admin/store/");

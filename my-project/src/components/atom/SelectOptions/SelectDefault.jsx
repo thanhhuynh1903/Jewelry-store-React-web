@@ -25,9 +25,10 @@ export function SelectDefault({
         setSelectedCategory(defaultValue._id);
       } else if (label === "Type") {
         setSelectedType(defaultValue._id);
-      } else if (label === "Material") {
+      } else if (label === "Material" || label === "Material&Gemstone") {
+        
         setSelectedMaterial(defaultValue._id);
-      } else if (label === "Gemstone") {
+      } else if (label === "Gemstone" || label === "Material&Gemstone") {
         setSelectedGemstone(defaultValue._id);
       }
     }
@@ -174,11 +175,10 @@ export function SelectDefault({
           size={Math.min(maxVisibleOptions, ListGemstone?.length)}
           value={selectedGemstone}
           onChange={handleGemstoneChange}
+          disabled
         >
           <option value="">{defaultValue?.status}</option>
-          <option>pending</option>
-          <option>cancelled</option>
-          <option>not enought</option>
+         
         </select>
       )}
 

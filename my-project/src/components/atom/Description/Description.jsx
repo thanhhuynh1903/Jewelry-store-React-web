@@ -40,6 +40,7 @@ export default function Description({data,setFormData,formData,handleInputChange
                     name="description"
                     value={formData ? formData?.description : productinfo?.description}
                     onChange={handleInputChange}
+                    
                   ></textarea>
                 </div>
               </div>

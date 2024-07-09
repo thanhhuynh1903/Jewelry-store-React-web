@@ -6,7 +6,7 @@ import { CiBank } from "react-icons/ci";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
 export default function TableOrder({ data }) {
   const Detail = data;
-  console.log(Detail);
+  console.log(Detail?.bankPaid);
 
   return (
     <div>
@@ -47,20 +47,17 @@ export default function TableOrder({ data }) {
             <div>
               <h2 className="text-gray-600">Quantity: {Detail?.quantity} </h2>
               <div className="text-center text-sm font-bold text-navy-700 dark:text-white">
-                <div className="flex flex-col justify-center gap-2">
-                  {Detail?.payments?.map((item) =>
-                    item.name === "cash" ? (
+                <div className="flex flex-col justify-center gap-2">              
                       <div className="flex  items-center text-xl">
                         <IoCashOutline className="text-[25px]" /> <p>Cash : </p>
                         <p className="ml-3"> {Detail?.cashPaid}</p>
                       </div>
-                    ) : (
+                 
                       <div className="flex  items-center text-xl">
-                        <CiBank className="text-[28px]" /> <p>Bank :</p>
-                        <p className="ml-5"> {Detail?.bankPaid}</p>
-                      </div>
-                    )
-                  )}
+                        <CiBank className="text-[28px]"/> <p>Bank :</p>
+                        <p className="ml-3">
+                           {Detail?.bankPaid}</p>
+                      </div>       
                 </div>
               </div>
             </div>

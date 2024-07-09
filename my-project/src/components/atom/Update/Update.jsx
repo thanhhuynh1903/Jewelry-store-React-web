@@ -9,21 +9,28 @@ import useAuth from "hook/useAuth";
 import { ToastContainer } from "react-toastify";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
 import { useCategoryApi } from "views/admin/tables/components/CategoryApi/useCategoryApi";
-
+import { useProccessFeeApi } from "views/admin/tables/components/ProccessFeeApi/useProccessFeeApi";
 export default function Update({ label, valueCateSgory }) {
   const [name, setName] = useState("");
-  const [weight, setWeight] = useState("");
+  const [pricePerGram, setpricePerGram] = useState("");
+  const [priceOfGem, setpriceOfGem] = useState("");
   const [size, setSize] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [FeeValue, setFeeValue] = useState("");
   const [categoryID, setCategoriesValue] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const listCate = useCategoryApi();
   const update = useUpdateApi();
+  const showListFee = useProccessFeeApi();
   const { updateId } = useParams();
   const token = useAuth();
   const [itemDetail, setItemDetail] = useState({});
+
+  const handleFeeSelect = (feeId) => {
+    setFeeValue(feeId); // Update selected category ID
+  };
 
   const fetchApiId = async () => {
     const endpoint = label === "Type" ? "producttype" : label.toLowerCase();
@@ -31,28 +38,29 @@ export default function Update({ label, valueCateSgory }) {
     try {
       const response = await axios.get(`${endpoint}/${updateId}`, { headers });
       if (response?.data?.success) {
-        
-      const detail =
-        label === "Type"
-          ? response?.data?.productType
-          : label === "stores"
-          ? response?.data?.store
-          : response?.data?.[label.toLowerCase()];
-      console.log(label);
-      setItemDetail(detail);
-      setName(detail.name || "");
-      setWeight(detail.weight || "");
-      setSize(detail.size || "");
-      setDescription(detail.description || "");
-      setCategory(detail.categoryID || "");
-      setPhone(detail.phone || "");
-      setLocation(detail.location || "");
+        const detail =
+          label === "Type"
+            ? response?.data?.productType
+            : label === "stores"
+            ? response?.data?.store
+            : response?.data?.[label.toLowerCase()];
+
+        setItemDetail(detail);
+        setName(detail.name || "");
+        setpricePerGram(detail.pricePerGram || "");
+        setpriceOfGem(detail.priceOfGem || "");
+        setSize(detail.size || "");
+        setDescription(detail.description || "");
+        setCategory(detail.categoryID || "");
+        setFeeValue(detail.processingFeeId);
+        setPhone(detail.phone || "");
+        setLocation(detail.location || "");
       }
     } catch (error) {
       console.error(`Failed to fetch ${label} details`, error);
     }
   };
-
+ 
   useEffect(() => {
     fetchApiId();
   }, []);
@@ -63,7 +71,17 @@ export default function Update({ label, valueCateSgory }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    update(name, description, categoryID, weight, size, updateId, label);
+    update(
+      name,
+      FeeValue,
+      description,
+      categoryID,
+      priceOfGem,
+      pricePerGram,
+      size,
+      updateId,
+      label
+    );
   };
 
   return (
@@ -140,7 +158,7 @@ export default function Update({ label, valueCateSgory }) {
                         ? "Category"
                         : label === "stores"
                         ? "Phone"
-                        : "Weight"}
+                        : "Price"}
                     </Typography>
                     <Typography variant="h6" color="red">
                       *
@@ -153,38 +171,83 @@ export default function Update({ label, valueCateSgory }) {
                     labelProps={{
                       className: "before:content-none after:content-none",
                     }}
-                    value={label === "stores" ? phone : weight}
+                    value={
+                      label === "stores"
+                        ? phone
+                        : label === "Material"
+                        ? pricePerGram
+                        : priceOfGem
+                    }
                     onChange={
                       label === "stores"
                         ? (e) => setPhone(e.target.value)
-                        : (e) => setWeight(e.target.value)
+                        : label === "Material"
+                        ? (e) => setpricePerGram(e.target.value)
+                        : (e) => setpriceOfGem(e.target.value)
                     }
                   />
+
+                  {label === "Gemstone" && (
+                    <>
+                      <div className="-mb-3 flex items-center">
+                        <Typography
+                          variant="h6"
+                          color="blue-gray"
+                          className="mr-1"
+                        >
+                          Size
+                        </Typography>
+                        <Typography variant="h6" color="red">
+                          *
+                        </Typography>
+                      </div>
+                      <Input
+                        type={"text"}
+                        size="lg"
+                        value={size}
+                        className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                        labelProps={{
+                          className: "before:content-none after:content-none",
+                        }}
+                        onChange={(e) => setSize(e.target.value)}
+                      />
+                    </>
+                  )}
+
                   <div className="-mb-3 flex items-center">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
                       {label === "Type"
                         ? "Description"
                         : label === "stores"
                         ? "Location"
-                        : "Size"}
+                        : "Fee"}
                     </Typography>
                     <Typography variant="h6" color="red">
                       *
                     </Typography>
                   </div>
-                  <Input
-                    size="lg"
-                    className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className: "before:content-none after:content-none",
-                    }}
-                    value={label === "stores" ? location : size}
-                    onChange={
-                      label === "stores"
-                        ? (e) => setLocation(e.target.value)
-                        : (e) => setSize(e.target.value)
-                    }
-                  />
+                  {label === "Material" || label === "Gemstone" ? (
+                    <SelectDefault
+                      label={"Material&Gemstone"}
+                      ListFee={showListFee}
+                      defaultValue={FeeValue}
+                      onSelectFee={handleFeeSelect}
+                    />
+                  ) : (
+                    <Input
+                      size="lg"
+                      className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                      value={label === "stores" ? location : size}
+                      onChange={
+                        label === "stores"
+                          ? (e) => setLocation(e.target.value)
+                          : (e) => setSize(e.target.value)
+                      }
+                    />
+                  )}
                 </>
               )}
               <button

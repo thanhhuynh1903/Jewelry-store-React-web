@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import { useCustomerApi } from "./components/CustomerApi/useCustomerApi";
 import { columnsDataCategory } from "./variables/columnsData";
 import { useState } from "react";
+import Search from "components/atom/Search/Search";
 const Tables = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const CusList = useCustomerApi(refreshKey);
@@ -29,7 +30,7 @@ const Tables = () => {
     { name: "Customer", data: CusList },
     
   ];
-console.log(CusList);
+
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">

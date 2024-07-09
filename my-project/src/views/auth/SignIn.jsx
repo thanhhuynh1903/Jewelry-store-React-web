@@ -73,8 +73,7 @@ export default function SignIn() {
 
         if (response.data.success && response?.data?.role === "Admin") {
           navigate("/admin/");
-        }
-        else if (response.data.role === "staff") {
+        } else if (response.data.role === "staff") {
           navigate("/home");
         }
       } else {
@@ -120,74 +119,40 @@ export default function SignIn() {
     window.location.href = "https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google";
   };
 
-  // Handle initial render or URL change when returning from Google OAuth
-  useEffect(() => {
-    const handleGoogleCallback = async () => {
-      // Check if URL contains code parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get("code");
-
-      if (code) {
-        try {
-          // Make API call to exchange code for tokens
-          const response = await axios.post("https://baitapdeploy-production.up.railway.app/staffsRouter/auth/google/callback", {
-            code: code,
-          });
-          console.log(response?.data);
-          // Handle successful Google login
-          if (response?.data?.success) {
-            const accessToken = response.data.accessToken;
-            const refreshToken = response.data.refreshToken;
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-            setUsername(response?.data?.username); // Assuming username is included in the response
-
-            // Navigate to appropriate dashboard based on role
-            if (response?.data?.role === "staff") {
-              navigate("/admin");
-            } else {
-              navigate("/auth/"); // Replace with actual user dashboard route
-            }
-          } else {
-            // Handle login failure
-            console.error("Google login failed:", response.data.message);
-          }
-        } catch (error) {
-          console.error("Error during Google login:", error);
-        }
-      }
-    };
-
-    // Call the function to handle Google callback
-    handleGoogleCallback();
-  }, [navigate, setUsername]);
-
   return (
-    <div className="flex items-center justify-center w-full h-full px-2 mt-16 mb-16 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
+    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
       <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
-        <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
+        <div className="mb-4 ">
+          <div className={`flex items-center justify-center absolute top-[50px]`}>
+            <div className=" font-poppins text-[40px] font-bold uppercase text-navy-700 dark:text-white">
+              Alumina <span class="font-medium">store</span>
+            </div>
+          </div>
+        </div>
+        <h4 className="mb-2.5 text-2xl font-bold text-navy-700 dark:text-white">
           Sign In
         </h4>
         <p className="ml-1 text-base text-gray-600 mb-9">
           Enter your email and password to sign in!
         </p>
 
+
         <div
           className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800"
           onClick={handleGoogleLogin}
         >
-          <div className="text-xl rounded-full">
+          <div className="rounded-full text-xl">
             <FcGoogle />
           </div>
           <h5 className="text-sm font-medium text-navy-700 dark:text-white">
             Sign In with Google
           </h5>
         </div>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-full h-px bg-gray-200 dark:bg-navy-700" />
+        <div className="mb-6 flex items-center gap-3">
+          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
           <p className="text-base text-gray-600 dark:text-white"> or </p>
-          <div className="w-full h-px bg-gray-200 dark:bg-navy-700" />
+          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
         </div>
         {/* Email */}
         <form onSubmit={handleSubmit}>
@@ -217,8 +182,8 @@ export default function SignIn() {
           />
 
           {/* Checkbox */}
-          <div className="flex items-center justify-between px-2 mt-4 mb-2 ">
-            <div className="flex items-center mt-2">
+          <div className="mt-4 mb-2 flex items-center justify-between px-2 ">
+            <div className="mt-2 flex items-center">
               <Checkbox />
               <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white ">
                 Remember password

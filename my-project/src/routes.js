@@ -22,7 +22,7 @@ import SignIn from "views/auth/SignIn";
 import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
 import { FaRegUser } from "react-icons/fa";
 import DataTableCustomer from "./views/admin/tables/customer";
-
+import GoogleCallback from "views/auth/GoogleCallback";
 // Icon Imports
 import {
   MdHome,
@@ -187,6 +187,7 @@ const routes = [
     component: <Update label={"Category"}/>,
   },
   {
+    show : "hidden",
     name: "Profile",
     layout: "/admin",
     path: "profile",
@@ -199,6 +200,12 @@ const routes = [
     path: "sign-in",
     icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
+  },
+  {
+    name: "Google Callback",
+    layout: "/",
+    path: "authGoogle",
+    component: <GoogleCallback />,
   },
   
 ];
