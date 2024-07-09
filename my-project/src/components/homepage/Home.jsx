@@ -26,7 +26,7 @@ const Home = () => {
   }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen mx-auto duration-200 bg-white max-w-screen-4xl dark:bg-gray-900 dark:text-white">
+        <div className="items-center justify-center duration-200 bg-white min-h-screeN max-w-screen-4xl dark:bg-gray-900 dark:text-white">
             <Navbar handleOrderPopup={handleOrderPopup}/>
             <Hero/>
             <Banner handleOrderPopup={handleOrderPopup}/>
