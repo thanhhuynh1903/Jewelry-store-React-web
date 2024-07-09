@@ -12,11 +12,13 @@ import { BsCart2 } from "react-icons/bs";
 import { AiOutlineShopping } from "react-icons/ai";
 import { IoStorefrontOutline } from "react-icons/io5";
 import DataTablesStore from "./views/admin/tables/store";
+import DataTablesUsers from "./views/admin/tables/user"
 // import RTLDefault from "views/rtl/default";
 import ProcessFee from "views/admin/tables/processFee";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
 import OrderDetail from "views/admin/marketplace/pages/OrderDetail/OrderDetail";
 // Auth Imports
+import { FaChalkboardUser } from "react-icons/fa6";
 import { TbMoneybag } from "react-icons/tb";
 import SignIn from "views/auth/SignIn";
 import CreateProduct from "views/admin/marketplace/pages/CreateProduct/CreateProduct";
@@ -90,6 +92,12 @@ const routes = [
     icon: <FaRegUser className="h-6 w-6" />,
     path: "customers/",
     component: <DataTableCustomer />,
+  },{
+    name: "Users",
+    layout: "/admin",
+    icon: <FaChalkboardUser className="h-6 w-6" />,
+    path: "users/",
+    component: <DataTablesUsers />,
   },
   {
     name: "Stores managment",
@@ -98,6 +106,7 @@ const routes = [
     path: "stores/",
     component: <DataTablesStore />,
   },
+  
   {
     show : "hidden",
     name: "Add store",

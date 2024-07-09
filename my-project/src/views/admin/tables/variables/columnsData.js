@@ -72,7 +72,7 @@ export const columnsDataMaterial = [
 
 export const columnsDataOrder =  [
   {
-    Header: "Id",
+    Header: "ID",
     accessor: "_id",
   },
   {
@@ -113,6 +113,26 @@ export const columnsDataStore =  [
   {
     Header: "INVOICE",
     accessor: "invoice",
+  },
+];
+
+export const columnsDataUser =  [
+  {
+    Header: "ID",
+    accessor: "id",
+  },
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "USERNAME",
+    accessor: "username",
+  },
+ 
+  {
+    Header: "ROLE",
+    accessor: "role",
   },
 ];
 
