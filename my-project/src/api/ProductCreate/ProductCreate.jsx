@@ -26,7 +26,7 @@ export const useProductCreateApi = () => {
           toast.success(`Create ${label} Successfully`);
           navigate("/admin/nft-marketplace/");
         } else {
-          toast.error(response.data.message);
+          toast.error(response?.data?.message);
         }
       } else {
         toast.error("Invalid label provided");

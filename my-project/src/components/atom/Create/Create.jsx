@@ -210,6 +210,7 @@ export default function Create({ label }) {
           </form>
         </div>
       </Card>
+      <ToastContainer autoClose={2000} />
     </>
   );
 }

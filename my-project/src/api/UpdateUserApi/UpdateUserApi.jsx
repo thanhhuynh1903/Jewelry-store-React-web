@@ -14,10 +14,10 @@ export const UpdateUserApi = () => {
       username, password, name, role, age, label
     };
     const headers = { Authorization: `Bearer ${token}` };
-
+console.log(param);
     try {
       const endpoint =
-        label === "users" ? `staffsRouter/${updateId}` : ""
+        label === "users" ? `staffsRouter/updateUser/${updateId}` : ""
        
       if (endpoint) {
         const response = await axios.put(endpoint, param, { headers });

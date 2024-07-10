@@ -18,13 +18,13 @@ export default function UpdateUser({ label }) {
   const update = UpdateUserApi();
   const token = useAuth();
   const { updateId } = useParams();
+
   const fetchApiId = async () => {
-    const endpoint = label === "users" ? "staffRouter/updateUser" :  ""
+    const endpoint = label === "users" ? "staffsRouter/getUserById" : "";
     const headers = { Authorization: `Bearer ${token}` };
     try {
-      console.log(response);
       const response = await axios.get(`${endpoint}/${updateId}`, { headers });
-      
+      console.log(response);
       if (response?.data?.success) {
         const detail =
           label === "users"
@@ -36,26 +36,21 @@ export default function UpdateUser({ label }) {
         setUsername(detail.username || "");
         setRole(detail.role || "");
         setAge(detail.age || "");
-      
       }
     } catch (error) {
       console.error(`Failed to fetch ${label} details`, error);
     }
   };
- 
+  console.log(role);
   useEffect(() => {
     fetchApiId();
   }, []);
-
+console.log(username);
   const handleSubmit = (e) => {
     e.preventDefault();
-    update(username, password, name, role, age,label,updateId );
+    update(username, password, name, role, age, label, updateId);
   };
 
-
-  const handleFeeSelect = (feeId) => {
-    setRole(feeId); // Update selected category ID
-  };
 
   return (
     <>
@@ -157,7 +152,11 @@ export default function UpdateUser({ label }) {
                   *
                 </Typography>
               </div>
-              <SelectDefault onSelectFee={handleFeeSelect} defaultValue={role} label={"users"}/>
+              <SelectDefault
+                label="users"
+                defaultValue={role}
+                onSelectRole={setRole}
+              />
               <button
                 type="submit"
                 className="z-50 rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-3 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"

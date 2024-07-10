@@ -65,6 +65,7 @@ export const useUpdateApi = () => {
           navigate("/admin/data-tables/");
         }
       } else {
+        toast.error(`Update ${label} failed`);
         console.error("Invalid label provided");
       }
     } catch (error) {

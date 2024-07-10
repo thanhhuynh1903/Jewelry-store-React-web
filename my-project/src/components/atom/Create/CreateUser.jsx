@@ -18,8 +18,8 @@ export default function CreateUser({ label }) {
     e.preventDefault();
     create(username, password, name, role, age, label);
   };
-
-  const handleFeeSelect = (feeId) => {
+console.log(role);
+  const handleRoleChange = (feeId) => {
     setRole(feeId); 
   };
 
@@ -119,7 +119,7 @@ export default function CreateUser({ label }) {
                   *
                 </Typography>
               </div>
-              <SelectDefault onSelectFee={handleFeeSelect} label={label}/>
+              <SelectDefault onSelectRole={handleRoleChange} label={label}/>
               <button
                 type="submit"
                 className="z-50 rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-3 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
@@ -130,6 +130,7 @@ export default function CreateUser({ label }) {
           </form>
         </div>
       </Card>
+      <ToastContainer autoClose={2000} />
     </>
   );
 }
