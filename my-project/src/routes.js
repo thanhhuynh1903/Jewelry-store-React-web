@@ -18,6 +18,8 @@ import ProcessFee from "views/admin/tables/processFee";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
 import OrderDetail from "views/admin/marketplace/pages/OrderDetail/OrderDetail";
 // Auth Imports
+import UpdateUser from "components/atom/Update/UpdateUser";
+import CreateUser from "components/atom/Create/CreateUser";
 import { FaChalkboardUser } from "react-icons/fa6";
 import { TbMoneybag } from "react-icons/tb";
 import SignIn from "views/auth/SignIn";
@@ -115,6 +117,22 @@ const routes = [
     icon: <IoStorefrontOutline className="h-6 w-6" />,
     path: "stores/stores/create/",
     component: <Create label={"stores"} />,
+  },
+  {
+    show: "hidden",
+    name: "Add User",
+    layout: "/admin",
+    icon: <IoStorefrontOutline className="h-6 w-6" />,
+    path: "users/users/create/",
+    component: <CreateUser label={"users"} />,
+  },
+  {
+    show: "hidden",
+    name: "Update User",
+    layout: "/admin",
+    icon: <IoStorefrontOutline className="h-6 w-6" />,
+    path: "users/users/update/:updateId",
+    component: <UpdateUser label={"users"} />,
   },
   {
     show: "hidden",

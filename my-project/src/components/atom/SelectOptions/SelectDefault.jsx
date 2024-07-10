@@ -26,7 +26,6 @@ export function SelectDefault({
       } else if (label === "Type") {
         setSelectedType(defaultValue._id);
       } else if (label === "Material" || label === "Material&Gemstone") {
-        
         setSelectedMaterial(defaultValue._id);
       } else if (label === "Gemstone" || label === "Material&Gemstone") {
         setSelectedGemstone(defaultValue._id);
@@ -178,11 +177,10 @@ export function SelectDefault({
           disabled
         >
           <option value="">{defaultValue?.status}</option>
-         
         </select>
       )}
 
-{label === "Material&Gemstone" && (
+      {label === "Material&Gemstone" && (
         <select
           id="categories"
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -194,16 +192,35 @@ export function SelectDefault({
             {defaultValue ? defaultValue.name : "Select process fee"}
           </option>
           {ListFee &&
-            ListFee?.filter(
-              (fee) => fee?._id !== defaultValue?._id
-            ).map((fee) => (
-              <option key={fee?._id} value={fee?._id}>
-                {fee?.name}
-              </option>
-            ))}
+            ListFee?.filter((fee) => fee?._id !== defaultValue?._id).map(
+              (fee) => (
+                <option key={fee?._id} value={fee?._id}>
+                  {fee?.name}
+                </option>
+              )
+            )}
         </select>
       )}
-
+      {label === "users" && (
+        <select
+          id="categories"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          size={Math.min(maxVisibleOptions, ListCate?.length)}
+          value={selectedFee}
+          onChange={handleFeeChange}
+        >
+          <option value="">
+            {defaultValue ? defaultValue.name : "Select Role"}
+          </option>
+          <option value="staff">
+            staff
+          </option>
+          <option value="Admin">
+          Admin
+          </option>
+          
+        </select>
+      )}
     </form>
   );
 }

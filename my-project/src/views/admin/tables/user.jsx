@@ -15,7 +15,7 @@ import ColumnsTable from "./components/ColumnsTable";
 import ComplexTable from "./components/ComplexTable";
 import { columnsDataUser } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
-import { useUserApi } from "./components/useUserApi/useStoreApi";
+import { useUserApi } from "./components/useUserApi/useUserApi";
 import { columnsDataCategory } from "./variables/columnsData";
 const Tables = () => {
   const userList = useUserApi();

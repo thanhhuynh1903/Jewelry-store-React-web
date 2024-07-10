@@ -29,8 +29,8 @@ const ComplexTableOrder = (props) => {
 
   const handleCheckboxChange = (rowId) => {
     setCheckedRows((prevCheckedRows) =>
-      prevCheckedRows.includes(rowId)
-        ? prevCheckedRows.filter((id) => id !== rowId)
+      prevCheckedRows?.includes(rowId)
+        ? prevCheckedRows?.filter((id) => id !== rowId)
         : [...prevCheckedRows, rowId]
     );
   };

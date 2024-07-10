@@ -136,7 +136,7 @@ export const columnsDataUser =  [
     accessor: "role",
   },
   {
-    Header: "Action",
+    Header: "ACTION",
     accessor: "action",
   },
 ];
