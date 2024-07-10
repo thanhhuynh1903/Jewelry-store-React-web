@@ -112,14 +112,23 @@ const ComplexTableCustomer = (props) => {
                         checked={isChecked}
                         onChange={() => handleCheckboxChange(rowId)}
                       />
+                       <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell.value}
                         </p>
+                        </Link>
                         </div>
                       );
                     } else if (cell.column.Header === "PHONE") {
                       data = (
                         <div className="flex items-center gap-2">
+                           <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
                           <div className={`rounded-full text-xl`}>
                             {cell.value === "Approved" ? (
                               <MdCheckCircle className="text-green-500" />
@@ -132,20 +141,31 @@ const ComplexTableCustomer = (props) => {
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
                             {cell.value}
                           </p>
+                          </Link>
                         </div>
                       );
                     } else if (cell.column.Header === "ADDRESS") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell?.value}
                         </p>
+                        </Link>
                       );
                     } else if (cell.column.Header === "INVOICE") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {" "}
                           {cell?.row?.original?.orders?.length}{" "}
                         </p>
+                        </Link>
                       );
                     } 
                     return (

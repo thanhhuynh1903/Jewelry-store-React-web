@@ -12,7 +12,7 @@ import { BsCart2 } from "react-icons/bs";
 import { AiOutlineShopping } from "react-icons/ai";
 import { IoStorefrontOutline } from "react-icons/io5";
 import DataTablesStore from "./views/admin/tables/store";
-import DataTablesUsers from "./views/admin/tables/user"
+import DataTablesUsers from "./views/admin/tables/user";
 // import RTLDefault from "views/rtl/default";
 import ProcessFee from "views/admin/tables/processFee";
 import PageDetailProduct from "views/admin/marketplace/pages/PageDetailProduct/PageDetailProduct";
@@ -51,11 +51,11 @@ const routes = [
     secondary: true,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "Product detail",
     layout: "/admin",
     path: "nft-marketplace/:productId",
-    component: <PageDetailProduct label={"Detail"}/>,
+    component: <PageDetailProduct label={"Detail"} />,
   },
   {
     name: "Data Item",
@@ -69,7 +69,7 @@ const routes = [
     layout: "/admin",
     icon: <TbMoneybag className="h-6 w-6" />,
     path: "fee/",
-    component: <ProcessFee label={"fee"}/>,
+    component: <ProcessFee label={"fee"} />,
   },
   {
     name: "Orders",
@@ -79,12 +79,12 @@ const routes = [
     component: <DataTablesOrder />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "Orders",
     layout: "/admin",
     icon: <BsCart2 className="h-6 w-6" />,
     path: "orders/orders/update/:updateId",
-    component: <OrderDetail label={"orders"}/>,
+    component: <OrderDetail label={"orders"} />,
   },
   {
     name: "Customers",
@@ -92,7 +92,8 @@ const routes = [
     icon: <FaRegUser className="h-6 w-6" />,
     path: "customers/",
     component: <DataTableCustomer />,
-  },{
+  },
+  {
     name: "Users",
     layout: "/admin",
     icon: <FaChalkboardUser className="h-6 w-6" />,
@@ -106,9 +107,9 @@ const routes = [
     path: "stores/",
     component: <DataTablesStore />,
   },
-  
+
   {
-    show : "hidden",
+    show: "hidden",
     name: "Add store",
     layout: "/admin",
     icon: <IoStorefrontOutline className="h-6 w-6" />,
@@ -116,87 +117,102 @@ const routes = [
     component: <Create label={"stores"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "Update store",
     layout: "/admin",
     icon: <IoStorefrontOutline className="h-6 w-6" />,
     path: "stores/stores/update/:updateId",
     component: <Update label={"stores"} />,
   },
+  {
+    show: "hidden",
+    name: "Update Customer",
+    layout: "/admin",
+    icon: <IoStorefrontOutline className="h-6 w-6" />,
+    path: "customers/customer/update/:updateId",
+    component: <Update label={"customers"} />,
+  },
 
   {
-    show : "hidden",
+    show: "hidden",
     name: "Add product",
     layout: "/admin",
     path: "nft-marketplace/product/create",
-    component: <CreateProduct label={"product"}/>,
+    component: <CreateProduct label={"product"} />,
   },
 
   {
-    show : "hidden",
+    show: "hidden",
     name: "create material",
     layout: "/admin",
     path: "data-tables/material/create",
-    component: <Create label={"Material"}/>,
+    component: <Create label={"Material"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "create fee",
     layout: "/admin",
     path: "fee/fee/create",
-    component: <Create label={"Processing Fee"}/>,
+    component: <Create label={"Processing Fee"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
+    name: "Update fee",
+    layout: "/admin",
+    path: "fee/fee/update/:updateId",
+    component: <Update label={"Processing Fee"} />,
+  },
+  {
+    show: "hidden",
     name: "create Type",
     layout: "/admin",
     path: "data-tables/type/create",
-    component: <Create label={"Type"}/>,
+    component: <Create label={"Type"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "create gemstone",
     layout: "/admin",
     path: "data-tables/gemstone/create",
-    component: <Create label={"Gemstone"}/>,
+    component: <Create label={"Gemstone"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "create category",
     layout: "/admin",
     path: "data-tables/category/create",
-    component: <Create label={"Category"}/>,
+    component: <Create label={"Category"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "update material",
     layout: "/admin",
     path: "data-tables/material/update/:updateId",
-    component: <Update label={"Material"}/>,
+    component: <Update label={"Material"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "update gemstone",
     layout: "/admin",
     path: "data-tables/gemstone/update/:updateId",
-    component: <Update label={"Gemstone"}/>,
+    component: <Update label={"Gemstone"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "update type",
     layout: "/admin",
     path: "data-tables/producttype/update/:updateId",
-    component: <Update label={"Type"}/>,
+    component: <Update label={"Type"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "update type",
     layout: "/admin",
     path: "data-tables/category/update/:updateId",
-    component: <Update label={"Category"}/>,
+    component: <Update label={"Category"} />,
   },
   {
-    show : "hidden",
+    show: "hidden",
     name: "Profile",
     layout: "/admin",
     path: "profile",
@@ -216,6 +232,5 @@ const routes = [
     path: "authGoogle",
     component: <GoogleCallback />,
   },
-  
 ];
 export default routes;
