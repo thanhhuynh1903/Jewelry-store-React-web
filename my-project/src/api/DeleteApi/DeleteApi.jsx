@@ -23,19 +23,11 @@ const useDeleteData = () => {
             axios.delete(`${endpoint}/${id}`, { headers })
           )
         );
-        console.log(response);
         const allSuccess = response.every((res) => res?.data?.success);
-        console.log(allSuccess);
+        
         if (allSuccess) {
+          console.log(refresh);
           refresh();
-          if (label === "stores") {
-            navigate("/admin/stores/");
-          }if (label === "fee") {
-            navigate("/admin/fee/");
-          }
-           else {
-            navigate("/admin/data-tables/");
-          }
           return toast.success("Delete successfully");
         } else {
           return toast.error(`Delete Failed`);

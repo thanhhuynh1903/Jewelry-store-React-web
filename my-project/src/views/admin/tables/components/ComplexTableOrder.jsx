@@ -24,7 +24,7 @@ const ComplexTableOrder = (props) => {
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
   const nameLower = name.toLowerCase();
-console.log(tableData);
+
   const [checkedRows, setCheckedRows] = useState([]);
 
   const handleCheckboxChange = (rowId) => {

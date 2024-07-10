@@ -117,6 +117,7 @@ export const columnsDataStore =  [
 ];
 
 export const columnsDataUser =  [
+ 
   {
     Header: "ID",
     accessor: "id",
@@ -125,14 +126,18 @@ export const columnsDataUser =  [
     Header: "NAME",
     accessor: "name",
   },
-  {
-    Header: "USERNAME",
-    accessor: "username",
-  },
+  // {
+  //   Header: "USERNAME/GOOGLE",
+  //   accessor: "username",
+  // },
  
   {
     Header: "ROLE",
     accessor: "role",
+  },
+  {
+    Header: "Action",
+    accessor: "action",
   },
 ];
 

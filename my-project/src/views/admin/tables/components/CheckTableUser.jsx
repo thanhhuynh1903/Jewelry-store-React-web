@@ -40,7 +40,6 @@ const CheckTable = (props) => {
 
   const handleDelete = async () => {
     const endpoint = name.toLowerCase(); // Replace with your actual endpoint
-    console.log(endpoint);
     await deleteData(checkedRows, endpoint, "stores", refreshList);
     setCheckedRows([]);
   };
@@ -142,17 +141,6 @@ const CheckTable = (props) => {
                             </p>
                           </Link>
                         </div>
-                      );
-                    } else if (cell.column.Header === "USERNAME") {
-                      data = (
-                        <Link
-                          to={`${nameLower}/update/${rowId}`}
-                          className="flex items-center"
-                        >
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {cell.value}
-                          </p>
-                        </Link>
                       );
                     } else if (cell.column.Header === "PASSWORD") {
                       data = (
