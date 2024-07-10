@@ -39,12 +39,12 @@ const Tables = () => {
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
-        {name.map((data, index) => (
+        {name?.map((data, index) => (
           <CheckTable
-            name={data.name}
+            name={data?.name}
             index={index}
-            columnsData={data.name === "Gemstone" ? columnsDataGemstone : columnsDataMaterial }
-            tableData={data.data}
+            columnsData={data?.name === "Gemstone" ? columnsDataGemstone : columnsDataMaterial }
+            tableData={data?.data}
           />
         ))}{" "}
       </div>
@@ -54,11 +54,11 @@ const Tables = () => {
           tableData={tableDataColumns} </div>
       />*/}
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
-        {nameType.map((data, index) => (
+        {nameType?.map((data, index) => (
           <ComplexTable
-            name={data.name}
-            columnsData={data.name === "Type" ? columnsDataComplex : columnsDataCategory}
-            tableData={data.data}
+            name={data?.name}
+            columnsData={data?.name === "Type" ? columnsDataComplex : columnsDataCategory}
+            tableData={data?.data}
           />
         ))}
       </div>

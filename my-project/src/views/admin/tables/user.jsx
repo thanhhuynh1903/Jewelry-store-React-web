@@ -23,16 +23,16 @@ const Tables = () => {
   const name = [
     { name: "Users", data: userList },    
   ]
-  console.log(userList);
+
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
-        {name.map((data, index) => (
+        {name?.map((data, index) => (
           <CheckTableUser
-            name={data.name}
+            name={data?.name}
             index={index}
             columnsData={columnsDataUser}
-            tableData={data.data}
+            tableData={data?.data}
           />
         ))}{" "}
       </div>

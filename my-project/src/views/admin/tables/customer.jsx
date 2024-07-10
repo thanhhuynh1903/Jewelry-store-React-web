@@ -34,13 +34,13 @@ const Tables = () => {
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
-        {name.map((data, index) => (
+        {name?.map((data, index) => (
           <ComplexTableCustomer
-          key={`${data.name}-${refreshKey}`}
-            name={data.name}
+          key={`${data?.name}-${refreshKey}`}
+            name={data?.name}
             index={index}
             columnsData={columnsDataCustomer}
-            tableData={data.data}
+            tableData={data?.data}
             refreshList={refreshCustomerList}
 
           />

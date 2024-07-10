@@ -46,19 +46,19 @@ console.log(OrderList);
       // Optionally, you can show an error message to the user here
     }
   };
-  console.log(DisplayOrders.length);
+
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
         <div className="flex justify-end">
           <Search onSearch={handleSearch}/>
         </div>
-        {name.map((data, index) => (
+        {name?.map((data, index) => (
           <ComplexTableOrder
-            name={data.name}
+            name={data?.name}
             index={index}
             columnsData={columnsDataOrder}
-            tableData={DisplayOrders.length !== 0 ? DisplayOrders : data?.data}
+            tableData={DisplayOrders?.length !== 0 ? DisplayOrders : data?.data}
           />
         ))}{" "}
       </div>
