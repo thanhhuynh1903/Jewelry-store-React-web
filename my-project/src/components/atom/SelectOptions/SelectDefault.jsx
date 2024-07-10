@@ -12,6 +12,7 @@ export function SelectDefault({
   onSelectGemstone,
   onSelectMaterial,
   onSelectFee,
+  onSelectRole,
   defaultValue,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -19,6 +20,7 @@ export function SelectDefault({
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [selectedGemstone, setSelectedGemstone] = useState("");
   const [selectedFee, setSelectedFee] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
   useEffect(() => {
     if (defaultValue) {
       if (label === "Category") {
@@ -29,6 +31,8 @@ export function SelectDefault({
         setSelectedMaterial(defaultValue._id);
       } else if (label === "Gemstone" || label === "Material&Gemstone") {
         setSelectedGemstone(defaultValue._id);
+      }else if (label === "users") {
+        setSelectedRole(defaultValue);
       }
     }
   }, [defaultValue, label]);
@@ -60,6 +64,12 @@ export function SelectDefault({
     const gemstone = e.target.value;
     setSelectedGemstone(gemstone);
     onSelectGemstone(gemstone);
+  };
+
+  const handleRoleChange = (e) => {
+    const role = e.target.value;
+    setSelectedRole(role);
+    onSelectRole(role);
   };
 
   const maxVisibleOptions = 5;
@@ -201,24 +211,17 @@ export function SelectDefault({
             )}
         </select>
       )}
-      {label === "users" && (
+       {label === "users" && (
         <select
-          id="categories"
+          id="roles"
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          size={Math.min(maxVisibleOptions, ListCate?.length)}
-          value={selectedFee}
-          onChange={handleFeeChange}
+          value={selectedRole}
+          onChange={handleRoleChange}
         >
-          <option value="">
-            {defaultValue ? defaultValue.name : "Select Role"}
-          </option>
-          <option value="staff">
-            staff
-          </option>
-          <option value="Admin">
-          Admin
-          </option>
-          
+          {defaultValue ?? <option value="" disabled>Select Role</option>}
+          <option value="Admin">Admin</option>
+          <option value="staff">Staff</option>
+       
         </select>
       )}
     </form>

@@ -25,7 +25,7 @@ console.log(param);
           toast.success(`Create ${label} Successfully`);
           navigate("/admin/users/")
         } else {
-          toast.error(response.data.message);
+          toast.error(response?.data?.message);
         }
       } else {
         toast.error("Invalid label provided");
