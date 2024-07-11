@@ -41,14 +41,14 @@ export default function UpdateUser({ label }) {
       console.error(`Failed to fetch ${label} details`, error);
     }
   };
-  console.log(role);
+  
   useEffect(() => {
     fetchApiId();
   }, []);
-console.log(username);
+console.log(role);
   const handleSubmit = (e) => {
     e.preventDefault();
-    update(username, password, name, role, age, label, updateId);
+    update(role, label, updateId);
   };
 
 
@@ -67,7 +67,7 @@ console.log(username);
             onSubmit={handleSubmit}
           >
             <div className="mb-1 flex flex-col gap-6">
-              <div className="-mb-3 flex items-center">
+              {/* <div className="-mb-3 flex items-center">
                 <Typography variant="h6" color="blue-gray" className="mr-1">
                   Username
                 </Typography>
@@ -101,9 +101,9 @@ console.log(username);
                   className: "before:content-none after:content-none",
                 }}
                 onChange={(e) => setPassword(e.target.value)}
-              />
+              /> */}
               <div className="flex w-full justify-between">
-                <div className="block">
+                <div className="block w-full">
                   <div className="flex">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
                       Name
@@ -121,9 +121,10 @@ console.log(username);
                       className: "before:content-none after:content-none",
                     }}
                     onChange={(e) => setName(e.target.value)}
+                    disabled
                   />
                 </div>
-                <div className="block">
+                {/* <div className="block">
                   <div className="flex">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
                       Age
@@ -142,7 +143,7 @@ console.log(username);
                     }}
                     onChange={(e) => setAge(e.target.value)}
                   />
-                </div>
+                </div> */}
               </div>
               <div className="-mb-3 flex items-center">
                 <Typography variant="h6" color="blue-gray" className="mr-1">
@@ -154,7 +155,7 @@ console.log(username);
               </div>
               <SelectDefault
                 label="users"
-                defaultValue={role}
+                defaultValue={role === "cust" ? "cust" : "" }
                 onSelectRole={setRole}
               />
               <button
