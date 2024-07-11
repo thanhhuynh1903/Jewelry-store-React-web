@@ -36,7 +36,7 @@ export function SelectDefault({
       }
     }
   }, [defaultValue, label]);
-
+console.log(defaultValue);
   const handleCategoryChange = (e) => {
     const categoryId = e.target.value;
     setSelectedCategory(categoryId);
@@ -219,6 +219,7 @@ export function SelectDefault({
           onChange={handleRoleChange}
         >
           {defaultValue ?? <option value="" disabled>Select Role</option>}
+          {defaultValue === "cust" ? <option value="cust" >Customer</option> : ""}
           <option value="Admin">Admin</option>
           <option value="staff">Staff</option>
        

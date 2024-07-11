@@ -133,12 +133,12 @@ const navigate = useNavigate();
                 >
                   Profile Settings
                 </Link>
-                {/* <a
-                  href=" "
+                <Link
+                  to={"/home"}
                   className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
                 >
-                  Newsletter Settings
-                </a> */}
+                  Home page
+                </Link>
                 <a
                 onClick={handleLogout}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"

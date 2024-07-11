@@ -8,16 +8,16 @@ export const UpdateUserApi = () => {
   const navigate = useNavigate();
 
   const update = async (
-    username, password, name, role, age, label,updateId, 
+    role, label,updateId, 
   ) => {
     const param = {
-      username, password, name, role, age, label
+       role, label
     };
     const headers = { Authorization: `Bearer ${token}` };
 console.log(param);
     try {
       const endpoint =
-        label === "users" ? `staffsRouter/updateUser/${updateId}` : ""
+        label === "users" ? `/staffsRouter/updateUserRole/${updateId}` : ""
        
       if (endpoint) {
         const response = await axios.put(endpoint, param, { headers });

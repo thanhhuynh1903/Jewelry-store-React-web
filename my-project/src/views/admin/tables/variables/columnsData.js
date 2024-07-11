@@ -135,10 +135,7 @@ export const columnsDataUser =  [
     Header: "ROLE",
     accessor: "role",
   },
-  {
-    Header: "ACTION",
-    accessor: "action",
-  },
+
 ];
 
 export const columnsDataCustomer =  [
