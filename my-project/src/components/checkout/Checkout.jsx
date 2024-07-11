@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'api/axios';
+import useAuth from 'hook/useAuth';
 
 function Checkout() {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('Bank');
   const [customer, setCustomer] = useState(null);
   const [token, setToken] = useState(() => {
-    const savedToken = localStorage.getItem('token');
+    const savedToken = localStorage.getItem('accessToken');
     console.log('Retrieved token from localStorage:', savedToken);
     return savedToken;
   });
@@ -27,6 +29,7 @@ function Checkout() {
         age,
         phone,
         address,
+        paymentMethod,
       }, config);
       setCustomer(response.data);
       alert('Customer created successfully!');
@@ -67,7 +70,7 @@ function Checkout() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="townCity" className="block mb-2 text-sm font-bold text-gray-700">
+              <label htmlFor="phone" className="block mb-2 text-sm font-bold text-gray-700">
                 Phone
               </label>
               <input
@@ -89,6 +92,21 @@ function Checkout() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="paymentMethod" className="block mb-2 text-sm font-bold text-gray-700">
+                Payment Method
+              </label>
+              <select
+                id="paymentMethod"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                <option value="Bank">Bank</option>
+                <option value="Cash">Cash</option>
+                <option value="Cash">Credit Card</option>
+              </select>
             </div>
             <button
               type="submit"

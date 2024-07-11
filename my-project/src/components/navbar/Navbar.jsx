@@ -23,6 +23,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("roleApp");
     navigate("/auth/");
   };
   return (
@@ -44,7 +45,7 @@ export default function Navbar() {
             <Link
               key={i}
               className="hidden hover:text-black text-hemp lg:block"
-              href={d.link}
+              to={d.link}
             >
               {d.labe}
             </Link>
@@ -65,7 +66,7 @@ export default function Navbar() {
             />
 
             {navlinks.map((d, i) => (
-              <Link key={i} className="font-bold" href={d.link}>
+              <Link key={i} className="font-bold" to={d.link}>
                 {d.labe}
               </Link>
             ))}
@@ -96,6 +97,12 @@ export default function Navbar() {
                 <div className="w-full h-px bg-gray-200 dark:bg-white/20 " />
 
                 <div className="flex flex-col p-4">
+                  <Link
+                    to="/profile"
+                    className="mt-3 text-sm font-medium text-blue-500 transition duration-150 ease-out hover:text-blue-500 hover:ease-in"
+                  >
+                    Profile
+                  </Link>
                   <a
                     onClick={handleLogout}
                     className="mt-3 text-sm font-medium text-red-500 transition duration-150 ease-out hover:text-red-500 hover:ease-in"

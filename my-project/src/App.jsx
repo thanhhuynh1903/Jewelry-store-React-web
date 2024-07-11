@@ -5,7 +5,7 @@ import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
 import "react-toastify/dist/ReactToastify.css";
 import HasAuth from "hook/HasAuth";
-import GoogleCallback from "hook/GoogleCallback";
+import GoogleCallback from "views/auth/GoogleCallback";
 import Home from "../src/components/homepage/Home";
 import ProductDetail from "components/products/ProductDetail";
 import Cart from "components/cart/Cart";

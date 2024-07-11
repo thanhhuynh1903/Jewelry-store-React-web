@@ -73,7 +73,8 @@ export default function SignIn() {
 
         if (response.data.success && response?.data?.role === "Admin") {
           navigate("/admin/");
-        } else if (response.data.role === "staff") {
+        } 
+        else if (response.data.role === "staff") {
           navigate("/home");
         }
       } else {
