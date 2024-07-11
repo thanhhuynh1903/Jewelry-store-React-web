@@ -23,6 +23,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
     navigate("/auth/");
   };
   return (

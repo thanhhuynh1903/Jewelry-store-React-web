@@ -93,7 +93,7 @@ console.log(username);
                 </Typography>
               </div>
               <Input
-                type="text"
+                type="password"
                 size="lg"
                 value={password}
                 className="!border-t-blue-gray-200 focus:!border-t-gray-900"
