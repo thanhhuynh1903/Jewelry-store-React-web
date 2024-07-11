@@ -6,26 +6,40 @@ import AuthLayout from "layouts/auth";
 import "react-toastify/dist/ReactToastify.css";
 import HasAuth from "hook/HasAuth";
 import GoogleCallback from "views/auth/GoogleCallback";
+<<<<<<< HEAD
 import Home from "../src/components/homepage/Home";
+=======
+import Home from "components/homepage/Home";
+>>>>>>> 4f4a302414e3b72f09e08fa4dd8c714042bc985a
 import ProductDetail from "components/products/ProductDetail";
 import Cart from "components/cart/Cart";
 import Checkout from "components/checkout/Checkout";
-import 'react-toastify/dist/ReactToastify.css';
-
+import ProtectedRoute from "hook/getRole";
+import Error404 from "views/admin/marketplace/pages/Error404page/Error404";
+import Success from "components/checkout/Success";
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/auth" replace />} />
       <Route path="auth/*" element={<AuthLayout />} />
-      <Route path="/authGoogle" element={<GoogleCallback />} /> {/* Thêm route callback */}
-      <Route element={<HasAuth />}>
-        <Route path="admin/*" element={<AdminLayout />} />
-        <Route path="rtl/*" element={<RtlLayout />} />
-        <Route path="home/*" element={<Home/>} />
-      </Route>
-      <Route path="/product/:id" element={<ProductDetail />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/authGoogle" element={<GoogleCallback />} />
+
+  
+        <Route element={<ProtectedRoute allowedRoles={['Admin']} />}>
+          <Route path="admin/*" element={<AdminLayout />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={['Admin', 'staff']} />}>
+          <Route path="rtl/*" element={<RtlLayout />} />
+          <Route path="home/*" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/success" element={<Success />} />
+        </Route>
+      
+
+      <Route path="/404" element={<Error404 />} />
+      <Route path="/*" element={<Error404 />} />
     </Routes>
   );
 };

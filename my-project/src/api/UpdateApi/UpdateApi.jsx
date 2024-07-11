@@ -9,25 +9,31 @@ export const useUpdateApi = () => {
   const update = async (
     name,
     FeeValue,
+    phone,
+    address,
     description,
     categoryID,
     priceOfGem,
     pricePerGram,
     size,
     updateId,
+    feeRate,
     label
   ) => {
     const param = {
       name,
       processingFeeId: FeeValue,
+      phone,
+      address,
       description,
       categoryID,
       priceOfGem,
       pricePerGram,
+      feeRate,
       size,
     };
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(param);
+    console.log(label);
     try {
       const endpoint =
         label === "Material"
@@ -38,6 +44,10 @@ export const useUpdateApi = () => {
           ? "category"
           : label === "Type"
           ? "producttype"
+          : label === "customers"
+          ? "customers"
+          : label === "Processing Fee"
+          ? "processingFee"
           : "";
       if (endpoint) {
         const response = await axios.put(`${endpoint}/${updateId}`, param, {
@@ -46,11 +56,16 @@ export const useUpdateApi = () => {
         console.log(response.data);
         if (response.data.success) {
           toast.success(`Update ${label} Successfully`);
+          if(label==="customers"){
+            navigate("/admin/customers/");
+          }else
+          if(label==="Processing Fee"){
+            navigate("/admin/fee/");
+          }else
           navigate("/admin/data-tables/");
         }
       } else {
-        // toast.error(Response.data.message);
-
+        toast.error(`Update ${label} failed`);
         console.error("Invalid label provided");
       }
     } catch (error) {

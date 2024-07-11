@@ -28,12 +28,12 @@ const Tables = () => {
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
-        {name.map((data, index) => (
+        {name?.map((data, index) => (
           <CheckTableFee
-            name={data.name}
+            name={data?.name}
             index={index}
             columnsData={columnsDataFee}
-            tableData={data.data}
+            tableData={data?.data}
           />
         ))}{" "}
       </div>

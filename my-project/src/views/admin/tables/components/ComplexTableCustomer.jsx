@@ -8,23 +8,27 @@ import {
 } from "react-table";
 import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
 import { useMemo } from "react";
+import Checkbox from "components/checkbox";
 import Progress from "components/progress";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import ButtonAction from "components/atom/ButtonDelete/ButtonAction";
 import { Link } from "react-router-dom";
 import useAuth from "hook/useAuth";
+import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 import axios from "api/axios";
 import { useState } from "react";
+import useDeleteData from "api/DeleteApi/DeleteApi";
 import { toast } from "react-toastify";
 const ComplexTableCustomer = (props) => {
-  const { columnsData, tableData, handleDelete,refreshList  } = props;
+  const { columnsData, tableData,refreshList  } = props;
 
   const { name, index } = props;
   const token = useAuth();
-  
+  const deleteData = useDeleteData(refreshList);
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
   const nameLower = name.toLowerCase();
+  const [checkedRows, setCheckedRows] = useState([]);
   const tableInstance = useTable(
     {
       columns,
@@ -45,29 +49,22 @@ const ComplexTableCustomer = (props) => {
   } = tableInstance;
   initialState.pageSize = 11;
 
-  const handleStatusChange = async (id, currentStatus) => {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
   
-    try {
-      const url = currentStatus
-        ? `https://baitapdeploy-production.up.railway.app/customers/${id}/deactivate`
-        : `https://baitapdeploy-production.up.railway.app/customers/${id}/activate`;
-
-      const response = await axios.patch(url, {}, { headers });
-
-      if (response.data.success) {
-        toast.success(response.data.message);       
-        refreshList()
-      } else {
-        toast.error("Failed to update status");
-      }
-    } catch (error) {
-      console.error("Failed to fetch status", error);
-      toast.error("Failed to fetch status");
-    }
+  const handleCheckboxChange = (rowId) => {
+    setCheckedRows((prevCheckedRows) =>
+      prevCheckedRows.includes(rowId)
+        ? prevCheckedRows.filter((id) => id !== rowId)
+        : [...prevCheckedRows, rowId]
+    );
   };
+
+  const handleDelete = async () => {
+    const endpoint = name.toLowerCase(); // Replace with your actual endpoint
+    console.log(endpoint);
+    await deleteData(checkedRows, "customers", "customers", refreshList);
+    setCheckedRows([]);
+  };
+
 
   return (
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
@@ -75,10 +72,9 @@ const ComplexTableCustomer = (props) => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        {/* <div className="center flex items-center justify-center">
-          <ButtonCreate name={name} />
-          
-        </div> */}
+        <div className="center flex items-center justify-center">
+        <ButtonCss handleDelete={handleDelete} />
+        </div>
       </header>
 
       <div class="mt-8 h-full overflow-x-scroll xl:overflow-hidden">
@@ -102,7 +98,8 @@ const ComplexTableCustomer = (props) => {
           </thead>
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
-              const rowId = row.original._id;
+               const rowId = row.original._id;
+               const isChecked = checkedRows.includes(rowId);
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={index}>
@@ -110,13 +107,28 @@ const ComplexTableCustomer = (props) => {
                     let data = "";
                     if (cell.column.Header === "NAME") {
                       data = (
+                        <div className="flex items-center gap-2">
+                        <Checkbox
+                        checked={isChecked}
+                        onChange={() => handleCheckboxChange(rowId)}
+                      />
+                       <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell.value}
                         </p>
+                        </Link>
+                        </div>
                       );
                     } else if (cell.column.Header === "PHONE") {
                       data = (
                         <div className="flex items-center gap-2">
+                           <Link
+                            to={`${nameLower}/update/${rowId}`}
+                            className="flex items-center gap-2"
+                          >
                           <div className={`rounded-full text-xl`}>
                             {cell.value === "Approved" ? (
                               <MdCheckCircle className="text-green-500" />
@@ -129,40 +141,33 @@ const ComplexTableCustomer = (props) => {
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
                             {cell.value}
                           </p>
+                          </Link>
                         </div>
                       );
                     } else if (cell.column.Header === "ADDRESS") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {cell?.value}
                         </p>
+                        </Link>
                       );
                     } else if (cell.column.Header === "INVOICE") {
                       data = (
+                        <Link
+                        to={`${nameLower}/update/${rowId}`}
+                        className="flex items-center gap-2"
+                      >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
                           {" "}
                           {cell?.row?.original?.orders?.length}{" "}
                         </p>
+                        </Link>
                       );
-                    } else if (cell.column.Header === "ACTIVE/DEACTIVE") {
-                      data = (
-                        <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {" "}
-                          <label class="inline-flex cursor-pointer items-center">
-                            <input
-                              type="checkbox"
-                              value=""
-                              class="peer sr-only"
-                              checked={cell?.row?.original?.status}
-                              onChange={() =>
-                                handleStatusChange(rowId, cell?.row?.original?.status)
-                              }
-                            />
-                            <div class="after:start-[2px] peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
-                          </label>
-                        </p>
-                      );
-                    }
+                    } 
                     return (
                       <td
                         className="pt-[14px] pb-[18px] sm:text-[14px]"

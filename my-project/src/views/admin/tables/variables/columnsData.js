@@ -72,7 +72,7 @@ export const columnsDataMaterial = [
 
 export const columnsDataOrder =  [
   {
-    Header: "Id",
+    Header: "ID",
     accessor: "_id",
   },
   {
@@ -116,6 +116,28 @@ export const columnsDataStore =  [
   },
 ];
 
+export const columnsDataUser =  [
+ 
+  {
+    Header: "ID",
+    accessor: "id",
+  },
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  // {
+  //   Header: "USERNAME/GOOGLE",
+  //   accessor: "username",
+  // },
+ 
+  {
+    Header: "ROLE",
+    accessor: "role",
+  },
+
+];
+
 export const columnsDataCustomer =  [
   {
     Header: "NAME",
@@ -133,10 +155,7 @@ export const columnsDataCustomer =  [
     Header: "INVOICE",
     accessor: "invoice",
   },
-  {
-    Header: "ACTIVE/DEACTIVE",
-    accessor: "status",
-  },
+
 ];
 
 export const columnsDataFee = [

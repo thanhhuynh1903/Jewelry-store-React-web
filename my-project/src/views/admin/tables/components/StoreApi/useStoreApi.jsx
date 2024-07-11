@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import useAuth from 'hook/useAuth';
 import axios from 'api/axios'; // Adjust the import path if necessary
-
+import { useRefresh } from 'context/RefreshProvider';
 export const useStoreApi = () => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
-
+  const { shouldRefresh } = useRefresh();
   const fetchApi = async () => {
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ export const useStoreApi = () => {
 
   useEffect(() => {
   fetchApi();
-  }, [token]);
+  }, [token,shouldRefresh]);
 
   return listType;
 };

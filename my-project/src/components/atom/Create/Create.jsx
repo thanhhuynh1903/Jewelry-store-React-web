@@ -186,6 +186,7 @@ export default function Create({ label }) {
                 <Input
                   type={label === "Processing Fee" ? "number" : ""}
                   size="lg"
+                  step={label === "Processing Fee" ? "0.1" : ""}
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900 "
                   labelProps={{
                     className: "before:content-none after:content-none",
@@ -209,6 +210,7 @@ export default function Create({ label }) {
           </form>
         </div>
       </Card>
+      <ToastContainer autoClose={2000} />
     </>
   );
 }

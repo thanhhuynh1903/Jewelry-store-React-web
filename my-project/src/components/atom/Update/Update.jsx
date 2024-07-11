@@ -21,6 +21,8 @@ export default function Update({ label, valueCateSgory }) {
   const [categoryID, setCategoriesValue] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
+  const [address,setAddress] = useState("");
+  const [FeeRate,setFeeRate] = useState("");
   const listCate = useCategoryApi();
   const update = useUpdateApi();
   const showListFee = useProccessFeeApi();
@@ -33,9 +35,10 @@ export default function Update({ label, valueCateSgory }) {
   };
 
   const fetchApiId = async () => {
-    const endpoint = label === "Type" ? "producttype" : label.toLowerCase();
+    const endpoint = label === "Type" ? "producttype" :  label === "Processing Fee" ? "processingFee" : label.toLowerCase();
     const headers = { Authorization: `Bearer ${token}` };
     try {
+      
       const response = await axios.get(`${endpoint}/${updateId}`, { headers });
       if (response?.data?.success) {
         const detail =
@@ -43,15 +46,21 @@ export default function Update({ label, valueCateSgory }) {
             ? response?.data?.productType
             : label === "stores"
             ? response?.data?.store
+            : label === "customers"
+            ? response?.data?.customer
+            : label === "Processing Fee"
+            ? response?.data?.fee
             : response?.data?.[label.toLowerCase()];
 
         setItemDetail(detail);
         setName(detail.name || "");
+        setFeeRate(detail.feeRate || "");
         setpricePerGram(detail.pricePerGram || "");
         setpriceOfGem(detail.priceOfGem || "");
         setSize(detail.size || "");
         setDescription(detail.description || "");
         setCategory(detail.categoryID || "");
+        setAddress(detail.address)
         setFeeValue(detail.processingFeeId);
         setPhone(detail.phone || "");
         setLocation(detail.location || "");
@@ -74,12 +83,15 @@ export default function Update({ label, valueCateSgory }) {
     update(
       name,
       FeeValue,
+      phone,
+      address,
       description,
       categoryID,
       priceOfGem,
       pricePerGram,
       size,
       updateId,
+      FeeRate,
       label
     );
   };
@@ -150,13 +162,15 @@ export default function Update({ label, valueCateSgory }) {
                     />
                   </div>
                 </>
-              ) : (
+              ) : (            
+                <>
+                {label === "Processing Fee" ? "" : 
                 <>
                   <div className="-mb-3 flex items-center">
                     <Typography variant="h6" color="blue-gray" className="mr-1">
                       {label === "Type"
                         ? "Category"
-                        : label === "stores"
+                        : label === "stores" || label === "customers"
                         ? "Phone"
                         : "Price"}
                     </Typography>
@@ -172,21 +186,22 @@ export default function Update({ label, valueCateSgory }) {
                       className: "before:content-none after:content-none",
                     }}
                     value={
-                      label === "stores"
+                      label === "stores" || label === "customers" 
                         ? phone
                         : label === "Material"
                         ? pricePerGram
                         : priceOfGem
                     }
                     onChange={
-                      label === "stores"
+                      label === "stores" || label === "customers" 
                         ? (e) => setPhone(e.target.value)
                         : label === "Material"
                         ? (e) => setpricePerGram(e.target.value)
                         : (e) => setpriceOfGem(e.target.value)
                     }
                   />
-
+                  </>
+                  }
                   {label === "Gemstone" && (
                     <>
                       <div className="-mb-3 flex items-center">
@@ -220,6 +235,8 @@ export default function Update({ label, valueCateSgory }) {
                         ? "Description"
                         : label === "stores"
                         ? "Location"
+                        : label === "customers"
+                        ? "Address"
                         : "Fee"}
                     </Typography>
                     <Typography variant="h6" color="red">
@@ -240,10 +257,14 @@ export default function Update({ label, valueCateSgory }) {
                       labelProps={{
                         className: "before:content-none after:content-none",
                       }}
-                      value={label === "stores" ? location : size}
+                      value={label === "stores" ? location : label === "customers" ? address : label === "Processing Fee" ? FeeRate: size}
                       onChange={
                         label === "stores"
-                          ? (e) => setLocation(e.target.value)
+                          ? (e) => setLocation(e.target.value) :
+                        label === "customers"
+                          ? (e) => setAddress(e.target.value) :
+                        label === "Processing Fee"
+                          ? (e) => setFeeRate(e.target.value)
                           : (e) => setSize(e.target.value)
                       }
                     />

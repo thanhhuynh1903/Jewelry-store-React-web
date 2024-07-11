@@ -93,12 +93,13 @@ const Marketplace = () => {
     setSortOrder(order);
     const sorted = [...filteredProducts].sort((a, b) => {
       if (order === 'asc') {
-        return a.name.localeCompare(b.name);
+        return a.price - b.price;
       }
-      return b.name.localeCompare(a.name);
+      return b.price - a.price;
     });
     setFilteredProducts(sorted);
   };
+
 
   const paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 

@@ -1,4 +1,4 @@
-import CheckTableStore from "./components/CheckTableStore";
+import CheckTableUser from "./components/CheckTableUser";
 
 import {
   columnsDataDevelopment,
@@ -13,43 +13,30 @@ import tableDataComplex from "./variables/tableDataComplex.json";
 import DevelopmentTable from "./components/DevelopmentTable";
 import ColumnsTable from "./components/ColumnsTable";
 import ComplexTable from "./components/ComplexTable";
-import { columnsDataStore } from "./variables/columnsData";
+import { columnsDataUser } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
-import { useStoreApi } from "./components/StoreApi/useStoreApi";
+import { useUserApi } from "./components/useUserApi/useUserApi";
 import { columnsDataCategory } from "./variables/columnsData";
 const Tables = () => {
-  const StoreList = useStoreApi();
+  const userList = useUserApi();
  
   const name = [
-    { name: "Stores", data: StoreList },    
+    { name: "Users", data: userList },    
   ]
 
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
         {name?.map((data, index) => (
-          <CheckTableStore
+          <CheckTableUser
             name={data?.name}
             index={index}
-            columnsData={columnsDataStore}
+            columnsData={columnsDataUser}
             tableData={data?.data}
           />
         ))}{" "}
       </div>
-      {/* <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
-        <ColumnsTable
-          columnsData={columnsDataColumns}
-          tableData={tableDataColumns} </div>
-      />*/}
-      {/* <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
-        {nameType.map((data, index) => (
-          <ComplexTable
-            name={data.name}
-            columnsData={data.name === "Type" ? columnsDataComplex : columnsDataCategory}
-            tableData={data.data}
-          />
-        ))}
-      </div> */}
+   
       <ToastContainer autoClose={2000} />
     </div>
   );

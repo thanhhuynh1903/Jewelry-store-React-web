@@ -24,13 +24,13 @@ const ComplexTableOrder = (props) => {
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
   const nameLower = name.toLowerCase();
-console.log(tableData);
+
   const [checkedRows, setCheckedRows] = useState([]);
 
   const handleCheckboxChange = (rowId) => {
     setCheckedRows((prevCheckedRows) =>
-      prevCheckedRows.includes(rowId)
-        ? prevCheckedRows.filter((id) => id !== rowId)
+      prevCheckedRows?.includes(rowId)
+        ? prevCheckedRows?.filter((id) => id !== rowId)
         : [...prevCheckedRows, rowId]
     );
   };
@@ -103,7 +103,7 @@ console.log(tableData);
                   {row.cells.map((cell, index) => {
                     let data = "";
                     
-                    if (cell.column.Header === "Id") {
+                    if (cell.column.Header === "ID") {
                       data = (
                         <div className="flex items-center gap-2">
                         <Checkbox
@@ -115,7 +115,7 @@ console.log(tableData);
                             className="flex items-center gap-2"
                           >
                         <p className="text-sm font-bold text-navy-700 dark:text-white">
-                          {row.id}
+                          {rowId}
                         </p>
                         </Link>
                         </div>

@@ -56,12 +56,15 @@ export const useCreateApi = () => {
             
           toast.success(`Create ${label} Successfully`);
           if(label === "stores"){
-            navigate("/admin/store/");
-          }else{
+            navigate("/admin/stores/");
+          }else if ( label === "Processing Fee"){
+            navigate("/admin/fee/");
+          }
+          else{
             navigate("/admin/data-tables/");
           }
         } else {
-          toast.error(response.data.message);
+          toast.error(response?.data?.message);
         }
       } else {
         toast.error("Invalid label provided");
