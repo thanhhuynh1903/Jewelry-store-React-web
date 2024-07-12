@@ -3,7 +3,7 @@ import BlogHomePage from '../../assets/img/banner/blog.png';
 
 const App = () => {
   return (
-    <div className="container flex">
+    <div className="flex justify-between">
       <div className="w-1/2 p-10 mt-32 left-content">
         <h1 className="text-3xl text-bloom">Blog</h1>
         <p className="mt-3 text-sm">

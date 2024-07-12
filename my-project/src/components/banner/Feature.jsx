@@ -6,7 +6,7 @@ import { GoCommentDiscussion } from "react-icons/go";
 
 const Features = () => {
   return (
-    <div className="flex justify-center p-8 mt-5 rounded-lg bg-bloom">
+    <div className="flex justify-center p-8 mt-5 rounded-lg bg-bloom mx-4">
       <div className="flex items-center justify-between space-x-8">
         <div className="flex flex-col items-center text-center">
           <GrCertificate className="w-12 h-12 text-hemp" />
