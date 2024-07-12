@@ -38,7 +38,7 @@ function OrderDetail() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 mb-5">
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-4 text-3xl font-bold text-gray-800">
             Order Details
