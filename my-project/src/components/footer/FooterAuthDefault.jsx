@@ -11,7 +11,7 @@ export default function Footer() {
           <a
             target="blank"
             href="mailto:hello@simmmple.com"
-            className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
           >
             Support
           </a>
@@ -20,7 +20,7 @@ export default function Footer() {
           <a
             target="blank"
             href="https://simmmple.com/licenses"
-            className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
           >
             License
           </a>
@@ -29,7 +29,7 @@ export default function Footer() {
           <a
             target="blank"
             href="https://simmmple.com/terms-of-service"
-            className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
           >
             Terms of Use
           </a>
@@ -38,7 +38,7 @@ export default function Footer() {
           <a
             target="blank"
             href="https://blog.horizon-ui.com/"
-            className="text-sm text-gray-600 hover:text-gray-600 md:text-base lg:text-white lg:hover:text-white"
+            className="text-sm text-gray-600 hover:text-gray-600 md:text-base"
           >
             Blog
           </a>

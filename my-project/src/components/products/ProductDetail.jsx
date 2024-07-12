@@ -57,13 +57,21 @@ function ProductDetail() {
     setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
   };
 
+  const displayPrice = (price) => {
+    return price.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      trailingZeroDisplay: "stripIfInteger",
+    });
+  };
+
   return (
     <>
       <Navbar />
-      <section className="overflow-hidden text-gray-600 body-font">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap mx-auto lg:w-4/5">
-            <div className="flex flex-col justify-center w-full lg:w-1/2">
+      <section className="body-font overflow-hidden text-gray-600">
+        <div className="container mx-auto px-5 py-24">
+          <div className="mx-auto flex flex-wrap lg:w-4/5">
+            <div className="flex w-full flex-col justify-center lg:w-1/2">
               <div className="flex">
                 <img
                   alt={product.name}
@@ -73,21 +81,21 @@ function ProductDetail() {
                 <div className="flex flex-col">
                   <img
                     alt={product.name}
-                    className="object-contain object-center w-full mb-4 border border-gray-200 rounded shadow-md h-fit"
+                    className="mb-4 h-fit w-full rounded border border-gray-200 object-contain object-center shadow-md"
                     style={{ maxHeight: "250px" }}
                     src={product.imageIDs[1].imageLink}
                   />
                   <img
                     alt={product.name}
-                    className="object-contain object-center w-full border border-gray-200 rounded shadow-md h-fit"
+                    className="h-fit w-full rounded border border-gray-200 object-contain object-center shadow-md"
                     style={{ maxHeight: "250px" }}
                     src={product.imageIDs[2].imageLink}
                   />
                 </div>
               </div>
             </div>
-            <div className="w-full mt-6 lg:mt-0 lg:w-1/2 lg:py-6 lg:pl-10">
-              <h1 className="mb-1 text-3xl font-medium text-gray-900 title-font">
+            <div className="mt-6 w-full lg:mt-0 lg:w-1/2 lg:py-6 lg:pl-10">
+              <h1 className="title-font mb-1 text-3xl font-medium text-gray-900">
                 {product.name}
               </h1>
               <p className="leading-relaxed">
@@ -105,23 +113,23 @@ function ProductDetail() {
               <p className="leading-relaxed">
                 {product.productTypeID?.description}
               </p>
-              <div className="flex items-center pb-5 mt-6 mb-5 border-b-2 border-gray-100"></div>
+              <div className="mb-5 mt-6 flex items-center border-b-2 border-gray-100 pb-5"></div>
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-medium text-gray-900 title-font">
-                  {product.price}
+                <span className="title-font text-2xl font-medium text-gray-900">
+                  {displayPrice(product.price)}
                 </span>
-                <div className="flex ml-4">
+                <div className="ml-4 flex">
                   <div className="px-4 py-3">Quantity</div>
                   <input
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.target.value))}
                     min="1"
-                    className="w-16 p-2 mr-4 border border-gray-300 rounded"
+                    className="mr-4 w-16 rounded border border-gray-300 p-2"
                   />
                   <Link
                     to={"/cart"}
-                    className="flex px-6 py-2 ml-auto border-0 rounded bg-bloom text-hemp focus:outline-none"
+                    className="ml-auto flex rounded border-0 bg-bloom px-6 py-2 text-hemp focus:outline-none"
                     onClick={() => handleCart(product)}
                   >
                     Add to Cart

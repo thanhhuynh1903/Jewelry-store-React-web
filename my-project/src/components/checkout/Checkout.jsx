@@ -164,6 +164,22 @@ function Checkout() {
     },
   });
 
+  const displayPrice = (price) => {
+    return price.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      trailingZeroDisplay: "stripIfInteger",
+    });
+  };
+
+  const calculateTotal = () => {
+    let total = carts.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    return displayPrice(total);
+  };
+
   return (
     <>
       <Navbar />
@@ -329,12 +345,16 @@ function Checkout() {
                     <div>
                       <p className="font-bold">{cart.name}</p>
                       <p>Quantity: {cart.quantity}</p>
-                      <p>Price: ${cart.price}</p>
+                      <p>Price: {displayPrice(cart.price)}</p>
                     </div>
                   </li>
                 ))}
               </ul>
             )}
+            <div className="mt-4 flex items-center justify-between">
+              <span className="text-lg font-semibold">Total</span>
+              <span className="text-lg font-semibold">{calculateTotal()}</span>
+            </div>
           </div>
         </div>
 
