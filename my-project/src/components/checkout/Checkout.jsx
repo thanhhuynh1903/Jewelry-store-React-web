@@ -191,9 +191,9 @@ function Checkout() {
               <h2 className="mb-4 text-2xl font-bold">Customer Info</h2>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mb-4 rounded bg-bloom px-4 py-2 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
-                Chọn khách hàng hiện có
+                Select Customer
               </button>
               <form onSubmit={formik.handleSubmit}>
                 <div className="mb-4">
@@ -325,10 +325,10 @@ function Checkout() {
                 </div>
                 <button
                   type="submit"
-                  className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded bg-bloom px-4 py-2 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={formik.isSubmitting}
                 >
-                  {formik.isSubmitting ? "Đang xử lý..." : "Đặt hàng"}
+                  {formik.isSubmitting ? "Submitting..." : "Submit"}
                 </button>
               </form>
             </div>
@@ -341,7 +341,10 @@ function Checkout() {
               ) : (
                 <ul>
                   {carts.map((cart) => (
-                    <li key={cart._id} className="mb-2 pb-2 flex items-center border-b border-gray-200">
+                    <li
+                      key={cart._id}
+                      className="mb-2 flex items-center border-b border-gray-200 pb-2"
+                    >
                       <img
                         src={cart.imageIDs[0].imageLink}
                         alt={cart.name}
