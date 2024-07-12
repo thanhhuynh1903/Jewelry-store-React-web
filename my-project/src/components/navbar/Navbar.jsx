@@ -6,7 +6,6 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
 import clsx from "clsx";
 import avatar from "../../assets/img/avatars/avatar3.png";
 
@@ -15,8 +14,12 @@ export default function Navbar() {
 
   const navlinks = [
     {
-      labe: "Jewelry",
+      label: "Jewelry",
       link: "#",
+    },
+    {
+      label: "Orders",
+      link: "/orders",
     },
   ];
   const navigate = useNavigate();
@@ -34,7 +37,7 @@ export default function Navbar() {
             {/* menu */}
             <FiMenu
               onClick={() => setMenu(true)}
-              className="text-3xl cursor-pointer lg:hidden"
+              className="cursor-pointer text-3xl lg:hidden"
             />
             {/* logo */}
             <Link to={"/home"} className="font-mono text-4xl text-bloom">
@@ -44,10 +47,10 @@ export default function Navbar() {
           {navlinks.map((d, i) => (
             <Link
               key={i}
-              className="hidden hover:text-black text-hemp lg:block"
-              href={d.link}
+              className="hover:text-black hidden text-hemp lg:block"
+              to={d.link}
             >
-              {d.labe}
+              {d.label}
             </Link>
           ))}
         </div>
@@ -55,19 +58,19 @@ export default function Navbar() {
         {/* sidebar mobile menu */}
         <div
           className={clsx(
-            " bg-black/50 fixed top-0 right-0 h-full  w-screen -translate-x-full backdrop-blur-sm  transition-all  lg:hidden ",
+            " bg-black/50 fixed right-0 top-0 h-full  w-screen -translate-x-full backdrop-blur-sm  transition-all  lg:hidden ",
             isSideMenuOpen && "translate-x-0"
           )}
         >
-          <section className="absolute top-0 left-0 z-50 flex flex-col w-56 h-screen gap-8 p-8 text-black bg-white ">
+          <section className="text-black absolute left-0 top-0 z-50 flex h-screen w-56 flex-col gap-8 bg-white p-8 ">
             <IoCloseOutline
               onClick={() => setMenu(false)}
-              className="mt-0 mb-8 text-3xl cursor-pointer"
+              className="mb-8 mt-0 cursor-pointer text-3xl"
             />
 
             {navlinks.map((d, i) => (
-              <Link key={i} className="font-bold" href={d.link}>
-                {d.labe}
+              <Link key={i} className="font-bold" to={d.link}>
+                {d.label}
               </Link>
             ))}
           </section>
@@ -75,12 +78,12 @@ export default function Navbar() {
 
         <div className="flex items-center">
           <Link to="/cart">
-            <AiOutlineShoppingCart className="mr-8 text-2xl cursor-pointer" />
+            <AiOutlineShoppingCart className="mr-8 cursor-pointer text-2xl" />
           </Link>
           <Dropdown
             button={
               <img
-                className="w-10 h-10 rounded-full"
+                className="h-10 w-10 rounded-full"
                 src={avatar}
                 alt="Elon Musk"
               />
@@ -94,7 +97,7 @@ export default function Navbar() {
                     </p>{" "}
                   </div>
                 </div>
-                <div className="w-full h-px bg-gray-200 dark:bg-white/20 " />
+                <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
 
                 <div className="flex flex-col p-4">
                   <a

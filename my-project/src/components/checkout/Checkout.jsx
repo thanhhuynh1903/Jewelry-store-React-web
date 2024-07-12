@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "api/axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Footer from "components/footer/FooterAuthDefault";
+import Navbar from "components/navbar/Navbar";
 
 function Checkout() {
   const [carts, setCarts] = useState([]);
@@ -163,216 +165,224 @@ function Checkout() {
   });
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col gap-4 md:flex-row">
-        <div className="w-full md:w-1/2">
-          <h2 className="mb-4 text-2xl font-bold">Customer Info</h2>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="focus:shadow-outline mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
-          >
-            Chọn khách hàng hiện có
-          </button>
-          <form onSubmit={formik.handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="mb-2 block text-sm font-bold text-gray-700"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                {...formik.getFieldProps("name")}
-              />
-              {formik.touched.name && formik.errors.name ? (
-                <div className="text-sm text-red-500">{formik.errors.name}</div>
-              ) : null}
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="age"
-                className="mb-2 block text-sm font-bold text-gray-700"
-              >
-                Age
-              </label>
-              <input
-                type="number"
-                id="age"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                {...formik.getFieldProps("age")}
-              />
-              {formik.touched.age && formik.errors.age ? (
-                <div className="text-sm text-red-500">{formik.errors.age}</div>
-              ) : null}
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="phone"
-                className="mb-2 block text-sm font-bold text-gray-700"
-              >
-                Phone
-              </label>
-              <input
-                type="text"
-                id="phone"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                {...formik.getFieldProps("phone")}
-              />
-              {formik.touched.phone && formik.errors.phone ? (
-                <div className="text-sm text-red-500">
-                  {formik.errors.phone}
-                </div>
-              ) : null}
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="address"
-                className="mb-2 block text-sm font-bold text-gray-700"
-              >
-                Address
-              </label>
-              <input
-                type="text"
-                id="address"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                {...formik.getFieldProps("address")}
-              />
-              {formik.touched.address && formik.errors.address ? (
-                <div className="text-sm text-red-500">
-                  {formik.errors.address}
-                </div>
-              ) : null}
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="paymentMethod"
-                className="mb-2 block text-sm font-bold text-gray-700"
-              >
-                Payment Method
-              </label>
-              <select
-                id="paymentMethod"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                value={formik.values.paymentMethod || ""}
-                onChange={(e) => {
-                  const selectedMethod = paymentMethods.find(
-                    (method) => method._id === e.target.value
-                  );
-                  formik.setFieldValue("paymentMethod", selectedMethod);
-                }}
-              >
-                <option value="">Select a payment method</option>
-                {paymentMethods.map((method) => (
-                  <option key={method._id} value={method._id}>
-                    {method.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="store"
-                className="mb-2 block text-sm font-bold text-gray-700"
-              >
-                Store
-              </label>
-              <select
-                id="store"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-                {...formik.getFieldProps("store")}
-              >
-                <option value="">Select a store</option>
-                {stores.map((store) => (
-                  <option key={store._id} value={store._id}>
-                    {store.name}
-                  </option>
-                ))}
-              </select>
-              {formik.touched.store && formik.errors.store ? (
-                <div className="text-sm text-red-500">
-                  {formik.errors.store}
-                </div>
-              ) : null}
-            </div>
+    <>
+      <Navbar />
+      <div className="container mx-auto p-4">
+        <div className="flex flex-col gap-4 md:flex-row">
+          <div className="w-full md:w-1/2">
+            <h2 className="mb-4 text-2xl font-bold">Customer Info</h2>
             <button
-              type="submit"
-              className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+              onClick={() => setIsModalOpen(true)}
+              className="focus:shadow-outline mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
             >
-              Đặt hàng
+              Chọn khách hàng hiện có
             </button>
-          </form>
-        </div>
-        <div className="w-full md:w-1/2">
-          <h2 className="mb-4 text-2xl font-bold">Cart</h2>
-          {carts.length === 0 ? (
-            <p>Your cart is empty</p>
-          ) : (
-            <ul>
-              {carts.map((cart) => (
-                <li key={cart._id} className="mb-2 flex items-center">
-                  <img
-                    src={cart.imageUrl}
-                    alt={cart.name}
-                    className="mr-2 h-16 w-16 object-cover"
-                  />
-                  <div>
-                    <p className="font-bold">{cart.name}</p>
-                    <p>Quantity: {cart.quantity}</p>
-                    <p>Price: ${cart.price}</p>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="mb-4">
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-bold text-gray-700"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  {...formik.getFieldProps("name")}
+                />
+                {formik.touched.name && formik.errors.name ? (
+                  <div className="text-sm text-red-500">
+                    {formik.errors.name}
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="w-full max-w-3xl rounded bg-white p-6 shadow-lg">
-            <div className="mb-4 flex justify-between">
-              <h2 className="text-2xl font-bold">Select Customer</h2>
+                ) : null}
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="age"
+                  className="mb-2 block text-sm font-bold text-gray-700"
+                >
+                  Age
+                </label>
+                <input
+                  type="number"
+                  id="age"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  {...formik.getFieldProps("age")}
+                />
+                {formik.touched.age && formik.errors.age ? (
+                  <div className="text-sm text-red-500">
+                    {formik.errors.age}
+                  </div>
+                ) : null}
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="phone"
+                  className="mb-2 block text-sm font-bold text-gray-700"
+                >
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  id="phone"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  {...formik.getFieldProps("phone")}
+                />
+                {formik.touched.phone && formik.errors.phone ? (
+                  <div className="text-sm text-red-500">
+                    {formik.errors.phone}
+                  </div>
+                ) : null}
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="address"
+                  className="mb-2 block text-sm font-bold text-gray-700"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  {...formik.getFieldProps("address")}
+                />
+                {formik.touched.address && formik.errors.address ? (
+                  <div className="text-sm text-red-500">
+                    {formik.errors.address}
+                  </div>
+                ) : null}
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="paymentMethod"
+                  className="mb-2 block text-sm font-bold text-gray-700"
+                >
+                  Payment Method
+                </label>
+                <select
+                  id="paymentMethod"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  value={formik.values.paymentMethod || ""}
+                  onChange={(e) => {
+                    const selectedMethod = paymentMethods.find(
+                      (method) => method._id === e.target.value
+                    );
+                    formik.setFieldValue("paymentMethod", selectedMethod);
+                  }}
+                >
+                  <option value="">Select a payment method</option>
+                  {paymentMethods.map((method) => (
+                    <option key={method._id} value={method._id}>
+                      {method.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="store"
+                  className="mb-2 block text-sm font-bold text-gray-700"
+                >
+                  Store
+                </label>
+                <select
+                  id="store"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                  {...formik.getFieldProps("store")}
+                >
+                  <option value="">Select a store</option>
+                  {stores.map((store) => (
+                    <option key={store._id} value={store._id}>
+                      {store.name}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.store && formik.errors.store ? (
+                  <div className="text-sm text-red-500">
+                    {formik.errors.store}
+                  </div>
+                ) : null}
+              </div>
               <button
-                className="focus:shadow-outline rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
-                onClick={() => setIsModalOpen(false)}
+                type="submit"
+                className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
               >
-                Close
+                Đặt hàng
               </button>
-            </div>
-            <input
-              type="text"
-              placeholder="Search by name or phone"
-              className="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <ul className="max-h-64 overflow-y-auto">
-              {customers
-                .filter(
-                  (customer) =>
-                    customer.name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                    customer.phone.includes(searchQuery)
-                )
-                .map((customer) => (
-                  <li
-                    key={customer._id}
-                    className="mb-2 cursor-pointer rounded border p-2 hover:bg-gray-200"
-                    onClick={() => handleSelectCustomer(customer)}
-                  >
-                    <p className="font-bold">{customer.name}</p>
-                    <p>Phone: {customer.phone}</p>
+            </form>
+          </div>
+          <div className="w-full md:w-1/2">
+            <h2 className="mb-4 text-2xl font-bold">Cart</h2>
+            {carts.length === 0 ? (
+              <p>Your cart is empty</p>
+            ) : (
+              <ul>
+                {carts.map((cart) => (
+                  <li key={cart._id} className="mb-2 flex items-center">
+                    <img
+                      src={cart.imageIDs[0].imageLink}
+                      alt={cart.name}
+                      className="mr-2 h-16 w-16 object-cover"
+                    />
+                    <div>
+                      <p className="font-bold">{cart.name}</p>
+                      <p>Quantity: {cart.quantity}</p>
+                      <p>Price: ${cart.price}</p>
+                    </div>
                   </li>
                 ))}
-            </ul>
+              </ul>
+            )}
           </div>
         </div>
-      )}
-    </div>
+
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
+            <div className="w-full max-w-3xl rounded bg-white p-6 shadow-lg">
+              <div className="mb-4 flex justify-between">
+                <h2 className="text-2xl font-bold">Select Customer</h2>
+                <button
+                  className="focus:shadow-outline rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Close
+                </button>
+              </div>
+              <input
+                type="text"
+                placeholder="Search by name or phone"
+                className="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <ul className="max-h-64 overflow-y-auto">
+                {customers
+                  .filter(
+                    (customer) =>
+                      customer.name
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase()) ||
+                      customer.phone.includes(searchQuery)
+                  )
+                  .map((customer) => (
+                    <li
+                      key={customer._id}
+                      className="mb-2 cursor-pointer rounded border p-2 hover:bg-gray-200"
+                      onClick={() => handleSelectCustomer(customer)}
+                    >
+                      <p className="font-bold">{customer.name}</p>
+                      <p>Phone: {customer.phone}</p>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 }
 
