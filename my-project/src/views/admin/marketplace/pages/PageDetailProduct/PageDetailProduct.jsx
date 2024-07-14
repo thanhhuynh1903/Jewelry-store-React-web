@@ -18,6 +18,7 @@ import { useUpdateProductApi } from "api/UpdateProductApi/UpdateProductApi";
 import { useUploadProductImageApi } from "api/UpdateProductApi/UpdateImgApi";
 import { ToastContainer } from "react-toastify";
 import { useRefresh } from "context/RefreshProvider";
+
 export default function PageDetailProduct({ label }) {
   const token = useAuth();
   const headers = {
@@ -49,6 +50,7 @@ export default function PageDetailProduct({ label }) {
     productTypeID: "",
     materialWeight: "",
   });
+
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     setImageFiles(files);
@@ -65,18 +67,19 @@ export default function PageDetailProduct({ label }) {
     setEdit(false);
     setEditImage(!editImage);
   };
+
   const handlefetchImageUpload = async (files) => {
     try {
       await uploadImages(productId, files);
       // Refresh the product data to get the updated image list
-      
     } catch (error) {
       console.error("Error uploading images:", error);
-    }finally{      
+    } finally {
       await fetchApi();
-      setEditImage(!editImage)
+      setEditImage(!editImage);
     }
   };
+
   const fetchApi = async () => {
     try {
       const response = await axios.get(`products/${productId}`, { headers });
@@ -100,24 +103,27 @@ export default function PageDetailProduct({ label }) {
       console.log(error);
     }
   };
-  console.log(formData);
-  const handleEdit = () => {
-    setEditImage(false);
-    setEdit(!edit);
-  };
 
+ 
+console.log(editImage);
+console.log(edit);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleUpdate =async () => {
+  const handleUpdate = async () => {
     const data = formData; // Assuming formData is already a FormData object
     await updateProduct(data, label, productId);
-    setEdit(!edit)
+    setEdit(!edit);
     await fetchApi();
   };
-
+  const handleEdit = () => {
+    setEditImage(false);  // Disable edit image mode
+    setEdit(!edit);  // Toggle edit info mode
+  };
+console.log(edit);
+console.log(editImage);
   useEffect(() => {
     fetchApi();
   }, [shouldRefresh]);
@@ -127,7 +133,10 @@ export default function PageDetailProduct({ label }) {
       name: edit ? "Update information" : "Update Image",
       handle: edit ? handleUpdate : handlefetchImageUpload,
     },
-    { name: "Cancel", handle: handleEdit },
+    { name: "Cancel", handle: () => {
+      setEdit(false);
+      setEditImage(false);
+    }, },
   ];
 
   return (
@@ -162,8 +171,8 @@ export default function PageDetailProduct({ label }) {
           <Card extra={"h-full p-4"}>
             <div
               className="relative col-span-5 h-full w-full rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6"
-              onMouseEnter={editImage ?  () => setHover(true) : ""}
-              onMouseLeave={editImage ? () => setHover(false) : ""}
+              onMouseEnter={editImage ? () => setHover(true) : null}
+              onMouseLeave={editImage ? () => setHover(false) : null}
             >
               <label className="relative flex h-full w-full cursor-pointer flex-col items-center rounded-xl border-[2px] border-dashed border-gray-200 dark:!border-navy-700 lg:pb-0">
                 <img
@@ -172,7 +181,7 @@ export default function PageDetailProduct({ label }) {
                   alt=""
                 />
                 <div className="flex gap-4">
-                  {(previewImages.length > 1 ? previewImages : List?.imageIDs)
+                  {(previewImages?.length > 1 ? previewImages : List?.imageIDs)
                     ?.slice(1, 3)
                     ?.map((image, index) => (
                       <img
@@ -184,15 +193,15 @@ export default function PageDetailProduct({ label }) {
                         alt=""
                       />
                     ))}
-                  {previewImages.length <= 1 &&
-                    (!List?.imageIDs || List.imageIDs.length <= 1) && (
+                  {previewImages?.length <= 1 &&
+                    (!List?.imageIDs || List?.imageIDs?.length <= 1) && (
                       <>
                         <div className="flex h-[90px] w-[90px] flex-col items-center rounded-xl border-[2px] border-dashed border-gray-200 bg-white py-[100px] px-[65px] dark:!border-navy-700 lg:pb-0"></div>
                         <div className="flex h-full w-full flex-col items-center rounded-xl border-[2px] border-dashed border-gray-200 bg-white py-[100px] px-[65px] dark:!border-navy-700 lg:pb-0"></div>
                       </>
                     )}
                 </div>
-                {hover && (
+                {hover && editImage && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-gray-50 bg-opacity-50">
                     <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
                     <h4 className="text-xl font-bold text-brand-500 dark:text-white">
@@ -265,14 +274,14 @@ export default function PageDetailProduct({ label }) {
                   ? "w-auto"
                   : "inline-gray-400 w-auto bg-white text-gray-400 outline"
               }
-              onClick={item.handle}
-            >
+              onClick={() => setEdit(false)}
+              >
               {item.name}
             </Button>
           ))}
         </div>
       )}
-      {editImage && (
+      {editImage  && (
         <div className="float-right mt-3 flex flex-wrap justify-end gap-4 text-right">
           {buttons.map((item, index) => (
             <Button
@@ -282,15 +291,15 @@ export default function PageDetailProduct({ label }) {
                   ? "w-auto"
                   : "inline-gray-400 w-auto bg-white text-gray-400 outline"
               }
-              onClick={item.handle}
+              onClick={() => setEditImage(false)}
+
             >
               {item.name}
             </Button>
           ))}
         </div>
       )}
-       <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={2000} />
     </div>
-    
   );
 }
