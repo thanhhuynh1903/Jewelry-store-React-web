@@ -4,19 +4,18 @@ import { pieChartData, pieChartOptions } from "variables/charts";
 import Card from "components/card";
 
 const PieChartCard = ({ orderstatus }) => {
- 
   const name = [
     { name: "Paid", data: orderstatus?.paid, color: "bg-brand-500" },
     { name: "Pending", data: orderstatus?.pending, color: "bg-yellow-500" },
     { name: "Cancelled", data: orderstatus?.cancelled, color: "bg-red-500" },
     { name: "Not enough", data: orderstatus?.notEnough, color: "bg-gray-500" },
   ];
- 
+
   const status = [
-    orderstatus?.paid,
-    orderstatus?.pending,
-    orderstatus?.cancelled,
-    orderstatus?.notEnough
+    orderstatus?.paid === undefined ? 0 : orderstatus?.paid,
+    orderstatus?.pending === undefined ? 0 : orderstatus?.pending,
+    orderstatus?.cancelled === undefined ? 0 : orderstatus?.cancelled,
+    orderstatus?.notEnough === undefined ? 100 : orderstatus?.notEnough,
   ];
 
   return (
@@ -28,20 +27,20 @@ const PieChartCard = ({ orderstatus }) => {
           </h4>
         </div>
 
-        <div className="mb-6 flex items-center justify-center">
+        {/* <div className="mb-6 flex items-center justify-center">
           <select className="mb-3 mr-2 flex items-center justify-center text-sm font-bold text-gray-600 hover:cursor-pointer dark:!bg-navy-800 dark:text-white">
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
             <option value="weekly">Weekly</option>
           </select>
-        </div>
+        </div> */}
       </div>
 
       <div className="mb-auto flex h-[220px] w-full items-center justify-center">
         <PieChart options={pieChartOptions} series={status} />
       </div>
 
-      <div className="flex flex-row !justify-between rounded-2xl gap-2 shadow-2xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+      <div className="flex flex-row !justify-between gap-2 rounded-2xl shadow-2xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
         {name?.map((status, index) => (
           <React.Fragment key={index}>
             <div className="flex flex-col items-center justify-center">

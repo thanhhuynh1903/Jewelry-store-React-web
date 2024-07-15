@@ -125,6 +125,10 @@ console.log(typeof(data));
         <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
           <PieChartCard orderstatus={data}/>
           {/* <PieChartCard /> */}
+          <DailyTraffic
+            customer={data?.totalCustomers}
+            newcustomer={data?.newCustomers}
+          />
         </div>
 
         {/* Complex Table , Task & Calendar */}
@@ -139,10 +143,7 @@ console.log(typeof(data));
           <div className="grid grid-cols-1 rounded-[20px]">
             <MiniCalendar value={date} onChange={setDate} />
           </div>
-          <DailyTraffic
-            customer={data?.totalCustomers}
-            newcustomer={data?.newCustomers}
-          />
+          
         </div>
       </div>
       <ToastContainer autoClose={2000} />
