@@ -49,7 +49,7 @@ const TopProducts = ({ handleOrderPopup }) => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 gap-20 mb-10 sm:grid-cols-2 md:grid-cols-3 md:gap-5 place-items-center">
+        <div className="grid grid-cols-1 gap-20 mb-10 ml-22 sm:grid-cols-2 md:grid-cols-3 md:gap-5 place-items-center">
           {topProducts.map((list) => (
             <div
               key={list.id}

@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Dropdown from "components/dropdown";
 import { FiMenu } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "context/LoginProvider";
+
 import clsx from "clsx";
 import avatar from "../../assets/img/avatars/avatar3.png";
 
 export default function Navbar() {
   const [isSideMenuOpen, setMenu] = useState(false);
+  const { username } = useContext(LoginContext);
   const AdminRole = localStorage.getItem("role");
 
   const navlinks = [
@@ -38,7 +41,7 @@ export default function Navbar() {
             {/* menu */}
             <FiMenu
               onClick={() => setMenu(true)}
-              className="cursor-pointer text-3xl lg:hidden"
+              className="text-3xl cursor-pointer lg:hidden"
             />
             {/* logo */}
             <Link to={"/home"} className="font-mono text-4xl text-bloom">
@@ -48,7 +51,7 @@ export default function Navbar() {
           {navlinks.map((d, i) => (
             <Link
               key={i}
-              className="hover:text-black hidden text-hemp lg:block"
+              className="hidden hover:text-black text-hemp lg:block"
               to={d.link}
             >
               {d.label}
@@ -63,10 +66,10 @@ export default function Navbar() {
             isSideMenuOpen && "translate-x-0"
           )}
         >
-          <section className="text-black absolute left-0 top-0 z-50 flex h-screen w-56 flex-col gap-8 bg-white p-8 ">
+          <section className="absolute top-0 left-0 z-50 flex flex-col w-56 h-screen gap-8 p-8 text-black bg-white ">
             <IoCloseOutline
               onClick={() => setMenu(false)}
-              className="mb-8 mt-0 cursor-pointer text-3xl"
+              className="mt-0 mb-8 text-3xl cursor-pointer"
             />
 
             {navlinks.map((d, i) => (
@@ -79,12 +82,12 @@ export default function Navbar() {
 
         <div className="flex items-center">
           <Link to="/cart">
-            <AiOutlineShoppingCart className="mr-8 cursor-pointer text-2xl" />
+            <AiOutlineShoppingCart className="mr-8 text-2xl cursor-pointer" />
           </Link>
           <Dropdown
             button={
               <img
-                className="h-10 w-10 rounded-full"
+                className="w-10 h-10 rounded-full"
                 src={avatar}
                 alt="Elon Musk"
               />
@@ -94,13 +97,19 @@ export default function Navbar() {
                 <div className="p-4">
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-bold text-navy-700 dark:text-white">
-                      👋 Hey, Adela
+                      👋 Hey, {username}
                     </p>{" "}
                   </div>
                 </div>
-                <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
+                <div className="w-full h-px bg-gray-200 dark:bg-white/20 " />
 
                 <div className="flex flex-col p-4">
+                  <Link
+                    to="/profile"
+                    className="mt-3 text-sm font-medium text-blue-500 transition duration-150 ease-out hover:text-blue-500 hover:ease-in"
+                  >
+                    Profile
+                  </Link>
                   {AdminRole === "Admin" ? (
                     <Link
                       to={"/admin/"}

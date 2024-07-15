@@ -184,14 +184,14 @@ function Checkout() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto p-4">
+      <div className="container p-4 mx-auto">
         <div className="flex flex-col gap-4 md:flex-row">
           <div className="w-full md:w-1/2">
-            <div className="rounded-lg bg-white p-6 shadow-md">
+            <div className="p-6 bg-white rounded-lg shadow-md">
               <h2 className="mb-4 text-2xl font-bold">Customer Info</h2>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="mb-4 rounded bg-bloom px-4 py-2 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="px-4 py-2 mb-4 font-bold text-white rounded bg-bloom focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 Select Customer
               </button>
@@ -199,14 +199,14 @@ function Checkout() {
                 <div className="mb-4">
                   <label
                     htmlFor="name"
-                    className="mb-2 block text-sm font-bold text-gray-700"
+                    className="block mb-2 text-sm font-bold text-gray-700"
                   >
                     Name
                   </label>
                   <input
                     type="text"
                     id="name"
-                    className="w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                     {...formik.getFieldProps("name")}
                   />
                   {formik.touched.name && formik.errors.name ? (
@@ -218,14 +218,14 @@ function Checkout() {
                 <div className="mb-4">
                   <label
                     htmlFor="age"
-                    className="mb-2 block text-sm font-bold text-gray-700"
+                    className="block mb-2 text-sm font-bold text-gray-700"
                   >
                     Age
                   </label>
                   <input
                     type="number"
                     id="age"
-                    className="w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                     {...formik.getFieldProps("age")}
                   />
                   {formik.touched.age && formik.errors.age ? (
@@ -237,14 +237,14 @@ function Checkout() {
                 <div className="mb-4">
                   <label
                     htmlFor="phone"
-                    className="mb-2 block text-sm font-bold text-gray-700"
+                    className="block mb-2 text-sm font-bold text-gray-700"
                   >
                     Phone
                   </label>
                   <input
                     type="text"
                     id="phone"
-                    className="w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                     {...formik.getFieldProps("phone")}
                   />
                   {formik.touched.phone && formik.errors.phone ? (
@@ -256,14 +256,14 @@ function Checkout() {
                 <div className="mb-4">
                   <label
                     htmlFor="address"
-                    className="mb-2 block text-sm font-bold text-gray-700"
+                    className="block mb-2 text-sm font-bold text-gray-700"
                   >
                     Address
                   </label>
                   <input
                     type="text"
                     id="address"
-                    className="w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                     {...formik.getFieldProps("address")}
                   />
                   {formik.touched.address && formik.errors.address ? (
@@ -275,13 +275,13 @@ function Checkout() {
                 <div className="mb-4">
                   <label
                     htmlFor="paymentMethod"
-                    className="mb-2 block text-sm font-bold text-gray-700"
+                    className="block mb-2 text-sm font-bold text-gray-700"
                   >
                     Payment Method
                   </label>
                   <select
                     id="paymentMethod"
-                    className="w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                     value={formik.values.paymentMethod?._id || ""}
                     onChange={(e) => {
                       const selectedMethod = paymentMethods.find(
@@ -301,13 +301,13 @@ function Checkout() {
                 <div className="mb-4">
                   <label
                     htmlFor="store"
-                    className="mb-2 block text-sm font-bold text-gray-700"
+                    className="block mb-2 text-sm font-bold text-gray-700"
                   >
                     Store
                   </label>
                   <select
                     id="store"
-                    className="w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                     {...formik.getFieldProps("store")}
                   >
                     <option value="">Select a store</option>
@@ -325,7 +325,7 @@ function Checkout() {
                 </div>
                 <button
                   type="submit"
-                  className="rounded bg-bloom px-4 py-2 font-bold text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="px-4 py-2 font-bold text-white rounded bg-bloom focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={formik.isSubmitting}
                 >
                   {formik.isSubmitting ? "Submitting..." : "Submit"}
@@ -334,7 +334,7 @@ function Checkout() {
             </div>
           </div>
           <div className="w-full md:w-1/2">
-            <div className="rounded-lg bg-white p-6 shadow-md">
+            <div className="p-6 bg-white rounded-lg shadow-md">
               <h2 className="mb-4 text-2xl font-bold">Cart</h2>
               {carts.length === 0 ? (
                 <p>Your cart is empty</p>
@@ -343,12 +343,12 @@ function Checkout() {
                   {carts.map((cart) => (
                     <li
                       key={cart._id}
-                      className="mb-2 flex items-center border-b border-gray-200 pb-2"
+                      className="flex items-center pb-2 mb-2 border-b border-gray-200"
                     >
                       <img
                         src={cart.imageIDs[0].imageLink}
                         alt={cart.name}
-                        className="mr-2 h-16 w-16 object-cover"
+                        className="object-cover w-16 h-16 mr-2"
                       />
                       <div>
                         <p className="font-bold">{cart.name}</p>
@@ -359,7 +359,7 @@ function Checkout() {
                   ))}
                 </ul>
               )}
-              <div className="mt-4 flex items-center justify-between">
+              <div className="flex items-center justify-between mt-4">
                 <span className="text-lg font-semibold">Total</span>
                 <span className="text-lg font-semibold">
                   {calculateTotal()}
@@ -371,11 +371,11 @@ function Checkout() {
 
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-            <div className="w-full max-w-3xl rounded bg-white p-6 shadow-lg">
-              <div className="mb-4 flex justify-between">
+            <div className="w-full max-w-3xl p-6 bg-white rounded shadow-lg">
+              <div className="flex justify-between mb-4">
                 <h2 className="text-2xl font-bold">Select Customer</h2>
                 <button
-                  className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
                   onClick={() => setIsModalOpen(false)}
                 >
                   Close
@@ -384,11 +384,11 @@ function Checkout() {
               <input
                 type="text"
                 placeholder="Search by name or phone"
-                className="mb-4 w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-3 py-2 mb-4 leading-tight text-gray-700 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <ul className="max-h-64 overflow-y-auto">
+              <ul className="overflow-y-auto max-h-64">
                 {customers
                   .filter(
                     (customer) =>
@@ -400,7 +400,7 @@ function Checkout() {
                   .map((customer) => (
                     <li
                       key={customer._id}
-                      className="mb-2 cursor-pointer rounded border p-2 hover:bg-gray-200"
+                      className="p-2 mb-2 border rounded cursor-pointer hover:bg-gray-200"
                       onClick={() => handleSelectCustomer(customer)}
                     >
                       <p className="font-bold">{customer.name}</p>
