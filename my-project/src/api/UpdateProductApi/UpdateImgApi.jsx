@@ -12,7 +12,7 @@ export const useUploadProductImageApi = () => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
     };
-
+console.log(imageFiles);
     const formData = new FormData();
     imageFiles.forEach((file) => {
       formData.append("images", file);

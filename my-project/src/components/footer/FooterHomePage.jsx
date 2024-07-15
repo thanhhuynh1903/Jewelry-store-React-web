@@ -49,7 +49,7 @@ const FooterPolocies = [
 const Footer = () => {
   return (
     <div className="text-white bg-bloom">
-      <div className="container">
+      <div className="container mx-auto">
         <div data-aos="zoom-in" className="grid pt-5 pb-10 md:grid-cols-3">
           <div className="px-4 py-8">
             <h1 className="flex items-center gap-3 mb-3 text-xl font-bold text-justify sm:text-3xl sm:text-left text-hemp">

@@ -17,8 +17,12 @@ export default function Navbar() {
 
   const navlinks = [
     {
-      labe: "Jewelry",
+      label: "Jewelry",
       link: "#",
+    },
+    {
+      label: "Orders",
+      link: "/orders",
     },
   ];
   const navigate = useNavigate();
@@ -49,7 +53,7 @@ export default function Navbar() {
               className="hidden hover:text-black text-hemp lg:block"
               to={d.link}
             >
-              {d.labe}
+              {d.label}
             </Link>
           ))}
         </div>
@@ -57,7 +61,7 @@ export default function Navbar() {
         {/* sidebar mobile menu */}
         <div
           className={clsx(
-            " bg-black/50 fixed top-0 right-0 h-full  w-screen -translate-x-full backdrop-blur-sm  transition-all  lg:hidden ",
+            " bg-black/50 fixed right-0 top-0 h-full  w-screen -translate-x-full backdrop-blur-sm  transition-all  lg:hidden ",
             isSideMenuOpen && "translate-x-0"
           )}
         >
@@ -69,7 +73,7 @@ export default function Navbar() {
 
             {navlinks.map((d, i) => (
               <Link key={i} className="font-bold" to={d.link}>
-                {d.labe}
+                {d.label}
               </Link>
             ))}
           </section>
