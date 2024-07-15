@@ -1,14 +1,30 @@
+import React from "react";
 import PieChart from "components/charts/PieChart";
 import { pieChartData, pieChartOptions } from "variables/charts";
 import Card from "components/card";
 
-const PieChartCard = () => {
+const PieChartCard = ({ orderstatus }) => {
+ 
+  const name = [
+    { name: "Paid", data: orderstatus?.paid, color: "bg-brand-500" },
+    { name: "Pending", data: orderstatus?.pending, color: "bg-yellow-500" },
+    { name: "Cancelled", data: orderstatus?.cancelled, color: "bg-red-500" },
+    { name: "Not enough", data: orderstatus?.notEnough, color: "bg-gray-500" },
+  ];
+ 
+  const status = [
+    orderstatus?.paid,
+    orderstatus?.pending,
+    orderstatus?.cancelled,
+    orderstatus?.notEnough
+  ];
+
   return (
     <Card extra="rounded-[20px] p-3">
       <div className="flex flex-row justify-between px-3 pt-2">
         <div>
           <h4 className="text-lg font-bold text-navy-700 dark:text-white">
-            Your Pie Chart
+            Orders
           </h4>
         </div>
 
@@ -22,30 +38,28 @@ const PieChartCard = () => {
       </div>
 
       <div className="mb-auto flex h-[220px] w-full items-center justify-center">
-        <PieChart options={pieChartOptions} series={pieChartData} />
+        <PieChart options={pieChartOptions} series={status} />
       </div>
-      <div className="flex flex-row !justify-between rounded-2xl px-6 py-3 shadow-2xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-        <div className="flex flex-col items-center justify-center">
-          <div className="flex items-center justify-center">
-            <div className="h-2 w-2 rounded-full bg-brand-500" />
-            <p className="ml-1 text-sm font-normal text-gray-600">Your Files</p>
-          </div>
-          <p className="mt-px text-xl font-bold text-navy-700  dark:text-white">
-            63%
-          </p>
-        </div>
 
-        <div className="h-11 w-px bg-gray-300 dark:bg-white/10" />
-
-        <div className="flex flex-col items-center justify-center">
-          <div className="flex items-center justify-center">
-            <div className="h-2 w-2 rounded-full bg-[#6AD2FF]" />
-            <p className="ml-1 text-sm font-normal text-gray-600">System</p>
-          </div>
-          <p className="mt-px text-xl font-bold text-navy-700 dark:text-white">
-            25%
-          </p>
-        </div>
+      <div className="flex flex-row !justify-between rounded-2xl gap-2 shadow-2xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        {name?.map((status, index) => (
+          <React.Fragment key={index}>
+            <div className="flex flex-col items-center justify-center">
+              <div className="flex items-center justify-center">
+                <div className={`h-2 w-2 rounded-full ${status?.color}`} />
+                <p className="ml-1 text-[10px] font-normal text-gray-600">
+                  {status?.name}
+                </p>
+              </div>
+              <p className="mt-px text-xl font-bold text-navy-700 dark:text-white">
+                {status?.data}
+              </p>
+            </div>
+            {index < name?.length - 1 && (
+              <div className="h-11 w-px bg-gray-300 dark:bg-white/10" />
+            )}
+          </React.Fragment>
+        ))}
       </div>
     </Card>
   );

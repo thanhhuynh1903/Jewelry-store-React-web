@@ -14,7 +14,7 @@ export const useCreateUserApi = () => {
       username, password, name, role, age, label
     };
     const headers = { Authorization: `Bearer ${token}` };
-console.log(param);
+
     try {
       const endpoint =
         label === "users" ? "staffsRouter/signup" : ""
@@ -22,14 +22,15 @@ console.log(param);
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response?.data?.success) {
-          toast.success(`Create ${label} Successfully`);
           navigate("/admin/users/")
+          return toast.success(`Create ${label} Successfully`);
+          
         } else {
-          toast.error(response?.data?.message);
+          return toast.error(response?.data?.message);
         }
       } else {
-        toast.error("Invalid label provided");
-        console.error("Invalid label provided");
+        return toast.error("Invalid label provided");
+     
       }
     } catch (error) {
       toast.error(`Failed to create ${label.toLowerCase()}`);

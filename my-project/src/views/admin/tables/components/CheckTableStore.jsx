@@ -15,13 +15,14 @@ import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 import { ToastContainer } from "react-toastify";
 import { useMaterialApi } from "./MaterialApi/useMaterialApi";
 import { Link } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css'; 
+import "react-toastify/dist/ReactToastify.css";
 
 const CheckTable = (props) => {
-  const { columnsData, tableData } = props;
+  const { columnsData, tableData, onSelectStore } = props;
   const { name, index } = props;
+  const label = props;
 
-  const nameLower = name.toLowerCase();
+  const nameLower = name?.toLowerCase();
   const refreshList = useMaterialApi();
   const deleteData = useDeleteData(refreshList);
 
@@ -38,10 +39,14 @@ const CheckTable = (props) => {
     );
   };
 
+  const handleRowClick = (rowId) => {
+    onSelectStore(rowId); // Pass the selected store ID to the parent component
+  };
+
   const handleDelete = async () => {
-    const endpoint = name.toLowerCase(); // Replace with your actual endpoint
+    const endpoint = name?.toLowerCase(); // Replace with your actual endpoint
     console.log(endpoint);
-    await deleteData(checkedRows, endpoint, "stores",refreshList);
+    await deleteData(checkedRows, endpoint, "stores", refreshList);
     setCheckedRows([]);
   };
 
@@ -66,14 +71,25 @@ const CheckTable = (props) => {
   initialState.pageSize = 11;
 
   return (
-    <Card extra={"w-full sm:overflow-auto p-4"} index={index}>
+    <Card
+      extra={`w-full sm:overflow-auto p-4 ${
+        label.label === "responsive" ? "h-full" : ""
+      }`}
+      index={index}
+    >
       <header className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
         <div className="center flex items-center justify-center">
-          <ButtonCreate name={name} />
-          <ButtonCss handleDelete={handleDelete} />
+          {label.label === "responsive" ? (
+            " "
+          ) : (
+            <>
+              <ButtonCreate name={name} />
+              <ButtonCss handleDelete={handleDelete} />
+            </>
+          )}
           {/* <CardMenu handleDelete={handleDelete} /> */}
         </div>
       </header>
@@ -91,7 +107,7 @@ const CheckTable = (props) => {
                 {headerGroup.headers.map((column, index) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className="border-b border-gray-200 pr-16 pb-[10px] text-start dark:!border-navy-700"
+                    className="border-b border-gray-200 pb-[10px] pr-16 text-start dark:!border-navy-700"
                     key={index}
                   >
                     <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
@@ -118,14 +134,23 @@ const CheckTable = (props) => {
                             checked={isChecked}
                             onChange={() => handleCheckboxChange(rowId)}
                           />
-                          <Link
-                            to={`${nameLower}/update/${rowId}`}
-                            className="flex items-center gap-2"
-                          >
-                            <p className="text-sm font-bold text-navy-700 dark:text-white">
+                          {label.label === "responsive" ? (
+                            <p
+                              className="cursor-pointer text-sm font-bold text-navy-700 dark:text-white"
+                              onClick={() => handleRowClick(rowId)} // Handle row click
+                            >
                               {cell.value}
                             </p>
-                          </Link>
+                          ) : (
+                            <Link
+                              to={`${nameLower}/update/${rowId}`}
+                              className="flex items-center gap-2"
+                            >
+                              <p className="text-sm font-bold text-navy-700 dark:text-white">
+                                {cell.value}
+                              </p>
+                            </Link>
+                          )}
                         </div>
                       );
                     } else if (cell.column.Header === "PHONE") {
@@ -141,30 +166,51 @@ const CheckTable = (props) => {
                       );
                     } else if (cell.column.Header === "LOCATION") {
                       data = (
-                        <Link to={`${nameLower}/update/${rowId}`}>
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {" "}
-                            {cell.value}{" "}
-                          </p>
-                        </Link>
+                        <>
+                          {label.label === "responsive" ? (
+                            <p
+                              className="cursor-pointer text-sm font-bold text-navy-700 dark:text-white"
+                              onClick={() => handleRowClick(rowId)} // Handle row click
+                            >
+                              {cell.value}
+                            </p>
+                          ) : (
+                            <Link to={`${nameLower}/update/${rowId}`}>
+                              <p className="text-sm font-bold text-navy-700 dark:text-white">
+                                {" "}
+                                {cell.value}{" "}
+                              </p>
+                            </Link>
+                          )}
+                        </>
                       );
-                    }else if (cell.column.Header === "INVOICE") {
+                    } else if (cell.column.Header === "INVOICE") {
                       data = (
-                        <Link to={`${nameLower}/update/${rowId}`}>
-                          <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {" "}
-                            {cell?.row?.original?.orders?.length}{" "}
-                          </p>
-                        </Link>
+                        <>
+                          {label.label === "responsive" ? (
+                            <p
+                              className="cursor-pointer text-sm font-bold text-navy-700 dark:text-white"
+                              onClick={() => handleRowClick(rowId)} // Handle row click
+                            >
+                              {cell?.row?.original?.orders?.length}{" "}
+                            </p>
+                          ) : (
+                            <Link to={`${nameLower}/update/${rowId}`}>
+                              <p className="text-sm font-bold text-navy-700 dark:text-white">
+                                {" "}
+                                {cell?.row?.original?.orders?.length}{" "}
+                              </p>
+                            </Link>
+                          )}
+                        </>
                       );
                     }
-
 
                     return (
                       <td
                         {...cell.getCellProps()}
                         key={index}
-                        className="pt-[14px] pb-[16px] sm:text-[14px]"
+                        className="pb-[16px] pt-[14px] sm:text-[14px]"
                       >
                         {data}
                       </td>
@@ -176,7 +222,6 @@ const CheckTable = (props) => {
           </tbody>
         </table>
       </div>
-      
     </Card>
   );
 };

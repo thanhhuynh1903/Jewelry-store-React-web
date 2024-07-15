@@ -17,6 +17,22 @@ export const columnsDataDevelopment = [
   },
 ];
 
+
+export const columnsDataStore =  [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "LOCATION",
+    accessor: "location",
+  },
+  {
+    Header: "INVOICE",
+    accessor: "invoice",
+  },
+];
+
 export const columnsDataCheck = [
   {
     Header: "NAME",
