@@ -6,6 +6,7 @@ import Navbar from "components/navbar/Navbar";
 import Card from "components/card";
 import avatar from "assets/img/avatars/avatar11.png";
 import banner from "assets/img/profile/banner.png";
+import Footer from "components/footer/FooterHomePage";
 
 const Profile = () => {
   const { id, username } = useContext(LoginContext);
@@ -201,6 +202,7 @@ const Profile = () => {
           )}
         </Card>
       </div>
+      <Footer />
     </>
   );
 };
