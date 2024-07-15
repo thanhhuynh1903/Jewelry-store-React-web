@@ -49,7 +49,7 @@ export const useCreateApi = () => {
           : label === "Processing Fee"
           ? "processingFee"
           : ""
-        console.log(param);
+     
       if (endpoint) {
         const response = await axios.post(endpoint, param, { headers });
         if (response?.data?.success) {

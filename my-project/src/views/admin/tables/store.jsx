@@ -17,16 +17,29 @@ import { columnsDataStore } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
 import { useStoreApi } from "./components/StoreApi/useStoreApi";
 import { columnsDataCategory } from "./variables/columnsData";
+import { useEffect, useState } from "react";
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
 const Tables = () => {
   const StoreList = useStoreApi();
- 
-  const name = [
-    { name: "Stores", data: StoreList },    
-  ]
+  const [loading, setLoading] = useState(true);
+  const name = [{ name: "Stores", data: StoreList }];
 
-  return (
+  useEffect(() => {
+
+    if (StoreList?.length > 0) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [StoreList]);
+
+  return loading ? (
+    <div className="pl-[500px] pt-[150px]">
+      <LoadingPage />
+    </div>
+  ) : (
     <div>
-      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
+      <div className="md:grid-cols mt-5 grid h-full grid-cols-1 gap-5">
         {name?.map((data, index) => (
           <CheckTableStore
             name={data?.name}

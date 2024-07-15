@@ -5,6 +5,8 @@ import { useRefresh } from 'context/RefreshProvider';
 export const useCustomerApi = (refreshKey) => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
+  const [loading, setLoading] = useState(true);
+
   const {shouldRefresh} = useRefresh();
   const fetchApi = async () => {
     const headers = {
@@ -17,6 +19,8 @@ export const useCustomerApi = (refreshKey) => {
 
     } catch (error) {
       console.error('Failed to fetch material data', error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -24,5 +28,5 @@ export const useCustomerApi = (refreshKey) => {
   fetchApi();
   }, [token,shouldRefresh]);
 
-  return listType;
+  return {listType,loading};
 };

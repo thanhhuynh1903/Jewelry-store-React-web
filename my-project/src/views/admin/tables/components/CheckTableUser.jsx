@@ -63,7 +63,7 @@ const CheckTable = (props) => {
     initialState,
   } = tableInstance;
   initialState.pageSize = data?.length;
-console.log(data?.length);
+
   return (
     <Card extra={"w-full sm:overflow-auto p-4"} index={index}>
       <header className="relative flex items-center justify-between">

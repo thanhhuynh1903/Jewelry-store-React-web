@@ -5,6 +5,7 @@ import { useRefresh } from 'context/RefreshProvider';
 export const useProccessFeeApi = () => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
+  const [loading, setLoading] = useState(true);
   const {shouldRefresh} = useRefresh();
   const fetchApi = async () => {
     const headers = {
@@ -17,6 +18,8 @@ export const useProccessFeeApi = () => {
 
     } catch (error) {
       console.error('Failed to fetch material data', error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -24,5 +27,5 @@ export const useProccessFeeApi = () => {
   fetchApi();
   }, [token,shouldRefresh]);
 
-  return listType;
+  return {listType,loading};
 };

@@ -6,7 +6,6 @@ import { CiBank } from "react-icons/ci";
 import { SelectDefault } from "../SelectOptions/SelectDefault";
 export default function TableOrder({ data }) {
   const Detail = data;
-  console.log(Detail?.bankPaid);
 
   return (
     <div>

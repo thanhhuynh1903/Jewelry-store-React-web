@@ -17,8 +17,9 @@ import { columnsDataUser } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
 import { useUserApi } from "./components/useUserApi/useUserApi";
 import { columnsDataCategory } from "./variables/columnsData";
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
 const Tables = () => {
-  const userList = useUserApi();
+  const { listType: userList, loading } = useUserApi();
  
   const name = [
     { name: "Users", data: userList },    
@@ -27,19 +28,25 @@ const Tables = () => {
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
-        {name?.map((data, index) => (
-          <CheckTableUser
-            name={data?.name}
-            index={index}
-            columnsData={columnsDataUser}
-            tableData={data?.data}
-          />
-        ))}{" "}
+        {loading ? (
+          <div className="pl-[500px] pt-[150px]">
+          <LoadingPage/>
+          </div>
+        ) : (
+          name.map((data, index) => (
+            <CheckTableUser
+              key={index}
+              name={data?.name}
+              columnsData={columnsDataUser}
+              tableData={data?.data}
+            />
+          ))
+        )}
       </div>
-   
       <ToastContainer autoClose={2000} />
     </div>
   );
+
 };
 
 export default Tables;

@@ -33,7 +33,7 @@ export const useUpdateApi = () => {
       size,
     };
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(label);
+    
     try {
       const endpoint =
         label === "Material"
@@ -53,7 +53,7 @@ export const useUpdateApi = () => {
         const response = await axios.put(`${endpoint}/${updateId}`, param, {
           headers,
         });
-        console.log(response.data);
+       
         if (response.data.success) {
           toast.success(`Update ${label} Successfully`);
           if(label==="customers"){

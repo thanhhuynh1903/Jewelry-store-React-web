@@ -14,7 +14,6 @@ export default function OrderDetail({ label }) {
         const endpoint = label.toLowerCase();
         try {
             const response = await axios.get(`${endpoint}/${updateId}`, { headers });
-            console.log(response.data);
         
                 setInfo(response?.data?.order);
             

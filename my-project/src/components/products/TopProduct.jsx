@@ -11,7 +11,7 @@ const TopProducts = ({ handleOrderPopup }) => {
   const fetchApi = async () => {
     try {
       const response = await axios.get(`products/`);
-      console.log('data',response.data);
+   
       if (response?.data?.products) {
         setListProduct(response?.data?.products);
       }

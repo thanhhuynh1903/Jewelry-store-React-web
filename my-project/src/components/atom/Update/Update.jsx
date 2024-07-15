@@ -25,7 +25,7 @@ export default function Update({ label, valueCateSgory }) {
   const [FeeRate,setFeeRate] = useState("");
   const listCate = useCategoryApi();
   const update = useUpdateApi();
-  const showListFee = useProccessFeeApi();
+  const {listType :showListFee} = useProccessFeeApi();
   const { updateId } = useParams();
   const token = useAuth();
   const [itemDetail, setItemDetail] = useState({});

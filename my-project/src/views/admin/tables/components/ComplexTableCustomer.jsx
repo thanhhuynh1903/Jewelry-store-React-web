@@ -60,7 +60,7 @@ const ComplexTableCustomer = (props) => {
 
   const handleDelete = async () => {
     const endpoint = name.toLowerCase(); // Replace with your actual endpoint
-    console.log(endpoint);
+  
     await deleteData(checkedRows, "customers", "customers", refreshList);
     setCheckedRows([]);
   };

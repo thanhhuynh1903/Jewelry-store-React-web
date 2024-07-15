@@ -4,6 +4,8 @@ import axios from 'api/axios'; // Adjust the import path if necessary
 import { useRefresh } from 'context/RefreshProvider';
 export const useUserApi = () => {
   const [listType, setListType] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const token = useAuth();
   const {shouldRefresh} = useRefresh();
   const fetchApi = async () => {
@@ -18,6 +20,8 @@ export const useUserApi = () => {
 
     } catch (error) {
       console.error('Failed to fetch material data', error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -25,5 +29,5 @@ export const useUserApi = () => {
   fetchApi();
   }, [token,shouldRefresh]);
 
-  return listType;
+  return { listType, loading };
 };

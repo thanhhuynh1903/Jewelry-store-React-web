@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Calendar from "react-calendar";
 import Card from "components/card";
 import "react-calendar/dist/Calendar.css";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import "assets/css/MiniCalendar.css";
 
-const MiniCalendar = () => {
-  const [value, onChange] = useState(new Date());
-
+const MiniCalendar = ({ value, onChange }) => {
   return (
     <div>
       <Card extra="flex w-full h-full flex-col px-3 py-3">

@@ -18,7 +18,7 @@ export default function CreateUser({ label }) {
     e.preventDefault();
     create(username, password, name, role, age, label);
   };
-console.log(role);
+
   const handleRoleChange = (feeId) => {
     setRole(feeId); 
   };

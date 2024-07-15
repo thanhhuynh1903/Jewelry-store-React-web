@@ -16,8 +16,7 @@ const GoogleCallback = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      // Điều hướng dựa vào role
-      console.log(role);
+    
       if (role === "Admin") {
         navigate("/admin");
       }else if(role === "staff") {

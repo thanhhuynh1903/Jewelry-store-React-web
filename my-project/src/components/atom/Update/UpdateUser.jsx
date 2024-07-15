@@ -24,7 +24,7 @@ export default function UpdateUser({ label }) {
     const headers = { Authorization: `Bearer ${token}` };
     try {
       const response = await axios.get(`${endpoint}/${updateId}`, { headers });
-      console.log(response);
+   
       if (response?.data?.success) {
         const detail =
           label === "users"
@@ -45,7 +45,7 @@ export default function UpdateUser({ label }) {
   useEffect(() => {
     fetchApiId();
   }, []);
-console.log(role);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     update(role, label, updateId);

@@ -14,7 +14,7 @@ import { useProducTypeApi } from "../tables/components/ProductTypeApi/useProduct
 import DropDownCate from "components/atom/DropDown/DropDown";
 import Paging from "components/atom/Paging/Paging";
 import Search from "components/atom/Search/Search";
-
+import LoadingPage from "./pages/LoadingPage/LoadingPage";
 const Marketplace = () => {
   const label = "product";
   const ListType = useProducTypeApi();
@@ -26,7 +26,7 @@ const Marketplace = () => {
   const [pageSize] = useState(6);
   const token = useAuth();
   const headers = { Authorization: `Bearer ${token}` };
-
+  const [loading, setLoading] = useState(true);
   const fetchAllProducts = async () => {
     try {
       const response = await axios.get(`products?sl=0`); // Fetch all products
@@ -38,6 +38,8 @@ const Marketplace = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,8 +57,12 @@ const Marketplace = () => {
       const response = await axios.delete(`products/${id}`, { headers });
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        setListProduct((prevList) => prevList.filter((product) => product._id !== id));
-        setFilteredProducts((prevList) => prevList.filter((product) => product._id !== id));
+        setListProduct((prevList) =>
+          prevList.filter((product) => product._id !== id)
+        );
+        setFilteredProducts((prevList) =>
+          prevList.filter((product) => product._id !== id)
+        );
       }
     } catch (error) {
       console.error("Failed to delete product", error);
@@ -67,7 +73,11 @@ const Marketplace = () => {
   const handleProductTypeSelect = (productType) => {
     setSelectedProductType(productType);
     if (productType) {
-      setFilteredProducts(ListProduct?.filter((product) => product?.productTypeID?._id === productType?._id));
+      setFilteredProducts(
+        ListProduct?.filter(
+          (product) => product?.productTypeID?._id === productType?._id
+        )
+      );
     } else {
       setFilteredProducts(ListProduct);
     }
@@ -78,12 +88,14 @@ const Marketplace = () => {
     setCurrentPage(page);
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
-    const filtered = ListProduct?.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filtered = ListProduct?.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     setFilteredProducts(filtered);
     setCurrentPage(1); // Reset to first page on new search
   };
@@ -92,7 +104,7 @@ const Marketplace = () => {
     const order = event.target.value;
     setSortOrder(order);
     const sorted = [...filteredProducts].sort((a, b) => {
-      if (order === 'asc') {
+      if (order === "asc") {
         return a.price - b.price;
       }
       return b.price - a.price;
@@ -100,34 +112,47 @@ const Marketplace = () => {
     setFilteredProducts(sorted);
   };
 
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
-  const paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-
-  return (
-    <div className="grid h-full grid-cols-1 gap-5 mt-3 xl:grid-cols-2 2xl:grid-cols-2">
-      <div className="w-full col-span-1 h-fit xl:col-span-1 2xl:col-span-2">
-        <div className="flex flex-col justify-between px-4 mt-5 mb-4 md:flex-row md:items-center">
+  return loading ? (
+    <div className="pl-[500px] pt-[150px]">
+      <LoadingPage />
+    </div>
+  ) : (
+    <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-2">
+      <div className="col-span-1 h-fit w-full xl:col-span-1 2xl:col-span-2">
+        <div className="mb-4 mt-5 flex flex-col justify-between px-4 md:flex-row md:items-center">
           <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
             All products
           </h4>
           <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
             <li>
-              <DropDownCate list={ListType} onSelect={handleProductTypeSelect} />
+              <DropDownCate
+                list={ListType}
+                onSelect={handleProductTypeSelect}
+              />
             </li>
           </ul>
         </div>
-        <div className="flex flex-col justify-between px-1 mt-5 mb-4 md:flex-row md:items-center">
+        <div className="mb-4 mt-5 flex flex-col justify-between px-1 md:flex-row md:items-center">
           <ButtonCreate add={label} />
           <Search onSearch={handleSearch} />
         </div>
         <div>
           <label>Sort by: </label>
-          <select value={sortOrder} onChange={handleSortChange} className="ml-2 p-2 border rounded-md">
+          <select
+            value={sortOrder}
+            onChange={handleSortChange}
+            className="ml-2 rounded-md border p-2"
+          >
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
         </div>
-        <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3 mt-4">
+        <div className="z-20 mt-4 grid grid-cols-1 gap-5 md:grid-cols-3">
           {paginatedProducts.map((list, index) => (
             <NftCard
               key={index}
@@ -142,7 +167,7 @@ const Marketplace = () => {
             />
           ))}
         </div>
-        <div className="flex justify-center mt-5">
+        <div className="mt-5 flex justify-center">
           <Paging
             currentPage={currentPage}
             totalPages={totalPages}

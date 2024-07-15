@@ -8,8 +8,8 @@ const Products = () => {
 
   const fetchApi = async () => {
     try {
-      const response = await axios.get(`products?sl=0`);
-      console.log("data", response.data);
+      const response = await axios.get(`products/`);
+    
       if (response?.data?.products) {
         setListProduct(response?.data?.products);
       }

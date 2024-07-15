@@ -5,9 +5,9 @@ export default function HasAuth() {
 
   const token = localStorage.getItem("accessToken");
   const role = localStorage.getItem("role");
-  console.log('HasAuth: token', token, 'role', role);
+
   if (token && role === "Admin") {
-    console.log('Redirecting to /home');
+  
 
     return <Outlet />; // Render the protected routes
   } else if (token && role === "staff") {

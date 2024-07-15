@@ -36,7 +36,7 @@ export function SelectDefault({
       }
     }
   }, [defaultValue, label]);
-console.log(defaultValue);
+
   const handleCategoryChange = (e) => {
     const categoryId = e.target.value;
     setSelectedCategory(categoryId);

@@ -19,7 +19,7 @@ export default function Create({ label }) {
   const [feeRate, setFee] = useState("");
   const create = useCreateApi();
   const showListCate = useCategoryApi();
-  const showListFee = useProccessFeeApi();
+  const {listType : showListFee} = useProccessFeeApi();
   const [FeeValue, setFeeValue] = useState("");
   const handleCategorySelect = (categoryId) => {
     setCategoriesValue(categoryId); // Update selected category ID

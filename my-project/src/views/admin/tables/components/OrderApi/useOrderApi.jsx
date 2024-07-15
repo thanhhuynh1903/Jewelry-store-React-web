@@ -5,6 +5,7 @@ import { useRefresh } from 'context/RefreshProvider';
 export const useOrderApi = () => {
   const [listType, setListType] = useState([]);
   const token = useAuth();
+  const [loading, setLoading] = useState(true);
   const { shouldRefresh } = useRefresh();
   const fetchApi = async () => {
     const headers = {
@@ -12,11 +13,13 @@ export const useOrderApi = () => {
     };
     try {
       const response = await axios.get('orders', { headers });
-     console.log(response.data.orders);
+
         setListType(response?.data?.orders);
 
     } catch (error) {
       console.error('Failed to fetch material data', error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -24,5 +27,5 @@ export const useOrderApi = () => {
   fetchApi();
   }, [token,shouldRefresh]);
 
-  return listType;
+  return {listType,loading};
 };

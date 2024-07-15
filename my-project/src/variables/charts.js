@@ -103,8 +103,8 @@ export const barChartOptionsDailyTraffic = {
 };
 
 export const pieChartOptions = {
-  labels: ["Your files", "System", "Empty"],
-  colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+  labels: ["Paid", "Pending", "Cancelled","Not Enough"],
+  colors: ["#4318FF", "#eab308", "#f53939","#adb5bd"],
   chart: {
     width: "50px",
   },
@@ -133,7 +133,7 @@ export const pieChartOptions = {
     },
   },
   fill: {
-    colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+    colors: ["#4318FF", "#eab308", "#f53939","#adb5bd"],
   },
   tooltip: {
     enabled: true,
@@ -146,7 +146,7 @@ export const pieChartOptions = {
   },
 };
 
-export const pieChartData = [63, 25, 12];
+export const pieChartData = [63, 25, 6,6];
 
 export const barChartDataWeeklyRevenue = [
   {
