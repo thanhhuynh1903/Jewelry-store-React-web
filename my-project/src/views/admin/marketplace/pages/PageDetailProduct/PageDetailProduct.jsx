@@ -37,6 +37,7 @@ export default function PageDetailProduct({ label }) {
   const uploadImages = useUploadProductImageApi();
   const { shouldRefresh } = useRefresh();
   const [previewImages, setPreviewImages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -103,22 +104,27 @@ export default function PageDetailProduct({ label }) {
     }
   };
 
- 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleUpdate = async () => {
-    console.log("form",formData);
-    const data = formData; // Assuming formData is already a FormData object
-    await update(data, label, productId);
-    setEdit(!edit);
-    await fetchApi();
+    setLoading(true);
+    try {
+      await update(formData, label, productId);
+      setEdit(!edit);
+      await fetchApi();
+    } catch (error) {
+      console.error("Error updating product:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   const handleEdit = () => {
-    setEditImage(false);  // Disable edit image mode
-    setEdit(!edit);  // Toggle edit info mode
+    setEditImage(false); // Disable edit image mode
+    setEdit(!edit); // Toggle edit info mode
   };
 
   useEffect(() => {
@@ -130,10 +136,13 @@ export default function PageDetailProduct({ label }) {
       name: edit ? "Update information" : "Update Image",
       handle: edit ? handleUpdate : handlefetchImageUpload,
     },
-    { name: "Cancel", handle: () => {
-      setEdit(false);
-      setEditImage(false);
-    }, },
+    {
+      name: "Cancel",
+      handle: () => {
+        setEdit(false);
+        setEditImage(false);
+      },
+    },
   ];
 
   return (
@@ -143,7 +152,7 @@ export default function PageDetailProduct({ label }) {
         <div className="flex">
           <button
             type="button"
-            className="mt-3 flex rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 "
+            className="mt-3 flex rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
             onClick={handleEdit}
           >
             <FaRegEdit className="cursor-pointer text-2xl text-gray-600" />
@@ -153,7 +162,7 @@ export default function PageDetailProduct({ label }) {
           </button>
           <button
             type="button"
-            className="mt-3 flex rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 "
+            className="mt-3 flex rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white me-2 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
             onClick={handleUpload}
           >
             <FaRegEdit className="cursor-pointer text-2xl text-gray-600" />
@@ -271,14 +280,15 @@ export default function PageDetailProduct({ label }) {
                   ? "w-auto"
                   : "inline-gray-400 w-auto bg-white text-gray-400 outline"
               }
-              onClick={() => setEdit(false)}
-              >
+              onClick={item.handle}
+              disabled={loading}
+            >
               {item.name}
             </Button>
           ))}
         </div>
       )}
-      {editImage  && (
+      {editImage && (
         <div className="float-right mt-3 flex flex-wrap justify-end gap-4 text-right">
           {buttons.map((item, index) => (
             <Button
@@ -288,8 +298,8 @@ export default function PageDetailProduct({ label }) {
                   ? "w-auto"
                   : "inline-gray-400 w-auto bg-white text-gray-400 outline"
               }
-              onClick={() => setEditImage(false)}
-
+              onClick={item.handle}
+              disabled={loading}
             >
               {item.name}
             </Button>

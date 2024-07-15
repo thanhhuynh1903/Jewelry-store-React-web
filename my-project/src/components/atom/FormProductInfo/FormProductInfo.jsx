@@ -17,7 +17,7 @@ export default function FormProductInfo({
   const handleCategorySelect = (categoryId) => {
     setFormData({ ...formData, productCategoryID: categoryId });
   };
-
+console.log(formData);
   const handleTypeSelect = (typeId) => {
     setFormData({ ...formData, productTypeID: typeId });
   };
