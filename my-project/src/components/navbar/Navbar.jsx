@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Dropdown from "components/dropdown";
 import { FiMenu } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "context/LoginProvider";
 
 import clsx from "clsx";
 import avatar from "../../assets/img/avatars/avatar3.png";
 
 export default function Navbar() {
   const [isSideMenuOpen, setMenu] = useState(false);
+  const { username } = useContext(LoginContext);
 
   const navlinks = [
     {
@@ -23,11 +25,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-<<<<<<< HEAD
-    localStorage.removeItem("roleApp");
-=======
     localStorage.removeItem("role");
->>>>>>> 4f4a302414e3b72f09e08fa4dd8c714042bc985a
     navigate("/auth/");
   };
   return (
@@ -94,7 +92,7 @@ export default function Navbar() {
                 <div className="p-4">
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-bold text-navy-700 dark:text-white">
-                      👋 Hey, Adela
+                      👋 Hey, {username}
                     </p>{" "}
                   </div>
                 </div>

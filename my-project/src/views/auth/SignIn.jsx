@@ -5,7 +5,6 @@ import axios from "api/axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "context/LoginProvider";
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function SignIn() {
@@ -19,7 +18,7 @@ export default function SignIn() {
     password: "",
   });
 
-  const { setUsername } = useContext(LoginContext); // Get setUsername from context
+  const { setUsername, setId} = useContext(LoginContext);
 
   const validateField = (id, value) => {
     let error = "";
@@ -62,21 +61,23 @@ export default function SignIn() {
         username: formValues.username,
         password: formValues.password,
       });
-console.log(response.data);
+
+      console.log(response.data);
       if (response.data.success) {
         // Handle successful login
         const accessToken = response?.data?.accessToken;
         const refreshToken = response?.data?.refreshToken;
         const role = response?.data?.role;
+        const id = response?.data?.id;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("role", role);
         setUsername(formValues?.username);
+        setId(id);
 
         if (response.data.success && response?.data?.role === "Admin") {
           navigate("/admin/");
-        } 
-        else if (response.data.role === "staff") {
+        } else if (response.data.role === "staff") {
           navigate("/home");
         }
       } else {
@@ -123,7 +124,7 @@ console.log(response.data);
   };
 
   return (
-    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
+    <div className="flex items-center justify-center w-full h-full px-2 mt-16 mb-16 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
       <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
         <div className="mb-4 ">
@@ -140,22 +141,21 @@ console.log(response.data);
           Enter your email and password to sign in!
         </p>
 
-
         <div
           className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800"
           onClick={handleGoogleLogin}
         >
-          <div className="rounded-full text-xl">
+          <div className="text-xl rounded-full">
             <FcGoogle />
           </div>
           <h5 className="text-sm font-medium text-navy-700 dark:text-white">
             Sign In with Google
           </h5>
         </div>
-        <div className="mb-6 flex items-center gap-3">
-          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-full h-px bg-gray-200 dark:bg-navy-700" />
           <p className="text-base text-gray-600 dark:text-white"> or </p>
-          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
+          <div className="w-full h-px bg-gray-200 dark:bg-navy-700" />
         </div>
         {/* Email */}
         <form onSubmit={handleSubmit}>
@@ -185,8 +185,8 @@ console.log(response.data);
           />
 
           {/* Checkbox */}
-          <div className="mt-4 mb-2 flex items-center justify-between px-2 ">
-            <div className="mt-2 flex items-center">
+          <div className="flex items-center justify-between px-2 mt-4 mb-2 ">
+            <div className="flex items-center mt-2">
               <Checkbox />
               <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white ">
                 Remember password

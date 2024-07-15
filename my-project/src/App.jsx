@@ -6,17 +6,14 @@ import AuthLayout from "layouts/auth";
 import "react-toastify/dist/ReactToastify.css";
 import HasAuth from "hook/HasAuth";
 import GoogleCallback from "views/auth/GoogleCallback";
-<<<<<<< HEAD
-import Home from "../src/components/homepage/Home";
-=======
 import Home from "components/homepage/Home";
->>>>>>> 4f4a302414e3b72f09e08fa4dd8c714042bc985a
 import ProductDetail from "components/products/ProductDetail";
 import Cart from "components/cart/Cart";
 import Checkout from "components/checkout/Checkout";
 import ProtectedRoute from "hook/getRole";
 import Error404 from "views/admin/marketplace/pages/Error404page/Error404";
 import Success from "components/checkout/Success";
+import Profile from "components/profile/Profile";
 const App = () => {
   return (
     <Routes>
@@ -35,6 +32,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       
 

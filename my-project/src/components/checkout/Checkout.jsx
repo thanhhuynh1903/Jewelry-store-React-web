@@ -1,27 +1,9 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import axios from 'api/axios';
-import useAuth from 'hook/useAuth';
-
-function Checkout() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('Bank');
-  const [customer, setCustomer] = useState(null);
-  const [token, setToken] = useState(() => {
-    const savedToken = localStorage.getItem('accessToken');
-    console.log('Retrieved token from localStorage:', savedToken);
-    return savedToken;
-  });
-=======
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "api/axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Navbar from "components/navbar/Navbar";
 
 function Checkout() {
   const [carts, setCarts] = useState([]);
@@ -32,7 +14,6 @@ function Checkout() {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [stores, setStores] = useState([]);
   const navigate = useNavigate();
->>>>>>> 4f4a302414e3b72f09e08fa4dd8c714042bc985a
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -97,29 +78,12 @@ function Checkout() {
 
   const checkExistingCustomer = async (phone) => {
     try {
-<<<<<<< HEAD
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.post('/customers', {
-        name,
-        age,
-        phone,
-        address,
-        paymentMethod,
-      }, config);
-      setCustomer(response.data);
-      alert('Customer created successfully!');
-=======
       const response = await axios.get(`/customers?phone=${phone}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data.customers.length > 0
         ? response.data.customers[0]
         : null;
->>>>>>> 4f4a302414e3b72f09e08fa4dd8c714042bc985a
     } catch (error) {
       console.error("Error checking customer:", error);
       return null;
@@ -200,13 +164,14 @@ function Checkout() {
   });
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container p-4 mx-auto">
+      <Navbar/>
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="w-full md:w-1/2">
           <h2 className="mb-4 text-2xl font-bold">Customer Info</h2>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="focus:shadow-outline mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+            className="px-4 py-2 mb-4 font-bold text-white bg-blue-500 rounded focus:shadow-outline hover:bg-blue-700 focus:outline-none"
           >
             Chọn khách hàng hiện có
           </button>
@@ -214,14 +179,14 @@ function Checkout() {
             <div className="mb-4">
               <label
                 htmlFor="name"
-                className="mb-2 block text-sm font-bold text-gray-700"
+                className="block mb-2 text-sm font-bold text-gray-700"
               >
                 Name
               </label>
               <input
                 type="text"
                 id="name"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
                 {...formik.getFieldProps("name")}
               />
               {formik.touched.name && formik.errors.name ? (
@@ -231,14 +196,14 @@ function Checkout() {
             <div className="mb-4">
               <label
                 htmlFor="age"
-                className="mb-2 block text-sm font-bold text-gray-700"
+                className="block mb-2 text-sm font-bold text-gray-700"
               >
                 Age
               </label>
               <input
                 type="number"
                 id="age"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
                 {...formik.getFieldProps("age")}
               />
               {formik.touched.age && formik.errors.age ? (
@@ -246,20 +211,16 @@ function Checkout() {
               ) : null}
             </div>
             <div className="mb-4">
-<<<<<<< HEAD
-              <label htmlFor="phone" className="block mb-2 text-sm font-bold text-gray-700">
-=======
               <label
                 htmlFor="phone"
-                className="mb-2 block text-sm font-bold text-gray-700"
+                className="block mb-2 text-sm font-bold text-gray-700"
               >
->>>>>>> 4f4a302414e3b72f09e08fa4dd8c714042bc985a
                 Phone
               </label>
               <input
                 type="text"
                 id="phone"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
                 {...formik.getFieldProps("phone")}
               />
               {formik.touched.phone && formik.errors.phone ? (
@@ -271,14 +232,14 @@ function Checkout() {
             <div className="mb-4">
               <label
                 htmlFor="address"
-                className="mb-2 block text-sm font-bold text-gray-700"
+                className="block mb-2 text-sm font-bold text-gray-700"
               >
                 Address
               </label>
               <input
                 type="text"
                 id="address"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
                 {...formik.getFieldProps("address")}
               />
               {formik.touched.address && formik.errors.address ? (
@@ -290,13 +251,13 @@ function Checkout() {
             <div className="mb-4">
               <label
                 htmlFor="paymentMethod"
-                className="mb-2 block text-sm font-bold text-gray-700"
+                className="block mb-2 text-sm font-bold text-gray-700"
               >
                 Payment Method
               </label>
               <select
                 id="paymentMethod"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
                 value={formik.values.paymentMethod || ""}
                 onChange={(e) => {
                   const selectedMethod = paymentMethods.find(
@@ -316,13 +277,13 @@ function Checkout() {
             <div className="mb-4">
               <label
                 htmlFor="store"
-                className="mb-2 block text-sm font-bold text-gray-700"
+                className="block mb-2 text-sm font-bold text-gray-700"
               >
                 Store
               </label>
               <select
                 id="store"
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
                 {...formik.getFieldProps("store")}
               >
                 <option value="">Select a store</option>
@@ -338,24 +299,9 @@ function Checkout() {
                 </div>
               ) : null}
             </div>
-            <div className="mb-4">
-              <label htmlFor="paymentMethod" className="block mb-2 text-sm font-bold text-gray-700">
-                Payment Method
-              </label>
-              <select
-                id="paymentMethod"
-                className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                <option value="Bank">Bank</option>
-                <option value="Cash">Cash</option>
-                <option value="Cash">Credit Card</option>
-              </select>
-            </div>
             <button
               type="submit"
-              className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+              className="px-4 py-2 font-bold text-white bg-blue-500 rounded focus:shadow-outline hover:bg-blue-700 focus:outline-none"
             >
               Đặt hàng
             </button>
@@ -368,11 +314,11 @@ function Checkout() {
           ) : (
             <ul>
               {carts.map((cart) => (
-                <li key={cart._id} className="mb-2 flex items-center">
+                <li key={cart._id} className="flex items-center mb-2">
                   <img
                     src={cart.imageUrl}
                     alt={cart.name}
-                    className="mr-2 h-16 w-16 object-cover"
+                    className="object-cover w-16 h-16 mr-2"
                   />
                   <div>
                     <p className="font-bold">{cart.name}</p>
@@ -388,11 +334,11 @@ function Checkout() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="w-full max-w-3xl rounded bg-white p-6 shadow-lg">
-            <div className="mb-4 flex justify-between">
+          <div className="w-full max-w-3xl p-6 bg-white rounded shadow-lg">
+            <div className="flex justify-between mb-4">
               <h2 className="text-2xl font-bold">Select Customer</h2>
               <button
-                className="focus:shadow-outline rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+                className="px-4 py-2 font-bold text-white bg-red-500 rounded focus:shadow-outline hover:bg-red-700 focus:outline-none"
                 onClick={() => setIsModalOpen(false)}
               >
                 Close
@@ -401,11 +347,11 @@ function Checkout() {
             <input
               type="text"
               placeholder="Search by name or phone"
-              className="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              className="w-full px-3 py-2 mb-4 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <ul className="max-h-64 overflow-y-auto">
+            <ul className="overflow-y-auto max-h-64">
               {customers
                 .filter(
                   (customer) =>
@@ -417,7 +363,7 @@ function Checkout() {
                 .map((customer) => (
                   <li
                     key={customer._id}
-                    className="mb-2 cursor-pointer rounded border p-2 hover:bg-gray-200"
+                    className="p-2 mb-2 border rounded cursor-pointer hover:bg-gray-200"
                     onClick={() => handleSelectCustomer(customer)}
                   >
                     <p className="font-bold">{customer.name}</p>
