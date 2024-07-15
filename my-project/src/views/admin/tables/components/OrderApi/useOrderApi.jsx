@@ -7,7 +7,7 @@ export const useOrderApi = () => {
   const token = useAuth();
   const [loading, setLoading] = useState(true);
   const { shouldRefresh } = useRefresh();
-  const fetchApi = async () => {
+  const fetchOrders = async () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -24,8 +24,8 @@ export const useOrderApi = () => {
   };
 
   useEffect(() => {
-  fetchApi();
+    fetchOrders();
   }, [token,shouldRefresh]);
 
-  return {listType,loading};
+  return {listType,loading, refetch: fetchOrders};
 };

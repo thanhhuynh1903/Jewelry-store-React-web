@@ -9,7 +9,7 @@ import {
 import Checkbox from "components/checkbox";
 
 import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Progress from "components/progress";
 import ButtonCreate from "components/atom/ButtonCreate/ButtonCreate";
 import ButtonAction from "components/atom/ButtonDelete/ButtonAction";
@@ -19,13 +19,18 @@ import useDeleteData from "api/DeleteApi/DeleteApi";
 import ButtonCss from "components/atom/ButtonDelete/ButtonDeleteDeco";
 const ComplexTableOrder = (props) => {
   const { columnsData, tableData, total } = props;
-  const { name, index } = props;
+  const { name, index,pageSize } = props;
   const deleteData = useDeleteData();
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
   const nameLower = name.toLowerCase();
-
+console.log(pageSize);
   const [checkedRows, setCheckedRows] = useState([]);
+  const [sizepage, setSizePage] = useState(tableData?.length)
+
+  useEffect(()=>{
+    setSizePage(tableData?.length)
+  },[tableData?.length])
 
   const handleCheckboxChange = (rowId) => {
     setCheckedRows((prevCheckedRows) =>
@@ -59,8 +64,8 @@ const ComplexTableOrder = (props) => {
     prepareRow,
     initialState,
   } = tableInstance;
-  initialState.pageSize = tableData?.length ;
-
+  initialState.pageSize = pageSize ;
+  
   return (
     <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
       <header className="relative flex items-center justify-between">
