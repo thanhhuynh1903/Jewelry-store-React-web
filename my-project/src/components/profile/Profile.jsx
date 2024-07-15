@@ -17,7 +17,7 @@ const Profile = () => {
   });
   const [errors, setErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
-  const [userData, setUserData] = useState(null); 
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,12 +90,20 @@ const Profile = () => {
         role: "staff",
       });
       console.log(response.data);
+      setUserData((prevData) => ({
+        ...prevData,
+        user: {
+          ...prevData.user,
+          name: formValues.name,
+          age: formValues.age,
+        },
+      }));
       setEditMode(false);
     } catch (error) {
       console.error("Error updating user data", error);
     }
   };
-  
+
   return (
     <>
       <Navbar />
@@ -126,11 +134,11 @@ const Profile = () => {
             // Display mode
             <div className="flex flex-col items-center">
               <p className="mb-3"><strong>Username:</strong> {username}</p>
-              <p className="mb-3"><strong>Name:</strong> {userData?.name}</p>
-              <p className="mb-3"><strong>Age:</strong> {userData?.age}</p>
+              <p className="mb-3"><strong>Name:</strong> {userData?.user?.name}</p>
+              <p className="mb-3"><strong>Age:</strong> {userData?.user?.age}</p>
               <button
                 onClick={handleEdit}
-                className="px-4 py-2 mt-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+                className="px-4 py-2 mt-3 text-white rounded-lg bg-bloom"
               >
                 Edit Profile
               </button>
@@ -148,6 +156,7 @@ const Profile = () => {
                 error={errors.username}
                 value={formValues.username}
                 onChange={handleChange}
+                readOnly={true}
               />
               <InputField
                 variant="auth"

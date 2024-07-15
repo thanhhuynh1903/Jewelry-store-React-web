@@ -8,7 +8,7 @@ const Products = () => {
 
   const fetchApi = async () => {
     try {
-      const response = await axios.get(`products/`);
+      const response = await axios.get(`products?sl=0`);
       console.log("data", response.data);
       if (response?.data?.products) {
         setListProduct(response?.data?.products);
@@ -38,7 +38,7 @@ const Products = () => {
     <div className="bg-gray-100 py-14">
       <div className="container mx-auto">
         <div className="mx-auto mb-10 max-w-[600px] text-center">
-          <p className="text-primary text-2xl text-bloom">
+          <p className="text-2xl text-primary text-bloom">
             Top Selling Products for you
           </p>
           <h1 className="text-3xl font-bold">
@@ -53,14 +53,14 @@ const Products = () => {
           {ListProduct.map((product, index) => (
             <div
               key={product._id}
-              className="transform cursor-pointer rounded-lg bg-white p-4 shadow-lg transition-transform duration-300 hover:scale-105"
+              className="p-4 transition-transform duration-300 transform bg-white rounded-lg shadow-lg cursor-pointer hover:scale-105"
               onClick={() => handleProductClick(product._id)}
             >
               <div className="h-[200px] w-full overflow-hidden rounded-md">
                 <img
                   src={product.imageIDs[0].imageLink}
                   alt={product.name}
-                  className="h-full w-full object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
               <div className="mt-4">
