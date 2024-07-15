@@ -36,7 +36,7 @@ const useStatisticApi = () => {
       console.error("Failed to fetch statistic", error);
     }
   };
-console.log(data);
+
   useEffect(() => {
     if (token) {
       fetchStatistic();

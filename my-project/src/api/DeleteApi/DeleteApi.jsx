@@ -26,7 +26,7 @@ const useDeleteData = () => {
         const allSuccess = response.every((res) => res?.data?.success);
         
         if (allSuccess) {
-          console.log(refresh);
+         
           refresh();
           return toast.success("Delete successfully");
         } else {

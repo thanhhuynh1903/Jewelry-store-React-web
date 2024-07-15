@@ -33,7 +33,7 @@ export default function PageDetailProduct({ label }) {
   const [edit, setEdit] = useState(false);
   const [editImage, setEditImage] = useState(false);
   const [imageFiles, setImageFiles] = useState([]); // State for image files
-  const updateProduct = useUpdateProductApi();
+  const update = useUpdateProductApi();
   const uploadImages = useUploadProductImageApi();
   const { shouldRefresh } = useRefresh();
   const [previewImages, setPreviewImages] = useState([]);
@@ -84,7 +84,6 @@ export default function PageDetailProduct({ label }) {
     try {
       const response = await axios.get(`products/${productId}`, { headers });
       if (response?.data?.success) {
-        console.log(response?.data?.product);
         setList(response?.data?.product);
         setFormData({
           name: response.data.product.name,
@@ -105,16 +104,15 @@ export default function PageDetailProduct({ label }) {
   };
 
  
-console.log(editImage);
-console.log(edit);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleUpdate = async () => {
+    console.log("form",formData);
     const data = formData; // Assuming formData is already a FormData object
-    await updateProduct(data, label, productId);
+    await update(data, label, productId);
     setEdit(!edit);
     await fetchApi();
   };
@@ -122,8 +120,7 @@ console.log(edit);
     setEditImage(false);  // Disable edit image mode
     setEdit(!edit);  // Toggle edit info mode
   };
-console.log(edit);
-console.log(editImage);
+
   useEffect(() => {
     fetchApi();
   }, [shouldRefresh]);

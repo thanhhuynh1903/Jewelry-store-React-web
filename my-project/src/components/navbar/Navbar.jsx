@@ -11,6 +11,7 @@ import avatar from "../../assets/img/avatars/avatar3.png";
 
 export default function Navbar() {
   const [isSideMenuOpen, setMenu] = useState(false);
+  const AdminRole = localStorage.getItem("role");
 
   const navlinks = [
     {
@@ -100,6 +101,16 @@ export default function Navbar() {
                 <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
 
                 <div className="flex flex-col p-4">
+                  {AdminRole === "Admin" ? (
+                    <Link
+                      to={"/admin/"}
+                      className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
+                    >
+                      Admin page
+                    </Link>
+                  ) : (
+                    ""
+                  )}
                   <a
                     onClick={handleLogout}
                     className="mt-3 text-sm font-medium text-red-500 transition duration-150 ease-out hover:text-red-500 hover:ease-in"

@@ -3,7 +3,7 @@ import React from "react";
 export default function MultipleChoices() {
   const handleChange = (e) => {
     // Handle the change event here if needed
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   return (

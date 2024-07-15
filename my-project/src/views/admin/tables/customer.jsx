@@ -19,9 +19,10 @@ import { useCustomerApi } from "./components/CustomerApi/useCustomerApi";
 import { columnsDataCategory } from "./variables/columnsData";
 import { useState } from "react";
 import Search from "components/atom/Search/Search";
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
 const Tables = () => {
   const [refreshKey, setRefreshKey] = useState(0);
-  const CusList = useCustomerApi(refreshKey);
+  const {listType :CusList,loading} = useCustomerApi(refreshKey);
   const refreshCustomerList = () => {
     setRefreshKey(prevKey => prevKey + 1);
   };
@@ -34,7 +35,12 @@ const Tables = () => {
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
-        {name?.map((data, index) => (
+      {loading ? (
+         <div className="pl-[500px] pt-[150px]">
+         <LoadingPage/>
+         </div>
+        ) : (
+        name?.map((data, index) => (
           <ComplexTableCustomer
           key={`${data?.name}-${refreshKey}`}
             name={data?.name}
@@ -44,7 +50,7 @@ const Tables = () => {
             refreshList={refreshCustomerList}
 
           />
-        ))}{" "}
+        )))}
       </div>
       {/* <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         <ColumnsTable

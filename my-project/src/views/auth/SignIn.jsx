@@ -62,7 +62,7 @@ export default function SignIn() {
         username: formValues.username,
         password: formValues.password,
       });
-console.log(response.data);
+
       if (response.data.success) {
         // Handle successful login
         const accessToken = response?.data?.accessToken;

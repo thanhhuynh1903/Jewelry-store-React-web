@@ -21,6 +21,7 @@ import tableDataComplex from "./variables/tableDataComplex.json";
 import useStatisticApi from "api/StatisticApi/StatisticApi";
 import { ToastContainer } from "react-toastify";
 import { useStoreApi } from "../tables/components/StoreApi/useStoreApi";
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
 const Dashboard = () => {
   const { data, fetchStatistic } = useStatisticApi();
   const [date, setDate] = useState(new Date());
@@ -31,7 +32,7 @@ const Dashboard = () => {
   let month = (date.getMonth() + 1).toString().padStart(2, "0");
   let year = date.getFullYear().toString();
   const store = useStoreApi();
-console.log(typeof(data));
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true); // Set loading to true before fetching data
@@ -52,11 +53,14 @@ console.log(typeof(data));
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Render a loading indicator while fetching data
+    return (
+      <div className="pl-[500px] pt-[150px]">
+        <LoadingPage />
+      </div>
+    ); // Render a loading indicator while fetching data
   }
 
-  const selectedStore = store.find((s) => s._id === selectedStoreId);
-  console.log(data);
+  const selectedStore = store?.find((s) => s?._id === selectedStoreId);
 
   return (
     <div>
@@ -123,7 +127,7 @@ console.log(typeof(data));
 
         {/* Traffic chart & Pie Chart */}
         <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
-          <PieChartCard orderstatus={data}/>
+          <PieChartCard orderstatus={data} />
           {/* <PieChartCard /> */}
           <DailyTraffic
             customer={data?.totalCustomers}
@@ -143,7 +147,6 @@ console.log(typeof(data));
           <div className="grid grid-cols-1 rounded-[20px]">
             <MiniCalendar value={date} onChange={setDate} />
           </div>
-          
         </div>
       </div>
       <ToastContainer autoClose={2000} />

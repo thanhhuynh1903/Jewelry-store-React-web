@@ -22,28 +22,54 @@ import { ToastContainer } from "react-toastify";
 import { useCategoryApi } from "./components/CategoryApi/useCategoryApi";
 import { columnsDataCategory } from "./variables/columnsData";
 import { useRefresh } from "context/RefreshProvider";
-import { useEffect } from "react";
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
+import { useEffect, useState } from "react";
 const Tables = () => {
   const GemstoneList = useGemstoneApi();
   const MaterialList = useMaterialApi();
   const TypeList = useProducTypeApi();
   const CateList = useCategoryApi();
-
+  const [loading, setLoading] = useState(true);
   const name = [
     { name: "Material", data: MaterialList },
     { name: "Gemstone", data: GemstoneList },
   ];
-  
-  const nameType = [{ name: "Type", data: TypeList },{ name: "Category", data: CateList }];
 
-  return (
+  const nameType = [
+    { name: "Type", data: TypeList },
+    { name: "Category", data: CateList },
+  ];
+
+  useEffect(() => {
+   
+    if (
+      GemstoneList?.length > 0 &&
+      MaterialList?.length > 0 &&
+      CateList?.length > 0 &&
+      TypeList?.length > 0
+    ) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [GemstoneList, MaterialList, CateList, TypeList]);
+
+  return loading ? (
+    <div className="pl-[500px] pt-[150px]">
+      <LoadingPage />
+    </div>
+  ) : (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
         {name?.map((data, index) => (
           <CheckTable
             name={data?.name}
             index={index}
-            columnsData={data?.name === "Gemstone" ? columnsDataGemstone : columnsDataMaterial }
+            columnsData={
+              data?.name === "Gemstone"
+                ? columnsDataGemstone
+                : columnsDataMaterial
+            }
             tableData={data?.data}
           />
         ))}{" "}
@@ -57,7 +83,9 @@ const Tables = () => {
         {nameType?.map((data, index) => (
           <ComplexTable
             name={data?.name}
-            columnsData={data?.name === "Type" ? columnsDataComplex : columnsDataCategory}
+            columnsData={
+              data?.name === "Type" ? columnsDataComplex : columnsDataCategory
+            }
             tableData={data?.data}
           />
         ))}

@@ -15,9 +15,9 @@ import CheckTableFee from "./components/CheckTableFee";
 import { columnsDataFee } from "./variables/columnsData";
 import { ToastContainer } from "react-toastify";
 import { useProccessFeeApi } from "./components/ProccessFeeApi/useProccessFeeApi";
-
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
 const Tables = () => {
-  const fee = useProccessFeeApi();
+  const {listType : fee,loading } = useProccessFeeApi();
  
 
   const name = [
@@ -28,14 +28,19 @@ const Tables = () => {
   return (
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
-        {name?.map((data, index) => (
+      {loading ? (
+         <div className="pl-[500px] pt-[150px]">
+         <LoadingPage/>
+         </div>
+        ) : (
+        name?.map((data, index) => (
           <CheckTableFee
             name={data?.name}
             index={index}
             columnsData={columnsDataFee}
             tableData={data?.data}
           />
-        ))}{" "}
+        )))}
       </div>
       <ToastContainer autoClose={2000} />
     </div>

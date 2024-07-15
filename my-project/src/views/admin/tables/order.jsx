@@ -1,49 +1,40 @@
+import React, { useState } from "react";
 import ComplexTableOrder from "./components/ComplexTableOrder";
-
-import {
-  columnsDataDevelopment,
-  columnsDataCheck,
-  columnsDataColumns,
-  columnsDataComplex,
-} from "./variables/columnsData";
-import tableDataDevelopment from "./variables/tableDataDevelopment.json";
-import tableDataCheck from "./variables/tableDataCheck.json";
-import tableDataColumns from "./variables/tableDataColumns.json";
-import tableDataComplex from "./variables/tableDataComplex.json";
-import DevelopmentTable from "./components/DevelopmentTable";
-import ColumnsTable from "./components/ColumnsTable";
-import ComplexTable from "./components/ComplexTable";
 import { columnsDataOrder } from "./variables/columnsData";
 import { toast, ToastContainer } from "react-toastify";
 import { useOrderApi } from "./components/OrderApi/useOrderApi";
-import { columnsDataCategory } from "./variables/columnsData";
 import Search from "components/atom/Search/Search";
 import useAuth from "hook/useAuth";
 import axios from "api/axios";
-import { useState } from "react";
+import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
 const Tables = () => {
-  const OrderList = useOrderApi();
+  const { listType: OrderList, loading } = useOrderApi();
   const token = useAuth();
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  const [DisplayOrders ,setDisplayedOrders] = useState([]);
+  const [displayedOrders, setDisplayedOrders] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+
   const name = [
     { name: "Orders", data: OrderList },
-    
   ];
-console.log(OrderList);
+
   const handleSearch = async (searchTerm) => {
+    setSearchLoading(true);
     try {
-      const response = await axios.get(`orders?customerName=${searchTerm}`,{headers});
-      if(response?.data?.success)
-        setDisplayedOrders(response?.data?.orders );
-      if(response?.data?.orders.length === 0){
-        toast.error("Not found")
-      }     
+      const response = await axios.get(`orders?customerName=${searchTerm}`, { headers });
+      if (response?.data?.success) {
+        setDisplayedOrders(response?.data?.orders);
+        if (response?.data?.orders.length === 0) {
+          toast.error("Not found");
+        }
+      }
     } catch (error) {
       console.error("Error searching orders:", error);
       // Optionally, you can show an error message to the user here
+    } finally {
+      setSearchLoading(false);
     }
   };
 
@@ -51,16 +42,22 @@ console.log(OrderList);
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols">
         <div className="flex justify-end">
-          <Search onSearch={handleSearch}/>
+          <Search onSearch={handleSearch} />
         </div>
-        {name?.map((data, index) => (
-          <ComplexTableOrder
-            name={data?.name}
-            index={index}
-            columnsData={columnsDataOrder}
-            tableData={DisplayOrders?.length !== 0 ? DisplayOrders : data?.data}
-          />
-        ))}{" "}
+        {loading || searchLoading ? (
+          <div className="pl-[500px] pt-[150px]">
+          <LoadingPage/>
+          </div>
+        ) : (
+          name?.map((data, index) => (
+            <ComplexTableOrder
+              key={index}
+              name={data?.name}
+              columnsData={columnsDataOrder}
+              tableData={displayedOrders?.length !== 0 ? displayedOrders : data?.data}
+            />
+          ))
+        )}
       </div>
       <ToastContainer autoClose={2000} />
     </div>

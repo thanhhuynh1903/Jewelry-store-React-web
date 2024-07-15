@@ -4,8 +4,7 @@ import { barChartOptionsDailyTraffic } from "variables/charts";
 import { MdArrowDropUp } from "react-icons/md";
 import Card from "components/card";
 const DailyTraffic = ({customer,newcustomer}) => {
-  console.log(customer);
-  console.log(newcustomer);
+
   return (
     <Card extra="pb-7 px-[20px] py-[10px]">
       <div className="flex flex-row justify-between">

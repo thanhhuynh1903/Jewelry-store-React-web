@@ -45,7 +45,7 @@ const CheckTable = (props) => {
 
   const handleDelete = async () => {
     const endpoint = name?.toLowerCase(); // Replace with your actual endpoint
-    console.log(endpoint);
+   
     await deleteData(checkedRows, endpoint, "stores", refreshList);
     setCheckedRows([]);
   };
