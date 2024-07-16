@@ -53,7 +53,6 @@ const Footer = () => {
         <div data-aos="zoom-in" className="grid pt-5 pb-10 md:grid-cols-3">
           <div className="px-4 py-8">
             <h1 className="flex items-center gap-3 mb-3 text-xl font-bold text-justify sm:text-3xl sm:text-left text-hemp">
-              <img src={footerLogo} alt="" className="max-w-[50px]" />
               Alumina Store
             </h1>
             <p>
