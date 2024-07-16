@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 import axios from "api/axios";
 
 const TopProducts = ({ handleOrderPopup }) => {
-  const [ListProduct, setListProduct] = useState([]);
+  const [listProduct, setListProduct] = useState([]);
 
   const fetchApi = async () => {
     try {
@@ -20,19 +20,21 @@ const TopProducts = ({ handleOrderPopup }) => {
     fetchApi();
   }, []);
 
-  const getRandomImageLink = (imageIDs) => {
-    if (imageIDs.length === 0) return '';
-    const randomIndex = Math.floor(Math.random() * imageIDs.length);
-    return imageIDs[randomIndex]?.imageLink || '';
+  const displayPrice = (price) => {
+    return price.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      trailingZeroDisplay: "stripIfInteger",
+    });
   };
 
-  const topProducts = ListProduct.sort((a, b) => b.price - a.price).slice(0, 4);
+  const topProducts = listProduct.sort((a, b) => b.price - a.price).slice(0, 4);
 
   return (
     <div className="bg-gray-100 py-14">
       <div className="container mx-auto">
         <div className="mx-auto my-24 ml-10 text-left">
-          <p data-aos="fade-up" className="text-2xl text-bloom text-primary">
+          <p data-aos="fade-up" className="text-2xl text-primary text-bloom">
             Top Rated Products for you
           </p>
           <h1 data-aos="fade-up" className="text-3xl font-bold">
@@ -43,18 +45,22 @@ const TopProducts = ({ handleOrderPopup }) => {
             asperiores modi Sit asperiores modi
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-20 mb-10 ml-22 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-5 place-items-center">
-          {topProducts.map((list) => (
+        <div className="grid grid-cols-1 gap-20 mb-10 ml-22 place-items-center sm:grid-cols-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
+          {topProducts.map((product) => (
             <div
-              key={list.id}
+              key={product.id}
               data-aos="zoom-in"
-              className="rounded-2xl bg-white dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white relative shadow-xl duration-300 group max-w-[300px] mt-5"
+              className="hover:bg-black/80 dark:hover:bg-primary group relative mt-5 max-w-[300px] rounded-2xl bg-white shadow-xl duration-300 hover:text-white dark:bg-gray-800"
             >
-              <div className="h-[200px] w-screen-full flex justify-center items-center">
+              <div className="flex items-center justify-center h-screen-full w-screen-full">
                 <img
-                  src={getRandomImageLink(list?.imageIDs)}
+                  src={
+                    product.imageIDs.length > 0
+                      ? product.imageIDs[0].imageLink
+                      : ""
+                  }
                   alt=""
-                  className="block object-contain max-w-full max-h-full mx-auto duration-300 transform group-hover:scale-105 drop-shadow-md"
+                  className="block object-contain max-w-full max-h-full mx-auto duration-300 transform drop-shadow-md group-hover:scale-105"
                 />
               </div>
               <div className="p-4 text-center">
@@ -64,12 +70,14 @@ const TopProducts = ({ handleOrderPopup }) => {
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />
                 </div>
-                <h1 className="text-xl font-bold group-hover:text-hemp">{list.name}</h1>
-                <p className="text-sm text-gray-500 duration-300 group-hover:text-bloom line-clamp-2">
-                  {list.price}
+                <h1 className="text-xl font-bold group-hover:text-hemp">
+                  {product.name}
+                </h1>
+                <p className="text-sm text-gray-500 duration-300 line-clamp-2 group-hover:text-bloom">
+                  {displayPrice(product.price)}
                 </p>
                 <button
-                  className="px-4 py-1 mt-4 duration-300 rounded-full text-hemp bg-primary hover:scale-105 group-hover:bg-bloom group-hover:text-primary"
+                  className="px-4 py-1 mt-4 duration-300 rounded-full bg-primary group-hover:text-primary text-hemp hover:scale-105 group-hover:bg-bloom"
                   onClick={handleOrderPopup}
                 >
                   Order Now
