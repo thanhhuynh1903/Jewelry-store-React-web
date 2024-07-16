@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Img1 from "../../assets/img/topProduct/shirt.png";
-import Img2 from "../../assets/img/topProduct/shirt2.png";
-import Img3 from "../../assets/img/topProduct/shirt3.png";
 import { FaStar } from "react-icons/fa";
 import axios from "api/axios";
 
@@ -11,7 +8,6 @@ const TopProducts = ({ handleOrderPopup }) => {
   const fetchApi = async () => {
     try {
       const response = await axios.get(`products/`);
-   
       if (response?.data?.products) {
         setListProduct(response?.data?.products);
       }
@@ -30,13 +26,12 @@ const TopProducts = ({ handleOrderPopup }) => {
     return imageIDs[randomIndex]?.imageLink || '';
   };
 
-  const topProducts = ListProduct.sort((a, b) => b.price - a.price).slice(0, 3);
+  const topProducts = ListProduct.sort((a, b) => b.price - a.price).slice(0, 4);
 
   return (
-    <div>
-      <div className="container">
-        
-        <div className="my-24 ml-10 text-left">
+    <div className="bg-gray-100 py-14">
+      <div className="container mx-auto">
+        <div className="mx-auto my-24 ml-10 text-left">
           <p data-aos="fade-up" className="text-2xl text-bloom text-primary">
             Top Rated Products for you
           </p>
@@ -48,25 +43,21 @@ const TopProducts = ({ handleOrderPopup }) => {
             asperiores modi Sit asperiores modi
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 gap-20 mb-10 ml-22 sm:grid-cols-2 md:grid-cols-3 md:gap-5 place-items-center">
+        <div className="grid grid-cols-1 gap-20 mb-10 ml-22 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-5 place-items-center">
           {topProducts.map((list) => (
             <div
               key={list.id}
               data-aos="zoom-in"
               className="rounded-2xl bg-white dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white relative shadow-xl duration-300 group max-w-[300px] mt-5"
             >
-             
-              <div className="h-[100px] w-[300px]">
+              <div className="h-[200px] w-screen-full flex justify-center items-center">
                 <img
                   src={getRandomImageLink(list?.imageIDs)}
                   alt=""
-                  className="max-w-[150px] block mx-auto transform -translate-y-20 group-hover:scale-105 duration-300 drop-shadow-md"
+                  className="block object-contain max-w-full max-h-full mx-auto duration-300 transform group-hover:scale-105 drop-shadow-md"
                 />
               </div>
-              {/* details section */}
               <div className="p-4 text-center">
-               
                 <div className="flex items-center justify-center w-full gap-1">
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />

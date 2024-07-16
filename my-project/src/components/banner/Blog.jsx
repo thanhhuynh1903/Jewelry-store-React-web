@@ -3,8 +3,8 @@ import BlogHomePage from '../../assets/img/banner/blog.png';
 
 const App = () => {
   return (
-    <div className="flex justify-between">
-      <div className="w-1/2 p-10 mt-32 left-content">
+    <div className="flex flex-col justify-between md:flex-row">
+      <div className="w-full p-10 mt-32 md:w-1/2 left-content">
         <h1 className="text-3xl text-bloom">Blog</h1>
         <p className="mt-3 text-sm">
           If diamonds are a girl's best friend, why can they be so intimidating? A moment in time, a
@@ -16,8 +16,8 @@ const App = () => {
         </p>
         <button className="px-4 py-2 mt-5 text-hemp bg-bloom">Learn More</button>
       </div>
-      <div className="relative w-1/2 right-content">
-        <img src={BlogHomePage} alt="Woman with diamonds" className="w-full h-auto" />
+      <div className="relative flex items-center justify-center w-full md:w-1/2 right-content">
+        <img src={BlogHomePage} alt="Woman with diamonds" className="object-cover object-center mt-10 w-screen-full h-screen-full md:mt-0" />
       </div>
     </div>
   );
