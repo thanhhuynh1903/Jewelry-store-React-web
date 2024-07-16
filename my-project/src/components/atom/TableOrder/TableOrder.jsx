@@ -11,7 +11,7 @@ export default function TableOrder({ data }) {
     <div>
       <Card extra={"w-full h-full p-4 sm:overflow-x-auto"}>
         <table className="w-full table-fixed">
-          <thead className="border-b text-gray-600 ">
+          <thead className="border-b text-gray-600">
             <tr>
               <th>Name</th>
               <th>Image</th>
@@ -25,18 +25,18 @@ export default function TableOrder({ data }) {
             {Detail.orderDetails &&
               Detail?.orderDetails?.map((detail) => (
                 <tr className="text-center" key={detail._id}>
-                  <td>{detail.productID.name}</td>
-                  <td className="flex justify-center">
+                  <td className="py-3">{detail.productID.name}</td>
+                  <td className="flex justify-center py-3">
                     <img
                       src={detail?.productID?.imageIDs[0]?.imageLink}
                       alt={detail.productID.name}
                       className="h-16 w-16 object-cover"
                     />
                   </td>
-                  <td>{Detail.customerID.name}</td>
-                  <td>{detail.productID.quantity}</td>
-                  <td>{detail.totalPrice}</td>
-                  <td>{detail.totalProfit}</td>
+                  <td className="py-3">{Detail.customerID.name}</td>
+                  <td className="py-3">{detail.productID.quantity}</td>
+                  <td className="py-3">{detail.totalPrice}</td>
+                  <td className="py-3">{detail.totalProfit}</td>
                 </tr>
               ))}
           </tbody>
