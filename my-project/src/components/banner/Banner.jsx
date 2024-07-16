@@ -25,8 +25,8 @@ const Banner = () => {
               data-aos="fade-up"
               className="text-sm leading-5 tracking-wide text-hemp"
             >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
-              reiciendis inventore iste ratione ex alias quis magni at optio
+              Don't miss out on our spectacular Summer Sale at Alumina Jewelry Store! 
+              Enjoy incredible discounts of up to 50% off on a wide selection of our finest jewelry pieces.
             </p>
             <div className="flex flex-col gap-4">
               <div data-aos="fade-up" className="flex items-center gap-4">
