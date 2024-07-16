@@ -74,10 +74,14 @@ export default function SignIn() {
         setUsername(formValues?.username);
         setId(id);
 
-        if (response.data.success && response?.data?.role === "Admin") {
+        if (role === "Admin") {
           navigate("/admin/");
-        } else if (response.data.role === "staff") {
-          navigate("/profile");
+        } else if (role === "staff") {
+          if (formValues.password === "123456") {
+            navigate("/profile");
+          } else {
+            navigate("/home");
+          }
         }
       } else {
         // Handle login failure
