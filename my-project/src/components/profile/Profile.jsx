@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "api/axios";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "context/LoginProvider";
 import InputField from "components/fields/InputField";
 import Navbar from "components/navbar/Navbar";
@@ -19,6 +20,7 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +45,7 @@ const Profile = () => {
     let error = "";
     if (id === "username" && !value) {
       error = "Username is required";
-    } else if (id === "password" && !value) {
+    } else if (id === "password" && !value && editMode) {
       error = "Password is required";
     } else if (id === "name" && !value) {
       error = "Name is required";
@@ -67,6 +69,11 @@ const Profile = () => {
 
   const handleEdit = () => {
     setEditMode(true);
+    // Set initial username value from context
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      username: username,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -74,13 +81,22 @@ const Profile = () => {
 
     let hasError = false;
     Object.keys(formValues).forEach((field) => {
-      if (!formValues[field]) {
+      if (!formValues[field] && (editMode || field !== "password")) {
         validateField(field, formValues[field]);
         hasError = true;
       }
     });
 
     if (hasError) return;
+
+    // Check if new password is different from current password
+    if (formValues.password === formValues.currentPassword) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "New password must be different from current password",
+      }));
+      return;
+    }
 
     try {
       const response = await axios.put(`/staffsRouter/updateUser/${id}`, {
@@ -100,6 +116,7 @@ const Profile = () => {
         },
       }));
       setEditMode(false);
+      navigate("/home");
     } catch (error) {
       console.error("Error updating user data", error);
     }
