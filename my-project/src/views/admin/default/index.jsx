@@ -22,6 +22,7 @@ import useStatisticApi from "api/StatisticApi/StatisticApi";
 import { ToastContainer } from "react-toastify";
 import { useStoreApi } from "../tables/components/StoreApi/useStoreApi";
 import LoadingPage from "../marketplace/pages/LoadingPage/LoadingPage";
+import TotalSpentYear from "./components/TotalSpentYear";
 const Dashboard = () => {
   const { data, fetchStatistic } = useStatisticApi();
   const [date, setDate] = useState(new Date());
@@ -108,9 +109,9 @@ const Dashboard = () => {
       </div>
 
       {/* Charts */}
-      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <TotalSpent />
-        <WeeklyRevenue />
+      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 h-[400px]">
+        <TotalSpent dataMonthDiff={data?.monthlyProfitDifference} dataMonthPer={data?.monthlyProfitPercentageChange} />
+        <TotalSpentYear dataYearDiff={data?.yearlyProfitDifference} dataYearPer={data?.yearlyProfitPercentageChange} />
       </div>
 
       {/* Tables & Charts */}

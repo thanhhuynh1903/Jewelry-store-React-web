@@ -12,8 +12,8 @@ import {
 import { useState } from "react";
 import LineChart from "components/charts/LineChart";
 
-const TotalSpent = ({dataMonthDiff,dataMonthPer}) => {
-  const [inputNumber, setInputNumber] = useState(dataMonthDiff);
+const TotalSpentYear = ({dataYearDiff,dataYearPer}) => {
+  const [inputNumber, setInputNumber] = useState(dataYearDiff);
   
   const convertToKFormat = (num) => {
     if (num >= 1000) {
@@ -25,7 +25,7 @@ const TotalSpent = ({dataMonthDiff,dataMonthPer}) => {
   const dataGraph = [
     {
       name: "Revenue",
-      data: [0, parseInt(dataMonthDiff), 0, 0, 0, 0],
+      data: [0, parseInt(dataYearDiff), 0, 0, 0, 0],
       color: "#4318FF",
     },
   ]
@@ -34,7 +34,7 @@ const TotalSpent = ({dataMonthDiff,dataMonthPer}) => {
       <div className="flex justify-between">
         <button className="linear mt-1 flex items-center justify-center gap-2 rounded-lg bg-lightPrimary p-2 text-gray-600 transition duration-200 hover:cursor-pointer hover:bg-gray-100 active:bg-gray-200 dark:bg-navy-700 dark:hover:opacity-90 dark:active:opacity-80">
           <MdOutlineCalendarToday />
-          <span className="text-sm font-medium text-gray-600">This month</span>
+          <span className="text-sm font-medium text-gray-600">This Year</span>
         </button>
         <button className="!linear z-[1] flex items-center justify-center rounded-lg bg-lightPrimary p-2 text-brand-500 !transition !duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-navy-700 dark:text-white dark:hover:bg-white/20 dark:active:bg-white/10">
           <MdBarChart className="h-6 w-6" />
@@ -50,7 +50,7 @@ const TotalSpent = ({dataMonthDiff,dataMonthPer}) => {
             <p className="mt-2 text-sm text-gray-600">Total Spent</p>
             <div className="flex flex-row items-center justify-center">
               <MdArrowDropUp className="font-medium text-green-500" />
-              <p className="text-sm font-bold text-green-500"> +{dataMonthPer}% </p>
+              <p className="text-sm font-bold text-green-500"> +{dataYearPer}% </p>
             </div>
           </div>
         </div>
@@ -65,4 +65,4 @@ const TotalSpent = ({dataMonthDiff,dataMonthPer}) => {
   );
 };
 
-export default TotalSpent;
+export default TotalSpentYear;
