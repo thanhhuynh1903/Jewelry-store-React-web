@@ -31,7 +31,7 @@ const TopProducts = ({ handleOrderPopup }) => {
   const topProducts = listProduct.sort((a, b) => b.price - a.price).slice(0, 4);
 
   return (
-    <div className="bg-gray-100 py-14">
+    <div className="py-10 bg-gray-100">
       <div className="container mx-auto">
         <div className="mx-auto my-24 ml-10 text-left">
           <p data-aos="fade-up" className="text-2xl text-primary text-bloom">
@@ -40,9 +40,8 @@ const TopProducts = ({ handleOrderPopup }) => {
           <h1 data-aos="fade-up" className="text-3xl font-bold">
             Best Products
           </h1>
-          <p data-aos="fade-up" className="text-xs text-hemp">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit
-            asperiores modi Sit asperiores modi
+          <p data-aos="fade-up" className="text-sm text-hemp">
+            Discover the highest-rated products handpicked just for you.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-20 mb-10 ml-22 place-items-center sm:grid-cols-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4">

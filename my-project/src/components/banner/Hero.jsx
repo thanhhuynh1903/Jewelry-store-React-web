@@ -13,7 +13,10 @@ return (
                         <p class="text-3xl xl:text-4xl font-semibold leading-9 text-bloom">Jewelry Store</p>
                     </div>
                     <div class="mt-4 lg:w-4/5 xl:w-3/5">
-                        <p class="text-base leading-6 text-hemp dark:text-hemp">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio</p>
+                        <p class="text-base leading-6 text-hemp dark:text-hemp">
+                        Welcome to Alumina Jewelry Store, your destination for exquisite and timeless jewelry pieces. 
+                        We offer a diverse collection of finely crafted jewelry to suit every occasion and taste. 
+                        </p>
                     </div>
                     <div class="mt-16 w-full">
                         <button class="px-4 bg-bloom dark:bg-white dark:text-gray-900 flex justify-between items-center w-full lg:w-72 h-14 text-white focus:ring-2 outline-none focus:ring-offset-2 focus:ring-gray-800 ">
